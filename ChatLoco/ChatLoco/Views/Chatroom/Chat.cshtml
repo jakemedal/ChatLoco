@@ -13,16 +13,15 @@ else
 
     <div id="ChatContainer">
         <input type="hidden" id="ChatName" value="@Model.Name" />
+        <input type="hidden" id="Username" value="@Model.Username" />
 
-        <div id="MessagesContainer">
+        <div id="MessagesContainer" class="pre-scrollable">
 
         </div>
 
         <div id="ComposeContainer">
             <form id="ComposeForm" method="post" action="@Url.Action("SendMessage","Chatroom")">
                 @Model.Username : <input type="text" name="ComposedMessage"/>
-                <input type="hidden" id="UserId" value="@Model.Username" />
-                <input type="hidden" id="ChatroomName" value="@Model.Name" />
                 <input type="submit" />
             </form>
         </div>

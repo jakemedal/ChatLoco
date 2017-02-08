@@ -14,6 +14,7 @@ namespace ChatLoco.Controllers
         private class Chatroom
         {
             public List<string> AllMessages = new List<string>();
+            public List<string> AllUsers = new List<string>();
             public string Name { get; set; }
         }
        
@@ -70,14 +71,17 @@ namespace ChatLoco.Controllers
                     {
                         chatroom.AllMessages.RemoveAt(0);
                     }
-                    chatroom.AllMessages.Add(MessageModel.Username + ": " + MessageModel.Message);
+                    string currentTime = DateTime.Now.ToString("MM/dd [h:mm:ss tt]");
+                    string message = string.Format("{0} [{1}] : {2}", currentTime, MessageModel.Username, MessageModel.Message);
+
+                    chatroom.AllMessages.Add(message);
                 }
             }
             return new EmptyResult();
         }
 
         [HttpPost]
-        public ActionResult GetNewMessages(string ChatroomName, List<string> CurrentMessages)
+        public ActionResult GetNewMessages(string ChatroomName, string Username, List<string> CurrentMessages)
         {
             Chatroom chatroom = GetChatroom(ChatroomName);
 
