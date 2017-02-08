@@ -20,6 +20,7 @@ else
         <div id="ComposeContainer">
             <form id="ComposeForm" method="post" action="@Url.Action("SendMessage","Chatroom")">
                 @Model.Username : <input type="text" name="ComposedMessage"/>
+                <input type="hidden" id="UserId" value="@Model.Username" />
                 <input type="submit" />
             </form>
         </div>
