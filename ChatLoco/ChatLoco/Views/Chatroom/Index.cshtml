@@ -1,0 +1,35 @@
+﻿@Scripts.Render("~/bundles/jquery")
+
+@model ChatLoco.Models.ChatroomModel
+
+
+@if(Model.Error != null)
+{
+    <p>Error: @Model.Error</p>
+}
+else
+{
+    <h1>Chatroom: @Model.Name</h1>
+
+    <div id="ChatContainer">
+
+        <div id="MessagesContainer">
+
+        </div>
+
+        <div id="ComposeContainer">
+            <form id="ComposeForm" method="post" action="@Url.Action("SendMessage","Chatroom")">
+                @Model.Username : <input type="text" name="ComposedMessage"/>
+                <input type="submit" />
+            </form>
+        </div>
+
+        <div id="UsersContainer">
+
+        </div>
+
+    </div>
+}
+
+
+@Scripts.Render("~/bundles/chatroom")
