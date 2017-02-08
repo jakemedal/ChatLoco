@@ -2,6 +2,7 @@
 
 var _AllMessages = [];
 var _MessagesWindow = $("#MessagesContainer");
+var _ChatroomName = $("#ChatName")[0].value;
 
 setInterval(GetNewMessages, 1000);
 
@@ -12,11 +13,12 @@ function SendComposedMessage(e) {
 
     var $message = this[0].value;
     var $username = this[1].value;
+    var $chatroomName = this[2].value;
 
     $.ajax({
         type: "POST",
         url: '/Chatroom/SendMessage',
-        data: { Message: $message, Username: $username },
+        data: { Message: $message, Username: $username, ChatroomName: $chatroomName },
         success: function () {
             var s = "";
         },
@@ -31,7 +33,7 @@ function GetNewMessages() {
     $.ajax({
         type: "POST",
         url: '/Chatroom/GetNewMessages',
-        data: JSON.stringify({ CurrentMessages : _AllMessages }),
+        data: JSON.stringify({ ChatroomName: _ChatroomName, CurrentMessages: _AllMessages }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {

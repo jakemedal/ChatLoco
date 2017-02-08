@@ -11,56 +11,113 @@ namespace ChatLoco.Controllers
     public class ChatroomController : Controller
     {
 
-        static List<string> AllMessages = new List<string>();
-
-        // URL Usage : /Chatroom/Index?ChatroomName=<chat name here>&Username=<username here>
-        //The url takes two parameters, a chatroom name and a username
-        //if your chatroom name is TestChatroom and your username is TestUsername1, then the URL would be
-        ///Chatroom/Index?ChatroomName=<TestChatroom>&Username=<TestUsername1>
-        public ActionResult Index(string ChatroomName, string Username)
+        private class Chatroom
         {
-            if(ChatroomName == null)
+            public List<string> AllMessages = new List<string>();
+            public string Name { get; set; }
+        }
+       
+        static Dictionary<string, Chatroom> AllChatrooms = new Dictionary<string, Chatroom>();
+        
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Chat()
+        {
+            return View("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Chat(FindChatroomModel ChatroomInformation)
+        {
+            ChatroomModel model = new ChatroomModel();
+
+            if (ChatroomInformation.ChatroomName == null || ChatroomInformation.Username == null)
             {
-                return View(new ChatroomModel() { Error = "Invalid chatroom parameter" });
+                model.Error = "Invalid chatroom parameters";
             }
-            ChatroomModel model = new ChatroomModel()
+            else
             {
-                Name = ChatroomName,
-                Username = Username
-            };
+                Chatroom chatroom = new Chatroom();
+                AllChatrooms.TryGetValue(ChatroomInformation.ChatroomName, out chatroom);
+
+                if(chatroom == null)
+                {
+                    chatroom = new Chatroom()
+                    {
+                        Name = ChatroomInformation.ChatroomName
+                    };
+                    AllChatrooms.Add(chatroom.Name, chatroom);
+                }
+
+                model.Name = ChatroomInformation.ChatroomName;
+                model.Username = ChatroomInformation.Username;
+            }
             return View(model);
         }
 
         [HttpPost]
-        public EmptyResult SendMessage(string Message, string Username)
+        public EmptyResult SendMessage(ComposedMessageModel MessageModel)
         {
-            if(AllMessages.Count > 100)
+            Chatroom chatroom = GetChatroom(MessageModel.ChatroomName);
+            if(chatroom != null)
             {
-                AllMessages.RemoveAt(0);
+                if (chatroom.AllMessages != null)
+                {
+                    if (chatroom.AllMessages.Count > 100)
+                    {
+                        chatroom.AllMessages.RemoveAt(0);
+                    }
+                    chatroom.AllMessages.Add(MessageModel.Username + ": " + MessageModel.Message);
+                }
             }
-            AllMessages.Add(Username + ": " + Message);
             return new EmptyResult();
         }
 
         [HttpPost]
-        public ActionResult GetNewMessages(List<string> CurrentMessages)
+        public ActionResult GetNewMessages(string ChatroomName, List<string> CurrentMessages)
         {
-            if(CurrentMessages == null)
-            {
-                return Json(AllMessages);
-            }
+            Chatroom chatroom = GetChatroom(ChatroomName);
 
-            List<string> NewMessages = new List<string>();
-
-            foreach(var message in AllMessages)
+            if(chatroom != null)
             {
-                if (!CurrentMessages.Contains(message))
+                if (CurrentMessages == null)
                 {
-                    NewMessages.Add(message);
+                    return Json(chatroom.AllMessages);
                 }
+
+                List<string> NewMessages = new List<string>();
+
+                foreach (var message in chatroom.AllMessages)
+                {
+                    if (!CurrentMessages.Contains(message))
+                    {
+                        NewMessages.Add(message);
+                    }
+                }
+
+                return Json(NewMessages);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private Chatroom GetChatroom(string Name)
+        {
+            if(Name == null)
+            {
+                return null;
             }
 
-            return Json(NewMessages);
+            Chatroom chatroom = new Chatroom();
+            AllChatrooms.TryGetValue(Name, out chatroom);
+
+            return chatroom;
         }
+
     }
 }

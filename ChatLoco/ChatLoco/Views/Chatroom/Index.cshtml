@@ -1,36 +1,14 @@
-﻿@Scripts.Render("~/bundles/jquery")
+﻿@model ChatLoco.Models.Chatroom.FindChatroomModel
 
-@model ChatLoco.Models.ChatroomModel
+<h1>Find a Chatroom</h1>
 
-
-@if(Model.Error != null)
-{
-    <p>Error: @Model.Error</p>
-}
-else
-{
-    <h1>Chatroom: @Model.Name</h1>
-
-    <div id="ChatContainer">
-
-        <div id="MessagesContainer">
-
-        </div>
-
-        <div id="ComposeContainer">
-            <form id="ComposeForm" method="post" action="@Url.Action("SendMessage","Chatroom")">
-                @Model.Username : <input type="text" name="ComposedMessage"/>
-                <input type="hidden" id="UserId" value="@Model.Username" />
-                <input type="submit" />
-            </form>
-        </div>
-
-        <div id="UsersContainer">
-
-        </div>
-
-    </div>
-}
-
-
-@Scripts.Render("~/bundles/chatroom")
+<div id="InformationContainer">
+    @using (Html.BeginForm("Chat", "Chatroom", FormMethod.Post))
+    {
+        <br />
+        <p> Chatroom Name: @Html.TextBoxFor(model => model.ChatroomName, new { @class = "ChatroomName-Input" }) </p>
+        <br />
+        <p>Username: @Html.TextBoxFor(model => model.Username, new { @class = "Username-Input" }) </p>
+        <input type="submit" />
+    }
+</div>
