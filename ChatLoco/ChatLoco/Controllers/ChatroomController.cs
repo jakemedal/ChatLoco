@@ -1,4 +1,5 @@
-﻿using ChatLoco.Models;
+﻿using ChatLoco.Classes.Chatroom;
+using ChatLoco.Models;
 using ChatLoco.Models.Chatroom;
 using ChatLoco.Models.Error;
 using ChatLoco.Models.User;
@@ -12,76 +13,6 @@ namespace ChatLoco.Controllers
 {
     public class ChatroomController : Controller
     {
-        private class Chatroom
-        {
-            public int Id { get; set; }
-            public List<string> AllMessages = new List<string>();
-            public Dictionary<string, ActiveUser> AllUsers = new Dictionary<string, ActiveUser>();
-            public string Name { get; set; }
-
-            public bool HasUser(string Username)
-            {
-                try
-                {
-                    var User = AllUsers[Username];
-                    return User.IsActive;
-                }
-                catch (Exception e)
-                {
-                    return false;
-                }
-            }
-
-            public void AddUser(string Username)
-            {
-                ActiveUser user = new ActiveUser(Username, true, AllUsers);
-                AllUsers.Add(Username, user);
-            }
-
-            public void UpdateUsers(string Username)
-            {
-                AllUsers[Username].IsActive = true;
-            }
-
-            public class ActiveUser
-            {
-                public string Username { get; set; }
-                public bool IsActive { get; set; }
-                private Dictionary<string, ActiveUser> BelongsToUsersList;
-                Timer IdleTimer;
-
-                public ActiveUser(string username, bool isActive, Dictionary<string, ActiveUser> usersList)
-                {
-                    Username = username;
-                    IsActive = isActive;
-                    BelongsToUsersList = usersList;
-
-                    IdleTimer = new Timer();
-                    IdleTimer.Elapsed += new ElapsedEventHandler(IdleCheck);
-                    IdleTimer.Interval = 5000;
-                    IdleTimer.Enabled = true;
-
-                }
-
-                private void IdleCheck(object source, ElapsedEventArgs e)
-                {
-                    if (!IsActive)
-                    {
-                        IdleTimer.Enabled = false;
-                        IdleTimer.Stop();
-                        IdleTimer.Dispose();
-                        BelongsToUsersList.Remove(Username);
-                        Username = null;
-                        BelongsToUsersList = null;
-                    }
-                    else
-                    {
-                        IsActive = false;
-                    }
-                }
-            }
-        }
-
         static Dictionary<string, Chatroom> AllChatrooms = new Dictionary<string, Chatroom>();
 
         public ActionResult Index()
@@ -105,15 +36,12 @@ namespace ChatLoco.Controllers
             }
             else
             {
-                Chatroom chatroom = new Chatroom();
+                Chatroom chatroom = new Chatroom("");
                 AllChatrooms.TryGetValue(ChatroomInformation.ChatroomName, out chatroom);
 
                 if (chatroom == null)
                 {
-                    chatroom = new Chatroom()
-                    {
-                        Name = ChatroomInformation.ChatroomName
-                    };
+                    chatroom = new Chatroom(ChatroomInformation.ChatroomName);
                     AllChatrooms.Add(chatroom.Name, chatroom);
                 }
 
@@ -156,7 +84,19 @@ namespace ChatLoco.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetNewMessages(UpdateChatroomModel RequestUpdate)
+        public ActionResult CreateSubChatroom(string SubChatroomName, string ChatroomName, string Username)
+        {
+            try
+            {
+                AllChatrooms[ChatroomName].AllSubChatrooms.Add(SubChatroomName, new Chatroom(SubChatroomName));
+                return Json(true);
+            }
+            catch(Exception e){ }
+            return Json(false);
+        }
+
+        [HttpPost]
+        public ActionResult GetNewMessages(GetNewMessagesModel RequestUpdate)
         {
             Chatroom chatroom = GetChatroom(RequestUpdate.ChatroomName);
 
@@ -186,44 +126,24 @@ namespace ChatLoco.Controllers
         }
 
         [HttpPost]
-        public EmptyResult UpdateChatroomUser(string ChatroomName, string Username)
-        {
-            try
-            {
-                AllChatrooms[ChatroomName].UpdateUsers(Username);
-            }
-            catch (Exception e) { }
-
-            return new EmptyResult();
-        }
-
-        [HttpPost]
-        public ActionResult GetCurrentUsers(string ChatroomName)
-        {
-            Chatroom chatroom = GetChatroom(ChatroomName);
-            if (chatroom != null)
-            {
-                return Json(chatroom.AllUsers.Select(user => user.Value).ToList());
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        [HttpPost]
         public ActionResult GetChatroomInformation(GetChatroomInformationModel ChatroomInformation)
         {
+            UpdateChatroomInformationModel UpdateInformation = new UpdateChatroomInformationModel();
+
             try
             {
                 Chatroom chatroom = AllChatrooms[ChatroomInformation.Chatroomname];
                 chatroom.UpdateUsers(ChatroomInformation.Username);
-                return Json(chatroom.AllUsers.Select(user => user.Value).ToList());
+
+                UpdateInformation.Users = chatroom.AllUsers.Select(user => user.Value).ToList();
+
+                UpdateInformation.SubChatrooms = chatroom.AllSubChatrooms.Select(c => c.Value).ToList();
             }
             catch(Exception e)
             {
-                return null;
+                UpdateInformation.Errors.Add(new ErrorModel(e.ToString()));
             }
+            return Json(UpdateInformation);
         }
 
         private Chatroom GetChatroom(string Name)
@@ -233,7 +153,7 @@ namespace ChatLoco.Controllers
                 return null;
             }
 
-            Chatroom chatroom = new Chatroom();
+            Chatroom chatroom = new Chatroom("");
             AllChatrooms.TryGetValue(Name, out chatroom);
 
             return chatroom;

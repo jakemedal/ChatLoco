@@ -1,6 +1,4 @@
-﻿@Scripts.Render("~/bundles/jquery")
-
-@model ChatLoco.Models.ChatroomModel
+﻿@model ChatLoco.Models.ChatroomModel
 
 
 @if (Model.Errors != null && Model.Errors.Any())
@@ -12,20 +10,44 @@
 }
 else
 {
-    <h1>Chatroom: @Model.Name</h1>
-
     <div id="ChatContainer" class="container-fluid ">
         <input type="hidden" id="ChatName" value="@Model.Name" />
         <input type="hidden" id="Username" value="@Model.UserModel.Username" />
         <input type="hidden" id="User-Id" value="@Model.UserModel.Id" />
 
+        <div id="OtherChatroomsPaneContainer" class="col-lg-2">
+
+            <h3>@Model.Name</h3>
+
+            <div id="SubChatroomsContainer" class="pre-scrollable">
+                <ul id="SubChatroomsList">
+
+                </ul>
+            </div>
+
+            <div id="CreateSubChatroomContainer">
+
+                <form id="CreateSubChatroomForm">
+                    Create Chatroom : <input type="text" name="SubChatroomName" />
+                    <input type="submit" />
+                </form>
+
+                <div hidden id="SubChatroomDialog" title="Chatroom Creation Information">
+
+                </div>
+            </div>
+        </div>
+
         <div id="MessagesPaneContainer" class="col-lg-8">
+
+            <h1>Chatroom: @Model.Name</h1>
+
             <div id="MessagesContainer" class="pre-scrollable">
 
             </div>
 
             <div id="ComposeContainer">
-                <form id="ComposeForm" method="post" action="@Url.Action("SendMessage","Chatroom")">
+                <form id="ComposeForm">
                     @Model.UserModel.Username : <input type="text" name="ComposedMessage" />
                     <input type="submit" />
                 </form>
