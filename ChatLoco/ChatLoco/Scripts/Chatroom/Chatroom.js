@@ -9,11 +9,32 @@ var _ChatroomName = $("#ChatName")[0].value;
 var _Username = $("#Username")[0].value;
 var _UserId = $("#User-Id")[0].value;
 
+GetNewMessages();
 setInterval(GetNewMessages, 1000);
-setInterval(GetUsers, 1000);
-setInterval(UpdateChatroomUser, 1000);
+
+GetChatroomInformation();
+setInterval(GetChatroomInformation, 5000);
 
 $("#ComposeForm").on("submit", SendComposedMessage);
+
+function GetChatroomInformation(e) {
+    $.ajax({
+        type: "POST",
+        url: '/Chatroom/GetChatroomInformation',
+        data: JSON.stringify({ ChatroomName: _ChatroomName, Username: _Username }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            _UsersContainer.html("");
+            for (var i = 0; i < data.length; i++) {
+                var $username = data[i].Username;
+                _UsersContainer.append("<p>" + $username + "</p>");
+            }
+
+        },
+        error: function (data) { }
+    });
+}
 
 function SendComposedMessage(e) {
     e.preventDefault();
@@ -57,36 +78,5 @@ function GetNewMessages() {
         error: function (data) {
             var s = "";
         }
-    });
-}
-
-function GetUsers() {
-    $.ajax({
-        type: "POST",
-        url: '/Chatroom/GetCurrentUsers',
-        data: JSON.stringify({ ChatroomName: _ChatroomName }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            _UsersContainer.html("");
-            for (var i = 0; i < data.length; i++) {
-                var $username = data[i].Username;
-                _UsersContainer.append("<p>" + $username + "</p>");
-            }
-
-        },
-        error: function (data) {}
-    });
-}
-
-function UpdateChatroomUser() {
-    $.ajax({
-        type: "POST",
-        url: '/Chatroom/UpdateChatroomUser',
-        data: JSON.stringify({ ChatroomName: _ChatroomName, Username: _Username }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {},
-        error: function (data) {}
     });
 }

@@ -207,6 +207,7 @@
     <Compile Include="Models\Chatroom\ChatroomModel.cs" />
     <Compile Include="Models\Chatroom\ComposedMessageModel.cs" />
     <Compile Include="Models\Chatroom\FindChatroomModel.cs" />
+    <Compile Include="Models\Chatroom\GetChatroomInformationModel.cs" />
     <Compile Include="Models\Chatroom\UpdateChatroomModel.cs" />
     <Compile Include="Models\Error\ErrorModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />

@@ -12,7 +12,6 @@ namespace ChatLoco.Controllers
 {
     public class ChatroomController : Controller
     {
-
         private class Chatroom
         {
             public int Id { get; set; }
@@ -207,6 +206,21 @@ namespace ChatLoco.Controllers
                 return Json(chatroom.AllUsers.Select(user => user.Value).ToList());
             }
             else
+            {
+                return null;
+            }
+        }
+
+        [HttpPost]
+        public ActionResult GetChatroomInformation(GetChatroomInformationModel ChatroomInformation)
+        {
+            try
+            {
+                Chatroom chatroom = AllChatrooms[ChatroomInformation.Chatroomname];
+                chatroom.UpdateUsers(ChatroomInformation.Username);
+                return Json(chatroom.AllUsers.Select(user => user.Value).ToList());
+            }
+            catch(Exception e)
             {
                 return null;
             }
