@@ -15,38 +15,17 @@ namespace ChatLoco.Controllers
 
         private class Chatroom
         {
-            public Chatroom()
-            {
-                var myTimer = new Timer();
-                myTimer.Elapsed += new ElapsedEventHandler(CheckUsers);
-                myTimer.Interval = 2000;
-                myTimer.Enabled = true;
-            }
-
-            private bool alternateCheck = true;
-            private void CheckUsers(object source, ElapsedEventArgs e)
-            {
-                if (alternateCheck)
-                {
-                    foreach (var user in AllUsers)
-                    {
-                        var activeUser = user.Value;
-                        activeUser.isActive = false;
-                    }
-                }
-                else
-                {
-                    CleanUsers();
-                }
-                alternateCheck = !alternateCheck;
-            }
+            public int Id { get; set; }
+            public List<string> AllMessages = new List<string>();
+            public Dictionary<string, ActiveUser> AllUsers = new Dictionary<string, ActiveUser>();
+            public string Name { get; set; }
 
             public bool HasUser(string Username)
             {
                 try
                 {
                     var User = AllUsers[Username];
-                    return User.isActive;
+                    return User.IsActive;
                 }
                 catch (Exception e)
                 {
@@ -56,42 +35,51 @@ namespace ChatLoco.Controllers
 
             public void AddUser(string Username)
             {
-                ActiveUser user = new ActiveUser() { Username = Username, isActive = true };
+                ActiveUser user = new ActiveUser(Username, true, AllUsers);
                 AllUsers.Add(Username, user);
             }
 
             public void UpdateUsers(string Username)
             {
-                AllUsers[Username].isActive = true;
+                AllUsers[Username].IsActive = true;
             }
-
-            public void CleanUsers()
-            {
-                List<string> removeUsers = new List<string>();
-                foreach (var user in AllUsers)
-                {
-                    var activeUser = user.Value;
-                    if (!activeUser.isActive)
-                    {
-                        removeUsers.Add(activeUser.Username);
-                    }
-                }
-
-                foreach (var username in removeUsers)
-                {
-                    AllUsers.Remove(username);
-                }
-            }
-
-            public int Id { get; set; }
-            public List<string> AllMessages = new List<string>();
-            public Dictionary<string, ActiveUser> AllUsers = new Dictionary<string, ActiveUser>();
-            public string Name { get; set; }
 
             public class ActiveUser
             {
                 public string Username { get; set; }
-                public bool isActive { get; set; }
+                public bool IsActive { get; set; }
+                private Dictionary<string, ActiveUser> BelongsToUsersList;
+                Timer IdleTimer;
+
+                public ActiveUser(string username, bool isActive, Dictionary<string, ActiveUser> usersList)
+                {
+                    Username = username;
+                    IsActive = isActive;
+                    BelongsToUsersList = usersList;
+
+                    IdleTimer = new Timer();
+                    IdleTimer.Elapsed += new ElapsedEventHandler(IdleCheck);
+                    IdleTimer.Interval = 5000;
+                    IdleTimer.Enabled = true;
+
+                }
+
+                private void IdleCheck(object source, ElapsedEventArgs e)
+                {
+                    if (!IsActive)
+                    {
+                        IdleTimer.Enabled = false;
+                        IdleTimer.Stop();
+                        IdleTimer.Dispose();
+                        BelongsToUsersList.Remove(Username);
+                        Username = null;
+                        BelongsToUsersList = null;
+                    }
+                    else
+                    {
+                        IsActive = false;
+                    }
+                }
             }
         }
 
