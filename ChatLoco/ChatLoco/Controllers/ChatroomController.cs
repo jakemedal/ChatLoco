@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ChatLoco.Controllers
@@ -69,7 +68,7 @@ namespace ChatLoco.Controllers
             public void CleanUsers()
             {
                 List<string> removeUsers = new List<string>();
-                foreach(var user in AllUsers)
+                foreach (var user in AllUsers)
                 {
                     var activeUser = user.Value;
                     if (!activeUser.isActive)
@@ -78,7 +77,7 @@ namespace ChatLoco.Controllers
                     }
                 }
 
-                foreach(var username in removeUsers)
+                foreach (var username in removeUsers)
                 {
                     AllUsers.Remove(username);
                 }
@@ -95,9 +94,9 @@ namespace ChatLoco.Controllers
                 public bool isActive { get; set; }
             }
         }
-       
+
         static Dictionary<string, Chatroom> AllChatrooms = new Dictionary<string, Chatroom>();
-        
+
         public ActionResult Index()
         {
             return View();
@@ -122,7 +121,7 @@ namespace ChatLoco.Controllers
                 Chatroom chatroom = new Chatroom();
                 AllChatrooms.TryGetValue(ChatroomInformation.ChatroomName, out chatroom);
 
-                if(chatroom == null)
+                if (chatroom == null)
                 {
                     chatroom = new Chatroom()
                     {
@@ -143,7 +142,7 @@ namespace ChatLoco.Controllers
                     Username = ChatroomInformation.Username,
                     Id = 0
                 };
-                
+
             }
             return View(model);
         }
@@ -152,7 +151,7 @@ namespace ChatLoco.Controllers
         public EmptyResult SendMessage(ComposedMessageModel MessageModel)
         {
             Chatroom chatroom = GetChatroom(MessageModel.ChatroomName);
-            if(chatroom != null)
+            if (chatroom != null)
             {
                 if (chatroom.AllMessages != null)
                 {
@@ -174,7 +173,7 @@ namespace ChatLoco.Controllers
         {
             Chatroom chatroom = GetChatroom(RequestUpdate.ChatroomName);
 
-            if(chatroom != null)
+            if (chatroom != null)
             {
                 if (RequestUpdate.CurrentMessages == null)
                 {
@@ -206,7 +205,7 @@ namespace ChatLoco.Controllers
             {
                 AllChatrooms[ChatroomName].UpdateUsers(Username);
             }
-            catch(Exception e) { }
+            catch (Exception e) { }
 
             return new EmptyResult();
         }
@@ -227,7 +226,7 @@ namespace ChatLoco.Controllers
 
         private Chatroom GetChatroom(string Name)
         {
-            if(Name == null)
+            if (Name == null)
             {
                 return null;
             }
