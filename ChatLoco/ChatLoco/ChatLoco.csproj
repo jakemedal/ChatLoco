@@ -203,11 +203,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Base\BaseModel.cs" />
     <Compile Include="Models\Chatroom\ChatroomModel.cs" />
     <Compile Include="Models\Chatroom\ComposedMessageModel.cs" />
     <Compile Include="Models\Chatroom\FindChatroomModel.cs" />
+    <Compile Include="Models\Chatroom\UpdateChatroomModel.cs" />
+    <Compile Include="Models\Error\ErrorModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\User\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -225,6 +229,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Chatroom\chatroom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

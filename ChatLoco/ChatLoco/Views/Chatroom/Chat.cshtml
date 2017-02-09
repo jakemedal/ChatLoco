@@ -3,31 +3,40 @@
 @model ChatLoco.Models.ChatroomModel
 
 
-@if(Model.Error != null)
+@if (Model.Errors != null && Model.Errors.Any())
 {
-    <p>Error: @Model.Error</p>
+    foreach (var error in Model.Errors)
+    {
+        <p>Error: @error.ErrorMessage</p>
+    }
 }
 else
 {
     <h1>Chatroom: @Model.Name</h1>
 
-    <div id="ChatContainer">
+    <div id="ChatContainer" class="container-fluid ">
         <input type="hidden" id="ChatName" value="@Model.Name" />
-        <input type="hidden" id="Username" value="@Model.Username" />
+        <input type="hidden" id="Username" value="@Model.UserModel.Username" />
+        <input type="hidden" id="User-Id" value="@Model.UserModel.Id" />
 
-        <div id="MessagesContainer" class="pre-scrollable">
+        <div id="MessagesPaneContainer" class="col-lg-8">
+            <div id="MessagesContainer" class="pre-scrollable">
 
+            </div>
+
+            <div id="ComposeContainer">
+                <form id="ComposeForm" method="post" action="@Url.Action("SendMessage","Chatroom")">
+                    @Model.UserModel.Username : <input type="text" name="ComposedMessage" />
+                    <input type="submit" />
+                </form>
+            </div>
         </div>
 
-        <div id="ComposeContainer">
-            <form id="ComposeForm" method="post" action="@Url.Action("SendMessage","Chatroom")">
-                @Model.Username : <input type="text" name="ComposedMessage"/>
-                <input type="submit" />
-            </form>
-        </div>
+        <div id="UsersPaneContainer" class="col-lg-2">
+            <h3>Current Users</h3>
+            <div id="UsersContainer" class="pre-scrollable">
 
-        <div id="UsersContainer">
-
+            </div>
         </div>
 
     </div>

@@ -1,8 +1,11 @@
 ﻿using ChatLoco.Models;
 using ChatLoco.Models.Chatroom;
+using ChatLoco.Models.Error;
+using ChatLoco.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,9 +16,84 @@ namespace ChatLoco.Controllers
 
         private class Chatroom
         {
+            public Chatroom()
+            {
+                var myTimer = new Timer();
+                myTimer.Elapsed += new ElapsedEventHandler(CheckUsers);
+                myTimer.Interval = 2000;
+                myTimer.Enabled = true;
+            }
+
+            private bool alternateCheck = true;
+            private void CheckUsers(object source, ElapsedEventArgs e)
+            {
+                if (alternateCheck)
+                {
+                    foreach (var user in AllUsers)
+                    {
+                        var activeUser = user.Value;
+                        activeUser.isActive = false;
+                    }
+                }
+                else
+                {
+                    CleanUsers();
+                }
+                alternateCheck = !alternateCheck;
+            }
+
+            public bool HasUser(string Username)
+            {
+                try
+                {
+                    var User = AllUsers[Username];
+                    return User.isActive;
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+            }
+
+            public void AddUser(string Username)
+            {
+                ActiveUser user = new ActiveUser() { Username = Username, isActive = true };
+                AllUsers.Add(Username, user);
+            }
+
+            public void UpdateUsers(string Username)
+            {
+                AllUsers[Username].isActive = true;
+            }
+
+            public void CleanUsers()
+            {
+                List<string> removeUsers = new List<string>();
+                foreach(var user in AllUsers)
+                {
+                    var activeUser = user.Value;
+                    if (!activeUser.isActive)
+                    {
+                        removeUsers.Add(activeUser.Username);
+                    }
+                }
+
+                foreach(var username in removeUsers)
+                {
+                    AllUsers.Remove(username);
+                }
+            }
+
+            public int Id { get; set; }
             public List<string> AllMessages = new List<string>();
-            public List<string> AllUsers = new List<string>();
+            public Dictionary<string, ActiveUser> AllUsers = new Dictionary<string, ActiveUser>();
             public string Name { get; set; }
+
+            public class ActiveUser
+            {
+                public string Username { get; set; }
+                public bool isActive { get; set; }
+            }
         }
        
         static Dictionary<string, Chatroom> AllChatrooms = new Dictionary<string, Chatroom>();
@@ -37,7 +115,7 @@ namespace ChatLoco.Controllers
 
             if (ChatroomInformation.ChatroomName == null || ChatroomInformation.Username == null)
             {
-                model.Error = "Invalid chatroom parameters";
+                model.Errors.Add(new ErrorModel("Invalid chatroom parameters"));
             }
             else
             {
@@ -53,8 +131,19 @@ namespace ChatLoco.Controllers
                     AllChatrooms.Add(chatroom.Name, chatroom);
                 }
 
+                if (!chatroom.HasUser(ChatroomInformation.Username))
+                {
+                    chatroom.AddUser(ChatroomInformation.Username);
+                }
+
                 model.Name = ChatroomInformation.ChatroomName;
-                model.Username = ChatroomInformation.Username;
+
+                model.UserModel = new UserModel()
+                {
+                    Username = ChatroomInformation.Username,
+                    Id = 0
+                };
+                
             }
             return View(model);
         }
@@ -81,13 +170,13 @@ namespace ChatLoco.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetNewMessages(string ChatroomName, string Username, List<string> CurrentMessages)
+        public ActionResult GetNewMessages(UpdateChatroomModel RequestUpdate)
         {
-            Chatroom chatroom = GetChatroom(ChatroomName);
+            Chatroom chatroom = GetChatroom(RequestUpdate.ChatroomName);
 
             if(chatroom != null)
             {
-                if (CurrentMessages == null)
+                if (RequestUpdate.CurrentMessages == null)
                 {
                     return Json(chatroom.AllMessages);
                 }
@@ -96,13 +185,39 @@ namespace ChatLoco.Controllers
 
                 foreach (var message in chatroom.AllMessages)
                 {
-                    if (!CurrentMessages.Contains(message))
+                    if (!RequestUpdate.CurrentMessages.Contains(message))
                     {
                         NewMessages.Add(message);
                     }
                 }
 
                 return Json(NewMessages);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        [HttpPost]
+        public EmptyResult UpdateChatroomUser(string ChatroomName, string Username)
+        {
+            try
+            {
+                AllChatrooms[ChatroomName].UpdateUsers(Username);
+            }
+            catch(Exception e) { }
+
+            return new EmptyResult();
+        }
+
+        [HttpPost]
+        public ActionResult GetCurrentUsers(string ChatroomName)
+        {
+            Chatroom chatroom = GetChatroom(ChatroomName);
+            if (chatroom != null)
+            {
+                return Json(chatroom.AllUsers.Select(user => user.Value).ToList());
             }
             else
             {

@@ -10,5 +10,6 @@ namespace ChatLoco.Models.Chatroom
         public string Message { get; set; }
         public string Username { get; set; }
         public string ChatroomName { get; set; }
+        public int UserId { get; set; }
     }
 }
