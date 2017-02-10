@@ -21,12 +21,13 @@ else
 
         @* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
         <div id="OtherChatroomsPaneContainer" class="col-lg-2">
-            <h3 id="ParentChatroomNameDisplay" value="@Model.Chatroom.Name">@Model.Chatroom.Name</h3>
+            <br/>
+            <button id="ParentChatroomButton" value="@Model.Chatroom.Name" type="button" class="btn btn-primary">@Model.Chatroom.Name</button>
 
             <div id="SubChatroomsContainer" class="pre-scrollable">
-                <div id="SubChatroomsList">
+                <ul id="SubChatroomsList">
                     @* This is filled in by JS *@
-                </div>
+                </ul>
             </div>
 
             @if (!Model.Chatroom.IsPrivate)

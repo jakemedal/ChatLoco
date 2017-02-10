@@ -11,6 +11,9 @@ var _Username = $("#Username")[0].value;
 var _UserId = $("#User-Id")[0].value;
 var _ParentChatroomName = $("#ParentChatroomName")[0].value;
 
+var _ParentChatroomButton = $("#ParentChatroomButton");
+var _CreateSubChatroomsContainer = $("#CreateSubChatroomContainer");
+
 GetNewMessages(); //Grab new messages immediately
 setInterval(GetNewMessages, 1000); //every one second, call GetNewMessages
 
@@ -19,6 +22,7 @@ setInterval(GetChatroomInformation, 5000); //Every five seconds, call GetChatroo
 
 $("#ComposeForm").on("submit", SendComposedMessage); //Bind SendComposedMessage method to the form for sending messages
 $("#CreateSubChatroomForm").on("submit", CreateSubChatroom); //bind CreatSubChatroom method to the form for creating private chatrooms
+$("#ParentChatroomButton").on("click", OpenChat);
 
 //TODO 
 $("#SubChatroomsList").on("click", OpenChat);
@@ -30,8 +34,17 @@ function OpenChat(e) {
     _AllMessages = [];
     _ChatroomName = $newChatroomName;
 
-    $("#ParentChatroomNameDisplay").html($newChatroomName);
+    $("#ChatroomName").html($newChatroomName);
     _MessagesContainer.html("");
+
+    if (_ChatroomName == _ParentChatroomName) {
+        _ParentChatroomButton.removeClass("btn btn-primary").addClass("btn btn-primary");
+        _CreateSubChatroomsContainer.show();
+    }
+    else {
+        _ParentChatroomButton.removeClass("btn btn-primary").addClass("btn btn-secondary");
+        _CreateSubChatroomsContainer.hide();
+    }
 
     GetChatroomInformation(); //We update the page 
     GetNewMessages(); //Grab new messages immediately
@@ -60,19 +73,22 @@ function GetChatroomInformation(e) {
             //Update users list
             _UsersContainer.html(""); //replace any html in the users div with nothing, effectively deleting old html
             for (var i = 0; i < data.Users.length; i++) {
-                var $username = data.Users[i].Username; 
-                _UsersContainer.append("<p>" + $username + "</p>"); //append username to the empty div that we cleared out
+                var $user = data.Users[i];
+                if ($user.IsActive) {
+                    var $username = data.Users[i].Username;
+                    _UsersContainer.append("<p>" + $username + "</p>"); //append username to the empty div that we cleared out
+                }
             }
 
             //Update subchatrooms list, works same way as users div does
             _SubChatroomsList.html("<br/>");
-            for (var i = 0; i < data.SubChatrooms.length; i++) {
-                var $subChatroomName = data.SubChatrooms[i].Name;
-                var $buttonType = 'primary';
+            for (var i = 0; i < data.SubChatroomsNames.length; i++) {
+                var $subChatroomName = data.SubChatroomsNames[i];
+                var $buttonType = 'secondary';
                 if ($subChatroomName === _ChatroomName) {
-                    $buttonType = 'secondary';
+                    $buttonType = 'primary';
                 }
-                _SubChatroomsList.append('<button value="' + $subChatroomName + '" type="button" class="btn btn-' + $buttonType + '">' + $subChatroomName + '</button><br/><br/>');
+                _SubChatroomsList.append('<li><button value="' + $subChatroomName + '" type="button" class="btn btn-' + $buttonType + '">' + $subChatroomName + '</button></li><br/>');
             }
 
         },

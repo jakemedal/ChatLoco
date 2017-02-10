@@ -156,7 +156,6 @@ namespace ChatLoco.Controllers
         public ActionResult GetChatroomInformation(GetChatroomInformationModel ChatroomInformation)
         {
             UpdateChatroomInformationModel UpdateInformation = new UpdateChatroomInformationModel(); //this is the model that will be returned to the user
-
             try
             {
                 //when we lookup a dictionary value directly by key value, we need to surround it in a try catch statement
@@ -171,15 +170,15 @@ namespace ChatLoco.Controllers
                 //before they are constructed into a list.
                 //In the next lambda expression, I use the value c to demonstrate that the variable name does not matter.
                 UpdateInformation.Users = chatroom.AllUsers.Select(user => user.Value).ToList();
-
                 if (chatroom.IsPrivate)
                 {
-                    UpdateInformation.SubChatrooms = chatroom.Parent.AllSubChatrooms.Select(c => c.Value).ToList();
+                    UpdateInformation.SubChatroomsNames = chatroom.Parent.AllSubChatrooms.Select(c => c.Value.Name).ToList();
                 }
                 else
                 {
-                    UpdateInformation.SubChatrooms = chatroom.AllSubChatrooms.Select(c => c.Value).ToList();
+                    UpdateInformation.SubChatroomsNames = chatroom.AllSubChatrooms.Select(c => c.Value.Name).ToList();
                 }
+                return Json(UpdateInformation);
             }
             catch(Exception e)
             {
