@@ -12,6 +12,8 @@ namespace ChatLoco.Classes.Chatroom
         public Dictionary<string, ActiveUser> AllUsers = new Dictionary<string, ActiveUser>(); //list of currently active users
         public string Name { get; set; }
         public Dictionary<string, Chatroom> AllSubChatrooms = new Dictionary<string, Chatroom>(); //list of private chatrooms attached to this chatroom
+        public bool IsPrivate { get; set; }
+        public Chatroom Parent { get; set; }
         
         //force constructor to define name since that is the key that is used in the key value dictionary lists with chatrooms
         public Chatroom(string name)
@@ -46,7 +48,14 @@ namespace ChatLoco.Classes.Chatroom
         //This method is used to denote that the user is still active
         public void UpdateUsers(string Username)
         {
-            AllUsers[Username].IsActive = true;
+            try
+            {
+                AllUsers[Username].IsActive = true;
+            }
+            catch(Exception e)
+            {
+                AddUser(Username);
+            }
         }
 
 

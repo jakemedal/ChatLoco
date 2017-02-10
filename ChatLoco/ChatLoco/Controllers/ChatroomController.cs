@@ -50,7 +50,8 @@ namespace ChatLoco.Controllers
                 
                 chatroom.AddUser(ChatroomInformation.Username); //add our user to the userlist in the chatroom
 
-                model.Name = ChatroomInformation.ChatroomName; //the chatroom name is the name variable in our model, which is used in the cshtml to display the chatroom name
+                model.Chatroom = chatroom;
+                model.Parent = chatroom.Parent;
 
                 //we construct a user model to contain information pertaining to specifically the user that we will need in the Chat.cshtml page
                 //The intention of this is so that it scales well when we start having more variables connected to a user
@@ -70,22 +71,29 @@ namespace ChatLoco.Controllers
         //This is the method that handles sending a message to the chatroom
         //It is an emptyresult because we are not returning anything, simply updating a list
         [HttpPost]
-        public EmptyResult SendMessage(ComposedMessageModel MessageModel)
+        public ActionResult SendMessage(ComposedMessageModel MessageModel)
         {
-            Chatroom chatroom = GetChatroom(MessageModel.ChatroomName); //get our chatroom by name
-            if (chatroom != null)
+            try
             {
-                if (chatroom.AllMessages.Count > 100) //put a soft cap on the total number of messages a chatroom can hold
+                Chatroom chatroom = GetChatroom(MessageModel.ParentChatroomName, MessageModel.ChatroomName);
+                if (chatroom != null)
                 {
-                    chatroom.AllMessages.RemoveAt(0); //remove the last message in the list if we exceed that number
-                }
-                string currentTime = DateTime.Now.ToString("MM/dd [h:mm:ss tt]"); //formats a string with the current date and time
-                //string.Format is a method where the first argument is a string, and the following arguments correspond to the curly bracket numbers
-                string message = string.Format("{0} [{1}] : {2}", currentTime, MessageModel.Username, MessageModel.Message);
+                    if (chatroom.AllMessages.Count > 100) //put a soft cap on the total number of messages a chatroom can hold
+                    {
+                        chatroom.AllMessages.RemoveAt(0); //remove the last message in the list if we exceed that number
+                    }
+                    string currentTime = DateTime.Now.ToString("MM/dd [h:mm:ss tt]"); //formats a string with the current date and time
+                                                                                      //string.Format is a method where the first argument is a string, and the following arguments correspond to the curly bracket numbers
+                    string message = string.Format("{0} [{1}] : {2}", currentTime, MessageModel.Username, MessageModel.Message);
 
-                chatroom.AllMessages.Add(message); //add the formatted message to the chatroom's messages list
+                    chatroom.AllMessages.Add(message); //add the formatted message to the chatroom's messages list
+                }
+                return new EmptyResult();
             }
-            return new EmptyResult();
+            catch(Exception e)
+            {
+                return Json(e);
+            }
         }
 
         //TODO
@@ -95,7 +103,10 @@ namespace ChatLoco.Controllers
         {
             try
             {
-                AllChatrooms[ChatroomName].AllSubChatrooms.Add(SubChatroomName, new Chatroom(SubChatroomName));
+                Chatroom subChatroom = new Chatroom(SubChatroomName);
+                subChatroom.IsPrivate = true;
+                subChatroom.Parent = AllChatrooms[ChatroomName];
+                AllChatrooms[ChatroomName].AllSubChatrooms.Add(SubChatroomName, subChatroom);
                 return Json(true);
             }
             catch(Exception e){ }
@@ -109,10 +120,9 @@ namespace ChatLoco.Controllers
         [HttpPost]
         public ActionResult GetNewMessages(GetNewMessagesModel RequestUpdate)
         {
-            Chatroom chatroom = GetChatroom(RequestUpdate.ChatroomName);
-
-            if (chatroom != null)
+            try
             {
+                Chatroom chatroom = GetChatroom(RequestUpdate.ParentChatroomName, RequestUpdate.ChatroomName);
                 //if the user just joined the chatroom, they dont have any messages in their JS
                 //this means we just return all the messages in the chatroom currently
                 if (RequestUpdate.CurrentMessages == null)
@@ -132,9 +142,9 @@ namespace ChatLoco.Controllers
 
                 return Json(NewMessages);
             }
-            else
+            catch(Exception e)
             {
-                return null;
+                return Json(e);
             }
         }
 
@@ -151,7 +161,7 @@ namespace ChatLoco.Controllers
             {
                 //when we lookup a dictionary value directly by key value, we need to surround it in a try catch statement
                 //this is needed, since if the key does not exist in the dictionary, it throws an exception
-                Chatroom chatroom = AllChatrooms[ChatroomInformation.Chatroomname]; //gets chatroom by key, very fast
+                Chatroom chatroom = GetChatroom(ChatroomInformation.ParentChatroomName, ChatroomInformation.ChatroomName);
                 chatroom.UpdateUsers(ChatroomInformation.Username); //chatroom method that simply marks the IsActive flag in a ActiveUser object as true
 
                 //Since AllUsers is a dictionary object, it needs to be converted into a list
@@ -160,15 +170,34 @@ namespace ChatLoco.Controllers
                 //The variable names are temporary, used more for a visual purpose, it is a temporary binding to work with the objects we are selecting
                 //before they are constructed into a list.
                 //In the next lambda expression, I use the value c to demonstrate that the variable name does not matter.
-                UpdateInformation.Users = chatroom.AllUsers.Select(user => user.Value).ToList(); 
+                UpdateInformation.Users = chatroom.AllUsers.Select(user => user.Value).ToList();
 
-                UpdateInformation.SubChatrooms = chatroom.AllSubChatrooms.Select(c => c.Value).ToList();
+                if (chatroom.IsPrivate)
+                {
+                    UpdateInformation.SubChatrooms = chatroom.Parent.AllSubChatrooms.Select(c => c.Value).ToList();
+                }
+                else
+                {
+                    UpdateInformation.SubChatrooms = chatroom.AllSubChatrooms.Select(c => c.Value).ToList();
+                }
             }
             catch(Exception e)
             {
                 UpdateInformation.Errors.Add(new ErrorModel(e.ToString()));
             }
             return Json(UpdateInformation);
+        }
+
+        private Chatroom GetChatroom(string ParentChatroomName, string ChatroomName)
+        {
+            if(ParentChatroomName == ChatroomName)
+            {
+                return AllChatrooms[ChatroomName];
+            }
+            else
+            {
+                return AllChatrooms[ParentChatroomName].AllSubChatrooms[ChatroomName];
+            }
         }
 
         //private helper method to avoid redundant code

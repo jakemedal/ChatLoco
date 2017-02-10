@@ -328,6 +328,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Chatroom\Chat.cshtml" />
     <Content Include="Views\Chatroom\Index.cshtml" />
+    <Content Include="Views\Chatroom\Partial\Chatroom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,6 +11,7 @@ namespace ChatLoco.Models.Chatroom
         public int UserId { get; set; }
         public string Username { get; set; }
         public List<string> CurrentMessages { get; set; }
+        public string ParentChatroomName { get; set; }
 
     }
 }

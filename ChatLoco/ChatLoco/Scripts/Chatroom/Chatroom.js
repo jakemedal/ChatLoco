@@ -9,6 +9,7 @@ var _SubChatroomsList = $("#SubChatroomsList"); //empty div we fill with html fr
 var _ChatroomName = $("#ChatName")[0].value;
 var _Username = $("#Username")[0].value;
 var _UserId = $("#User-Id")[0].value;
+var _ParentChatroomName = $("#ParentChatroomName")[0].value;
 
 GetNewMessages(); //Grab new messages immediately
 setInterval(GetNewMessages, 1000); //every one second, call GetNewMessages
@@ -19,6 +20,22 @@ setInterval(GetChatroomInformation, 5000); //Every five seconds, call GetChatroo
 $("#ComposeForm").on("submit", SendComposedMessage); //Bind SendComposedMessage method to the form for sending messages
 $("#CreateSubChatroomForm").on("submit", CreateSubChatroom); //bind CreatSubChatroom method to the form for creating private chatrooms
 
+//TODO 
+$("#SubChatroomsList").on("click", OpenChat);
+function OpenChat(e) {
+    e.preventDefault();
+    var $element = document.elementFromPoint(e.clientX, e.clientY);
+    var $newChatroomName = $element.value;
+
+    _AllMessages = [];
+    _ChatroomName = $newChatroomName;
+
+    $("#ParentChatroomNameDisplay").html($newChatroomName);
+    _MessagesContainer.html("");
+
+    GetChatroomInformation(); //We update the page 
+    GetNewMessages(); //Grab new messages immediately
+}
 
 //This is called every 5 seconds.
 //This method gets the users list and private chatrooms list
@@ -29,7 +46,7 @@ function GetChatroomInformation(e) {
         url: '/Chatroom/GetChatroomInformation', //controller is ChatroomController.cs, method is GetChatroomInformation, it takes in GetChatroomInformationModel as its argument
 
         //The variables being defined match exact same names in GetChatroomInformationModel
-        data: JSON.stringify({ ChatroomName: _ChatroomName, Username: _Username }), //The controller will automatically construct the model since the names are the same
+        data: JSON.stringify({ ChatroomName: _ChatroomName, Username: _Username, ParentChatroomName: _ParentChatroomName }), //The controller will automatically construct the model since the names are the same
         contentType: "application/json; charset=utf-8", //we are using JSON to pass our content to the controller
         dataType: "json", //the data type is json
 
@@ -48,10 +65,14 @@ function GetChatroomInformation(e) {
             }
 
             //Update subchatrooms list, works same way as users div does
-            _SubChatroomsList.html("");
+            _SubChatroomsList.html("<br/>");
             for (var i = 0; i < data.SubChatrooms.length; i++) {
                 var $subChatroomName = data.SubChatrooms[i].Name;
-                _SubChatroomsList.append("<li>" + $subChatroomName + "</li>");
+                var $buttonType = 'primary';
+                if ($subChatroomName === _ChatroomName) {
+                    $buttonType = 'secondary';
+                }
+                _SubChatroomsList.append('<button value="' + $subChatroomName + '" type="button" class="btn btn-' + $buttonType + '">' + $subChatroomName + '</button><br/><br/>');
             }
 
         },
@@ -113,7 +134,7 @@ function SendComposedMessage(e) {
     $.ajax({
         type: "POST",
         url: '/Chatroom/SendMessage',
-        data: { Message: $message, Username: _Username, ChatroomName: _ChatroomName, UserId: _UserId },
+        data: { Message: $message, Username: _Username, ChatroomName: _ChatroomName, UserId: _UserId, ParentChatroomName: _ParentChatroomName },
         success: function () {
             $form[0].value = "";
         },
@@ -132,7 +153,7 @@ function GetNewMessages() {
         //the method header for GetNewMessages is GetNewMessages(GetNewMessagesModel RequestUpdate)
         //we use JSON here to allow for the automatic construction of our GetNewMessagesModel
         //this only works since the parameters we give it match the exact same variable names in our GetNewMessagesModel
-        data: JSON.stringify({ ChatroomName: _ChatroomName, Username: _Username, UserId: _UserId, CurrentMessages: _AllMessages }),
+        data: JSON.stringify({ ChatroomName: _ChatroomName, Username: _Username, UserId: _UserId, CurrentMessages: _AllMessages, ParentChatroomName: _ParentChatroomName }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         //the method returns a list of new messages

@@ -14,38 +14,41 @@ else
 {
     <div id="ChatContainer" class="container-fluid ">
         @* These inputs are hidden so that we can get their values easily in JS *@
-        <input type="hidden" id="ChatName" value="@Model.Name" />
+        <input type="hidden" id="ChatName" value="@Model.Chatroom.Name" />
         <input type="hidden" id="Username" value="@Model.UserModel.Username" />
         <input type="hidden" id="User-Id" value="@Model.UserModel.Id" />
+        <input type="hidden" id="ParentChatroomName" value="@Model.Chatroom.Name" />
 
         @* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
         <div id="OtherChatroomsPaneContainer" class="col-lg-2">
-
-            <h3>@Model.Name</h3>
+            <h3 id="ParentChatroomNameDisplay" value="@Model.Chatroom.Name">@Model.Chatroom.Name</h3>
 
             <div id="SubChatroomsContainer" class="pre-scrollable">
-                <ul id="SubChatroomsList">
-                    @* This is filled in by JS *@
-                </ul>
-            </div>
-
-            <div id="CreateSubChatroomContainer">
-
-                <form id="CreateSubChatroomForm">
-                    Create Chatroom : <input type="text" name="SubChatroomName" />
-                    <input type="submit" />
-                </form>
-
-                @* This hidden container is the pop up dialog used when creating a chatroom *@
-                <div hidden id="SubChatroomDialog" title="Chatroom Creation Information">
+                <div id="SubChatroomsList">
                     @* This is filled in by JS *@
                 </div>
             </div>
+
+            @if (!Model.Chatroom.IsPrivate)
+                {
+                <div id="CreateSubChatroomContainer">
+                    <form id="CreateSubChatroomForm">
+                        Create Chatroom : <input type="text" name="SubChatroomName" />
+                        <input type="submit" />
+                    </form>
+
+                    @* This hidden container is the pop up dialog used when creating a chatroom *@
+                    <div hidden id="SubChatroomDialog" title="Chatroom Creation Information">
+                        @* This is filled in by JS *@
+                    </div>
+                </div>
+            }
+
         </div>
 
         <div id="MessagesPaneContainer" class="col-lg-8">
 
-            <h1>Chatroom: @Model.Name</h1>
+            <h1 id="ChatroomName">Chatroom: @Model.Chatroom.Name</h1>
 
             <div id="MessagesContainer" class="pre-scrollable">
                 @* This is filled in by JS *@

@@ -10,9 +10,8 @@ namespace ChatLoco.Models
 {
     public class ChatroomModel : BaseModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-
+        public Classes.Chatroom.Chatroom Parent { get; set; }
+        public Classes.Chatroom.Chatroom Chatroom { get; set; }
         public UserModel UserModel { get; set; }
     }
 }
