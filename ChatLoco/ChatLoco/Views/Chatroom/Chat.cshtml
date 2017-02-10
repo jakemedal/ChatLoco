@@ -1,6 +1,8 @@
 ﻿@model ChatLoco.Models.ChatroomModel
 
 
+@* Many of the divs are empty, this is because they are populated by JS since they represent active users, messages, or chatrooms *@
+
 @if (Model.Errors != null && Model.Errors.Any())
 {
     foreach (var error in Model.Errors)
@@ -11,17 +13,19 @@
 else
 {
     <div id="ChatContainer" class="container-fluid ">
+        @* These inputs are hidden so that we can get their values easily in JS *@
         <input type="hidden" id="ChatName" value="@Model.Name" />
         <input type="hidden" id="Username" value="@Model.UserModel.Username" />
         <input type="hidden" id="User-Id" value="@Model.UserModel.Id" />
 
+        @* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
         <div id="OtherChatroomsPaneContainer" class="col-lg-2">
 
             <h3>@Model.Name</h3>
 
             <div id="SubChatroomsContainer" class="pre-scrollable">
                 <ul id="SubChatroomsList">
-
+                    @* This is filled in by JS *@
                 </ul>
             </div>
 
@@ -32,8 +36,9 @@ else
                     <input type="submit" />
                 </form>
 
+                @* This hidden container is the pop up dialog used when creating a chatroom *@
                 <div hidden id="SubChatroomDialog" title="Chatroom Creation Information">
-
+                    @* This is filled in by JS *@
                 </div>
             </div>
         </div>
@@ -43,7 +48,7 @@ else
             <h1>Chatroom: @Model.Name</h1>
 
             <div id="MessagesContainer" class="pre-scrollable">
-
+                @* This is filled in by JS *@
             </div>
 
             <div id="ComposeContainer">
@@ -57,7 +62,7 @@ else
         <div id="UsersPaneContainer" class="col-lg-2">
             <h3>Current Users</h3>
             <div id="UsersContainer" class="pre-scrollable">
-
+                @* This is filled in by JS *@
             </div>
         </div>
 
