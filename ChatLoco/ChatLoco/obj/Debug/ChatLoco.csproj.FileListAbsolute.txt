@@ -159,6 +159,6 @@ Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\bin\Microsoft.Owin.Security.OAuth.xml
 Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\bin\Microsoft.Owin.Security.Google.xml
 Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\bin\Microsoft.Owin.Security.Twitter.xml
 Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\obj\Debug\ChatLoco.csprojResolveAssemblyReference.cache
 Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\obj\Debug\ChatLoco.dll
 Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\obj\Debug\ChatLoco.pdb
+Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\obj\Debug\ChatLoco.csprojResolveAssemblyReference.cache

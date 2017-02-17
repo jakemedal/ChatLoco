@@ -201,9 +201,18 @@
     <Compile Include="Controllers\ChatroomController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Entities\MessageDTO\MessageDTO.cs" />
+    <Compile Include="Entities\UserDTO\UserDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Chatroom\JoinChatroomModel.cs" />
+    <Compile Include="Models\Chatroom\MessageInformationModel.cs" />
+    <Compile Include="Models\Chatroom\PrivateChatroomInformationModel.cs" />
+    <Compile Include="Models\Chatroom\UserInformationModel.cs" />
+    <Compile Include="Services\Chatroom\ChatroomService.cs" />
+    <Compile Include="Services\Message\MessageService.cs" />
+    <Compile Include="Services\User\UserService.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Base\BaseModel.cs" />
     <Compile Include="Models\Chatroom\ChatroomModel.cs" />

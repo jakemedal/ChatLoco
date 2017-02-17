@@ -9,7 +9,7 @@ namespace ChatLoco.Models.Chatroom
 {
     public class UpdateChatroomInformationModel : BaseModel
     {
-        public List<ActiveUser> Users { get; set; }
-        public List<string> SubChatroomsNames { get; set; }
+        public List<UserInformationModel> UsersInformation { get; set; }
+        public List<PrivateChatroomInformationModel> PrivateChatroomsInformation { get; set; }
     }
 }

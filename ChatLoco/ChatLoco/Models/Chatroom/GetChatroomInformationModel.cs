@@ -7,8 +7,8 @@ namespace ChatLoco.Models.Chatroom
 {
     public class GetChatroomInformationModel
     {
-        public string Username { get; set; }
-        public string ChatroomName { get; set; }
-        public string ParentChatroomName { get; set; }
+        public int UserId { get; set; }
+        public int ChatroomId { get; set; }
+        public int ParentChatroomId { get; set; }
     }
 }

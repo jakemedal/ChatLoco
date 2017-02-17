@@ -14,15 +14,16 @@ else
 {
     <div id="ChatContainer" class="container-fluid ">
         @* These inputs are hidden so that we can get their values easily in JS *@
-        <input type="hidden" id="ChatName" value="@Model.Chatroom.Name" />
-        <input type="hidden" id="Username" value="@Model.UserModel.Username" />
-        <input type="hidden" id="User-Id" value="@Model.UserModel.Id" />
-        <input type="hidden" id="ParentChatroomName" value="@Model.Chatroom.Name" />
+        <input type="hidden" id="ChatroomId" value="@Model.ChatroomId" />
+        <input type="hidden" id="ChatroomName" value="@Model.ChatroomName" />
+        <input type="hidden" id="Username" value="@Model.Username" />
+        <input type="hidden" id="UserId" value="@Model.UserId" />
+        <input type="hidden" id="ParentChatroomId" value="@Model.ParentChatroomId" />
 
         @* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
         <div id="OtherChatroomsPaneContainer" class="col-lg-2">
             <br/>
-            <button id="ParentChatroomButton" value="@Model.Chatroom.Name" type="button" class="btn btn-primary">@Model.Chatroom.Name</button>
+            <button id="ParentChatroomButton" value="@Model.ChatroomId" type="button" class="btn btn-primary">@Model.ChatroomName</button>
 
             <div id="SubChatroomsContainer" class="pre-scrollable">
                 <ul id="SubChatroomsList">
@@ -30,26 +31,23 @@ else
                 </ul>
             </div>
 
-            @if (!Model.Chatroom.IsPrivate)
-                {
-                <div id="CreateSubChatroomContainer">
-                    <form id="CreateSubChatroomForm">
-                        Create Chatroom : <input type="text" name="SubChatroomName" />
-                        <input type="submit" />
-                    </form>
+            <div id="CreateSubChatroomContainer">
+                <form id="CreateSubChatroomForm">
+                    Create Chatroom : <input type="text" name="SubChatroomName" />
+                    <input type="submit" />
+                </form>
 
-                    @* This hidden container is the pop up dialog used when creating a chatroom *@
-                    <div hidden id="SubChatroomDialog" title="Chatroom Creation Information">
-                        @* This is filled in by JS *@
-                    </div>
+                @* This hidden container is the pop up dialog used when creating a chatroom *@
+                <div hidden id="SubChatroomDialog" title="Chatroom Creation Information">
+                    @* This is filled in by JS *@
                 </div>
-            }
+            </div>
 
         </div>
 
         <div id="MessagesPaneContainer" class="col-lg-8">
 
-            <h1 id="ChatroomName">Chatroom: @Model.Chatroom.Name</h1>
+            <h1 >Chatroom: <span id="ChatroomNameDisplay">@Model.ChatroomName</span></h1>
 
             <div id="MessagesContainer" class="pre-scrollable">
                 @* This is filled in by JS *@
@@ -57,7 +55,7 @@ else
 
             <div id="ComposeContainer">
                 <form id="ComposeForm">
-                    @Model.UserModel.Username : <input type="text" name="ComposedMessage" />
+                    @Model.Username : <input type="text" name="ComposedMessage" />
                     <input type="submit" />
                 </form>
             </div>

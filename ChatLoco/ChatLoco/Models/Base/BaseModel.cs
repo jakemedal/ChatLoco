@@ -8,10 +8,11 @@ namespace ChatLoco.Models.Base
 {
     public class BaseModel
     {
-        public BaseModel()
+        public List<ErrorModel> Errors = new List<ErrorModel>();
+
+        public void AddError(string msg)
         {
-            Errors = new List<ErrorModel>();
+            Errors.Add(new ErrorModel(msg));
         }
-        public List<ErrorModel> Errors { get; set; }
     }
 }

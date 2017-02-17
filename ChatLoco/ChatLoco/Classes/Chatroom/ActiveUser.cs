@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatLoco.Entities.UserDTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
@@ -8,19 +9,21 @@ namespace ChatLoco.Classes.Chatroom
 {
     public class ActiveUser
     {
-        public string Username { get; set; }
+        public int Id { get; }
+        public string UserName { get; }
         public bool IsActive { get; set; }
 
         //parent list that the user belongs to
         //this list belongs to the chatroom that the user is in
         //we need it so we can remove ourself from the list if necessary
-        private Dictionary<string, ActiveUser> BelongsToUsersList;
+        private Dictionary<int, ActiveUser> BelongsToUsersList;
 
         Timer IdleTimer;
 
-        public ActiveUser(string username, bool isActive, Dictionary<string, ActiveUser> usersList)
+        public ActiveUser(UserDTO user, bool isActive, Dictionary<int, ActiveUser> usersList)
         {
-            Username = username;
+            Id = user.Id;
+            UserName = user.Username;
             IsActive = isActive;
             BelongsToUsersList = usersList;
 
@@ -29,7 +32,17 @@ namespace ChatLoco.Classes.Chatroom
             IdleTimer.Elapsed += new ElapsedEventHandler(IdleCheck);
             IdleTimer.Interval = 11000;
             IdleTimer.Enabled = true;
+        }
 
+
+        //removes ActiveUser from chatroom and prepares object for garbage collection
+        public void Destroy()
+        {
+            IdleTimer.Enabled = false;
+            IdleTimer.Stop();
+            IdleTimer.Dispose();
+            BelongsToUsersList.Remove(Id);
+            BelongsToUsersList = null;
         }
 
         //Remember that every 5 seconds, the user marks its IsActive flag as true. 
@@ -44,12 +57,7 @@ namespace ChatLoco.Classes.Chatroom
         {
             if (!IsActive)
             {
-                IdleTimer.Enabled = false;
-                IdleTimer.Stop();
-                IdleTimer.Dispose();
-                BelongsToUsersList.Remove(Username);
-                Username = null;
-                BelongsToUsersList = null;
+                Destroy();
             }
             else
             {

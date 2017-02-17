@@ -5,11 +5,11 @@ using System.Web;
 
 namespace ChatLoco.Models.Chatroom
 {
-    public class ComposedMessageModel
+    public class JoinChatroomModel
     {
-        public string Message { get; set; }
-        public int ChatroomId { get; set; }
         public int UserId { get; set; }
+        public int ChatroomId { get; set; }
         public int ParentChatroomId { get; set; }
+        public int CurrentChatroomId { get; set; }
     }
 }
