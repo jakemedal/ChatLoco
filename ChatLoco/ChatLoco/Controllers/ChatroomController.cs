@@ -1,17 +1,22 @@
-﻿using ChatLoco.Models;
-using ChatLoco.Models.Chatroom;
-using ChatLoco.Models.Error;
-using ChatLoco.Models.User;
+﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
-using ChatLoco.Services;
+using ChatLoco.Entities.MessageDTO;
+using ChatLoco.Models.Chatroom_Service;
+using ChatLoco.Services.Chatroom_Service;
+using ChatLoco.Services.User_Service;
+using ChatLoco.Models.Chatroom_Model;
+using ChatLoco.Models.Error_Model;
+using ChatLoco.Services.Message_Service;
+using AutoMapper;
 
 namespace ChatLoco.Controllers
 {
     public class ChatroomController : Controller
     {
+        private ChatroomModelService _chatroomModelService = new ChatroomModelService();
+
         public ActionResult Index()
         {
             return View();
@@ -23,21 +28,21 @@ namespace ChatLoco.Controllers
         }
         
         [HttpPost]
-        public ActionResult Chat(FindChatroomModel ChatroomInformation)
+        public ActionResult Chat(ChatRequestModel request)
         {
-            ChatroomModel model = new ChatroomModel();
+            ChatResponseModel response = new ChatResponseModel();
 
-            if (ChatroomInformation.ChatroomName == null || ChatroomInformation.Username == null) 
+            if (request.ChatroomName == null || request.Username == null) 
             {
-                model.Errors.Add(new ErrorModel("Invalid chatroom parameters"));
+                response.Errors.Add(new ErrorModel("Invalid chatroom parameters"));
             }
             else
             {
-                int userId = ChatroomInformation.Username.GetHashCode();
-                int chatroomId = ChatroomInformation.ChatroomName.GetHashCode();
+                int userId = request.Username.GetHashCode();
+                int chatroomId = request.ChatroomName.GetHashCode();
                 int parentChatroomId = chatroomId; //temporary during initial testing
 
-                string chatroomName = ChatroomInformation.ChatroomName;
+                string chatroomName = request.ChatroomName;
 
                 if (!ChatroomService.DoesChatroomExist(chatroomId))
                 {
@@ -46,103 +51,116 @@ namespace ChatLoco.Controllers
 
                 if(UserService.GetUser(userId) == null)
                 {
-                    UserService.CreateUser(userId, ChatroomInformation.Username);
+                    UserService.CreateUser(userId, request.Username);
                 }
 
                 if (!ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, userId))
                 {
-                    model.Errors.Add(new ErrorModel("Invalid user or chatroom provided."));
+                    response.AddError("Invalid user or chatroom provided.");
                 }
 
-                model.ChatroomId = chatroomId;
-                model.ChatroomName = chatroomName;
-                model.ParentChatroomId = parentChatroomId;
-                model.Username = ChatroomInformation.Username;
-                model.UserId = userId;
+                response.ChatroomId = chatroomId;
+                response.ChatroomName = chatroomName;
+                response.ParentChatroomId = parentChatroomId;
+                response.Username = request.Username;
+                response.UserId = userId;
 
             }
             
-            return View(model);
+            return View(response);
         }
         
         [HttpPost]
-        public ActionResult SendMessage(ComposedMessageModel MessageModel)
+        public ActionResult ComposeMessage(ComposeMessageRequestModel request)
         {
+            ComposeMessageResponseModel response = new ComposeMessageResponseModel();
+
             try
             {
-                int userId = MessageModel.UserId;
-                int chatroomId = MessageModel.ChatroomId;
-                int parentChatroomId = MessageModel.ParentChatroomId;
-                string rawMessage = MessageModel.Message;
+                int chatroomId = request.ChatroomId;
 
-                ChatroomService.SendMessage(MessageService.CreateMessage(userId, chatroomId, rawMessage), MessageModel.ChatroomId, MessageModel.ParentChatroomId);
-                return new EmptyResult();
+                MessageDTO message = MessageService.CreateMessage(request.UserId, chatroomId, request.Message);
+
+                ChatroomService.SendMessage(message, chatroomId, request.ParentChatroomId);
+
+                response.Id = message.Id;
             }
             catch(Exception e)
             {
-                return Json(e);
+                response.AddError(e.ToString());
             }
+
+            return Json(response);
         }
 
-        public ActionResult JoinChatroom(JoinChatroomModel joinChatroomRequest)
+        public ActionResult JoinChatroom(JoinChatroomRequestModel request)
         {
-            int chatroomId = joinChatroomRequest.ChatroomId;
-            int parentChatroomId = joinChatroomRequest.ParentChatroomId;
-            int userId = joinChatroomRequest.UserId;
-            int currentChatroomId = joinChatroomRequest.CurrentChatroomId;
+            int chatroomId = request.ChatroomId;
+            int parentChatroomId = request.ParentChatroomId;
+            int userId = request.UserId;
 
-            PrivateChatroomInformationModel model = new PrivateChatroomInformationModel();
+            JoinChatroomResponseModel response = new JoinChatroomResponseModel();
 
             if (ChatroomService.CanUserJoinChatroom(chatroomId, parentChatroomId, userId))
             {
-                ChatroomService.RemoveUserFromChatroom(currentChatroomId, parentChatroomId, userId);
+                ChatroomService.RemoveUserFromChatroom(request.CurrentChatroomId, parentChatroomId, userId);
                 ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, userId);
-                model.Name = ChatroomService.GetChatroomName(chatroomId, parentChatroomId);
-                model.Id = chatroomId;
+                response.Name = ChatroomService.GetChatroomName(chatroomId, parentChatroomId);
+                response.Id = chatroomId;
             }
             else
             {
-                model.AddError("Cannot access room.");
+                response.AddError("Cannot access room.");
             }
-            return Json(model);
+            return Json(response);
         }
         
         [HttpPost]
-        public ActionResult CreateSubChatroom(string subChatroomName, int parentChatroomId, int userId)
+        public ActionResult CreateChatroom(CreateChatroomRequestModel request)
         {
-            int subChatroomId = subChatroomName.GetHashCode();
+            CreateChatroomResponseModel response = Mapper.Map<CreateChatroomRequestModel, CreateChatroomResponseModel>(request);
 
-            bool wasCreated = ChatroomService.CreatePrivateChatroom(parentChatroomId, subChatroomId, subChatroomName);
+            response.ChatroomId = request.ChatroomName.GetHashCode(); //TODO temporary until DB is linked up
 
-            return wasCreated ? Json(subChatroomId) : Json(-1) ;
+            bool wasCreated = ChatroomService.CreatePrivateChatroom(request.ParentChatroomId, response.ChatroomId, request.ChatroomName);
+            if (!wasCreated)
+            {
+                response.AddError("Chatroom could not be created.");
+            }
+
+            return Json(response);
         }
         
         [HttpPost]
-        public ActionResult GetNewMessages(GetNewMessagesModel RequestUpdate)
+        public ActionResult GetNewMessages(GetNewMessagesRequestModel request)
         {
-            int parentChatroomId = RequestUpdate.ParentChatroomId;
-            int chatroomId = RequestUpdate.ChatroomId;
-            List<int> existingIds = RequestUpdate.ExistingMessageIds;
+            int parentChatroomId = request.ParentChatroomId;
+            int chatroomId = request.ChatroomId;
+            List<int> existingIds = request.ExistingMessageIds;
 
-            return Json(ChatroomService.GetNewMessagesInformation(parentChatroomId, chatroomId, existingIds));
+            GetNewMessagesResponseModel response = new GetNewMessagesResponseModel();
+
+            response.MessagesInformation.AddRange(ChatroomService.GetNewMessagesInformation(parentChatroomId, chatroomId, existingIds));
+
+            return Json(response);
         }
         
         [HttpPost]
-        public ActionResult GetChatroomInformation(GetChatroomInformationModel ChatroomInformation)
+        public ActionResult GetChatroomInformation(GetChatroomInformationRequestModel request)
         {
-            int parentChatroomId = ChatroomInformation.ParentChatroomId;
-            int chatroomId = ChatroomInformation.ChatroomId;
-            int userId = ChatroomInformation.UserId;
+            int parentChatroomId = request.ParentChatroomId;
+            int chatroomId = request.ChatroomId;
+            int userId = request.UserId;
 
             ChatroomService.UpdateUserInChatroom(parentChatroomId, chatroomId, userId);
 
-            UpdateChatroomInformationModel UpdateInformation = new UpdateChatroomInformationModel()
+            GetChatroomInformationResponseModel response = new GetChatroomInformationResponseModel()
             {
                 UsersInformation = ChatroomService.GetUsersInformation(parentChatroomId, chatroomId),
                 PrivateChatroomsInformation = ChatroomService.GetPrivateChatroomsInformation(parentChatroomId)
             };
 
-            return Json(UpdateInformation);
+            return Json(response);
         }
 
     }

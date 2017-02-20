@@ -162,3 +162,5 @@ Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\bin\Microsoft.Owin.Security.MicrosoftAcc
 Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\obj\Debug\ChatLoco.dll
 Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\obj\Debug\ChatLoco.pdb
 Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\obj\Debug\ChatLoco.csprojResolveAssemblyReference.cache
+Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\bin\AutoMapper.dll
+Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco\bin\AutoMapper.xml

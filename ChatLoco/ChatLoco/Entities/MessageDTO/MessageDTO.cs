@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ChatLoco.Entities.MessageDTO
 {
@@ -12,5 +9,6 @@ namespace ChatLoco.Entities.MessageDTO
         public int ChatroomId { get; set; }
         public string RawMessage { get; set; }
         public string FormattedMessage { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

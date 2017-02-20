@@ -127,25 +127,25 @@ function CreateSubChatroom(e) {
     var $subChatroomName = $form[0].value;
 
     var $model = {
-        subChatroomName: $subChatroomName,
-        userId: _UserId,
-        parentChatroomId: _ParentChatroomId
+        ChatroomName: $subChatroomName,
+        UserId: _UserId,
+        ParentChatroomId: _ParentChatroomId
     };
 
     $.ajax({
         type: "POST",
-        url: '/Chatroom/CreateSubChatroom', 
+        url: '/Chatroom/CreateChatroom', 
         data: $model,
         success: function (data) {
+
+            if (DisplayErrors(data.Errors)) {
+                return;
+            }
+
             var $responseMessage = "";
 
-            if (data != -1) {
-                $responseMessage = "<p>Chatroom " + $subChatroomName + " created successfully.</p>";
-                GetChatroomInformation(); 
-            }
-            else {
-                $responseMessage = "<p>Chatroom " + $subChatroomName + " could not be created.</p>";
-            }
+            $responseMessage = "<p>Chatroom " + data.ChatroomName + " created successfully.</p>";
+            GetChatroomInformation();
 
             var $subChatroomDialog = $('#SubChatroomDialog');
 
@@ -181,9 +181,14 @@ function SendComposedMessage(e) {
 
     $.ajax({
         type: "POST",
-        url: '/Chatroom/SendMessage',
+        url: '/Chatroom/ComposeMessage',
         data: $model,
-        success: function () {
+        success: function (data) {
+
+            if (DisplayErrors(data.Errors)) {
+                return;
+            }
+
             $form[0].value = "";
         },
         error: function () {
@@ -207,15 +212,15 @@ function GetNewMessages() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                var $newMessage = data[i].FormattedMessage;
+            for (var i = 0; i < data.MessagesInformation.length; i++) {
+                var $newMessage = data.MessagesInformation[i].FormattedMessage;
 
                 _MessagesContainer.append("<p>" + $newMessage + "</p>"); 
 
                 _AllMessages.push($newMessage);
-                _AllMessagesIds.push(data[i].Id);
+                _AllMessagesIds.push(data.MessagesInformation[i].Id);
             }
-            if (data.length != 0) { 
+            if (data.MessagesInformation.length != 0) {
                 _MessagesContainer.scrollTop(_MessagesContainer[0].scrollHeight);
             }
         },

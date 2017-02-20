@@ -1,11 +1,9 @@
 ﻿using ChatLoco.Entities.MessageDTO;
 using ChatLoco.Entities.UserDTO;
-using ChatLoco.Models.Chatroom;
-using ChatLoco.Services;
+using ChatLoco.Models.Chatroom_Service;
+using ChatLoco.Services.User_Service;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ChatLoco.Classes.Chatroom
 {
@@ -26,8 +24,8 @@ namespace ChatLoco.Classes.Chatroom
         {
             Name = name;
             Id = id;
-            AddMessage(MessageService.CreateMessage(0, Id, "Test Message 1"));
-            AddMessage(MessageService.CreateMessage(0, Id, "Test Message 2"));
+            //AddMessage(MessageService.CreateMessage(0, Id, "Test Message 1"));
+            //AddMessage(MessageService.CreateMessage(0, Id, "Test Message 2"));
         }
 
         public List<string> GetOrderedFormattedMessages()
@@ -116,13 +114,13 @@ namespace ChatLoco.Classes.Chatroom
             return usersInformation;
         }
 
-        public List<PrivateChatroomInformationModel> GetPrivateChatroomsInformation()
+        public List<JoinChatroomResponseModel> GetPrivateChatroomsInformation()
         {
-            List<PrivateChatroomInformationModel> chatroomsInformation = new List<PrivateChatroomInformationModel>();
+            List<JoinChatroomResponseModel> chatroomsInformation = new List<JoinChatroomResponseModel>();
 
             foreach (var privateChatroom in AllSubChatrooms)
             {
-                PrivateChatroomInformationModel p = new PrivateChatroomInformationModel()
+                JoinChatroomResponseModel p = new JoinChatroomResponseModel()
                 {
                     Id = privateChatroom.Key,
                     Name = privateChatroom.Value.Name

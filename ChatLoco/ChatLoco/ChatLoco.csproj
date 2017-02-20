@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -206,25 +210,34 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Chatroom\JoinChatroomModel.cs" />
-    <Compile Include="Models\Chatroom\MessageInformationModel.cs" />
-    <Compile Include="Models\Chatroom\PrivateChatroomInformationModel.cs" />
-    <Compile Include="Models\Chatroom\UserInformationModel.cs" />
-    <Compile Include="Services\Chatroom\ChatroomService.cs" />
-    <Compile Include="Services\Message\MessageService.cs" />
-    <Compile Include="Services\User\UserService.cs" />
+    <Compile Include="Models\Chatroom_Model\ComposeMessageRequestModel.cs" />
+    <Compile Include="Models\Chatroom_Model\ComposeMessageResponseModel.cs" />
+    <Compile Include="Models\Chatroom_Model\CreateChatroomRequestModel.cs" />
+    <Compile Include="Models\Chatroom_Model\CreateChatroomResponseModel.cs" />
+    <Compile Include="Models\Chatroom_Model\GetNewMessagesResponseModel.cs" />
+    <Compile Include="Models\Chatroom_Model\JoinChatroomRequestModel.cs" />
+    <Compile Include="Models\Chatroom_Model\MessageInformationModel.cs" />
+    <Compile Include="Models\Chatroom_Model\JoinChatroomResponseModel.cs" />
+    <Compile Include="Models\Chatroom_Model\UserInformationModel.cs" />
+    <Compile Include="Models\Request_Model\RequestModel.cs" />
+    <Compile Include="Models\Response_Model\ResponseModel.cs" />
+    <Compile Include="Services\Chatroom_Service\ChatroomModelService.cs" />
+    <Compile Include="Services\Chatroom_Service\ChatroomService.cs" />
+    <Compile Include="Services\Chatroom_Service\MessageSend.cs" />
+    <Compile Include="Services\Mapping_Service\MappingService.cs" />
+    <Compile Include="Services\Message_Service\MessageService.cs" />
+    <Compile Include="Services\User_Service\UserService.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Base\BaseModel.cs" />
-    <Compile Include="Models\Chatroom\ChatroomModel.cs" />
-    <Compile Include="Models\Chatroom\ComposedMessageModel.cs" />
-    <Compile Include="Models\Chatroom\FindChatroomModel.cs" />
-    <Compile Include="Models\Chatroom\GetChatroomInformationModel.cs" />
-    <Compile Include="Models\Chatroom\GetNewMessagesModel.cs" />
-    <Compile Include="Models\Chatroom\UpdateChatroomInformationModel.cs" />
-    <Compile Include="Models\Error\ErrorModel.cs" />
+    <Compile Include="Models\Base_Model\BaseModel.cs" />
+    <Compile Include="Models\Chatroom_Model\ChatResponseModel.cs" />
+    <Compile Include="Models\Chatroom_Model\ChatRequestModel.cs" />
+    <Compile Include="Models\Chatroom_Model\GetChatroomInformationRequestionModel.cs" />
+    <Compile Include="Models\Chatroom_Model\GetNewMessagesRequestModel.cs" />
+    <Compile Include="Models\Chatroom_Model\GetChatroomInformationResponseModel.cs" />
+    <Compile Include="Models\Error_Model\ErrorModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\User\UserModel.cs" />
+    <Compile Include="Models\User_Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -341,6 +354,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Mapping\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
