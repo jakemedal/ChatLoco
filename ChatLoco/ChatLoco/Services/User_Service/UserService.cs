@@ -7,9 +7,8 @@ using System.Web;
 
 namespace ChatLoco.Services.User_Service
 {
-    public class UserService
+    public static class UserService
     {
-
         private static int UniqueId = 10;
 
         public static int GetUniqueId()
@@ -20,7 +19,6 @@ namespace ChatLoco.Services.User_Service
 
         public static Dictionary<int, UserDTO> UsersCache = new Dictionary<int, UserDTO>()
         {
-            //{ 0, new UserDTO { Id = 0, Username = "Test_User" } }
         };
 
         public static UserDTO GetUser(int id)
@@ -80,7 +78,6 @@ namespace ChatLoco.Services.User_Service
             {
                 UserDTO u = new UserDTO()
                 {
-                    Id = id,
                     Username = username
                 };
 
