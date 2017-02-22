@@ -205,6 +205,8 @@
     <Compile Include="Controllers\ChatroomController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DAL\ChatLocoContext.cs" />
+    <Compile Include="DAL\ChatLocoInitializer.cs" />
     <Compile Include="Entities\MessageDTO\MessageDTO.cs" />
     <Compile Include="Entities\UserDTO\UserDTO.cs" />
     <Compile Include="Global.asax.cs">
@@ -354,7 +356,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Mapping\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

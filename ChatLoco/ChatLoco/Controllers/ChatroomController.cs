@@ -10,6 +10,7 @@ using ChatLoco.Models.Chatroom_Model;
 using ChatLoco.Models.Error_Model;
 using ChatLoco.Services.Message_Service;
 using AutoMapper;
+using ChatLoco.Entities.UserDTO;
 
 namespace ChatLoco.Controllers
 {
@@ -38,7 +39,6 @@ namespace ChatLoco.Controllers
             }
             else
             {
-                int userId = request.Username.GetHashCode();
                 int chatroomId = request.ChatroomName.GetHashCode();
                 int parentChatroomId = chatroomId; //temporary during initial testing
 
@@ -48,13 +48,15 @@ namespace ChatLoco.Controllers
                 {
                     ChatroomService.CreateChatroom(chatroomId, chatroomName);
                 }
-
-                if(UserService.GetUser(userId) == null)
+                
+                UserDTO user = UserService.GetUser(request.Username);
+                if (user == null)
                 {
-                    UserService.CreateUser(userId, request.Username);
+                    int userId = UserService.GetUniqueId();
+                    user = UserService.CreateUser(userId, request.Username);
                 }
 
-                if (!ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, userId))
+                if (!ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, user.Id))
                 {
                     response.AddError("Invalid user or chatroom provided.");
                 }
@@ -63,7 +65,7 @@ namespace ChatLoco.Controllers
                 response.ChatroomName = chatroomName;
                 response.ParentChatroomId = parentChatroomId;
                 response.Username = request.Username;
-                response.UserId = userId;
+                response.UserId = user.Id;
 
             }
             

@@ -1,6 +1,7 @@
 ﻿
 
 using ChatLoco.Classes.Chatroom;
+using ChatLoco.DAL;
 using ChatLoco.Entities.MessageDTO;
 using ChatLoco.Models.Chatroom_Service;
 using ChatLoco.Models.Error_Model;
@@ -12,7 +13,9 @@ namespace ChatLoco.Services.Chatroom_Service
 {
     public static class ChatroomService
     {
-        private static Dictionary<int, Chatroom> AllChatrooms = new Dictionary<int, Chatroom>();
+        private static Dictionary<int, Chatroom> ChatroomsCache = new Dictionary<int, Chatroom>();
+
+        private static ChatLocoContext DbContext = new ChatLocoContext();
 
         public static List<UserInformationModel> GetUsersInformation(int parentChatroomId, int chatroomId)
         {
@@ -53,7 +56,7 @@ namespace ChatLoco.Services.Chatroom_Service
         {
             try
             {
-                Chatroom c = AllChatrooms[id];
+                Chatroom c = ChatroomsCache[id];
                 return true;
             }
             catch(Exception e)
@@ -105,7 +108,7 @@ namespace ChatLoco.Services.Chatroom_Service
             try
             {
                 Chatroom c = new Chatroom(id, name);
-                AllChatrooms.Add(id, c);
+                ChatroomsCache.Add(id, c);
                 return true;
             }
             catch(Exception e)
@@ -118,7 +121,7 @@ namespace ChatLoco.Services.Chatroom_Service
         {
             try
             {
-                return AllChatrooms[parentChatroomId];
+                return ChatroomsCache[parentChatroomId];
             }
             catch(Exception e)
             {
@@ -132,11 +135,11 @@ namespace ChatLoco.Services.Chatroom_Service
             {
                 if(chatroomId != parentId)
                 {
-                    return AllChatrooms[parentId].GetPrivateChatroom(chatroomId);
+                    return ChatroomsCache[parentId].GetPrivateChatroom(chatroomId);
                 }
                 else
                 {
-                    return AllChatrooms[parentId];
+                    return ChatroomsCache[parentId];
                 }
             }
             catch(Exception e)
