@@ -17,9 +17,10 @@ _UpgradeReport_Files/
 ###############
 # Directories #
 ###############
-bin/
-obj/
-TestResults/
+*/.vs/
+*/bin/
+*/obj/
+*/TestResults/
 ######################
 # OS generated files #
 ######################
