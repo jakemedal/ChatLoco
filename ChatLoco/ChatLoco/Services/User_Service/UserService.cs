@@ -7,10 +7,8 @@ using System.Web;
 
 namespace ChatLoco.Services.User_Service
 {
-    public static class UserService
+    public class UserService
     {
-
-        private static ChatLocoContext DbContext = new ChatLocoContext();
 
         private static int UniqueId = 10;
 
@@ -27,6 +25,7 @@ namespace ChatLoco.Services.User_Service
 
         public static UserDTO GetUser(int id)
         {
+            ChatLocoContext DbContext = new ChatLocoContext();
             try
             {
                 return UsersCache[id];
@@ -44,6 +43,7 @@ namespace ChatLoco.Services.User_Service
 
         public static UserDTO GetUser(string username)
         {
+            ChatLocoContext DbContext = new ChatLocoContext();
             UserDTO user = DbContext.Users.FirstOrDefault(u => u.Username == username);
             if(user != null && !UsersCache.ContainsKey(user.Id))
             {
@@ -55,6 +55,7 @@ namespace ChatLoco.Services.User_Service
         
         public static bool DoesUserExist(int id)
         {
+            ChatLocoContext DbContext = new ChatLocoContext();
             try
             {
                 UserDTO u = UsersCache[id];
@@ -74,6 +75,7 @@ namespace ChatLoco.Services.User_Service
 
         public static UserDTO CreateUser(int id, string username)
         {
+            ChatLocoContext DbContext = new ChatLocoContext();
             try
             {
                 UserDTO u = new UserDTO()
