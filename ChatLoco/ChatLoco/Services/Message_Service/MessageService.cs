@@ -25,7 +25,6 @@ namespace ChatLoco.Services.Message_Service
             }
             catch(Exception e)//if it doesnt exist grab it from the database
             {
-                return null;
                 MessageDTO message = DbContext.Messages.FirstOrDefault(msg => msg.Id == messageId);
                 if (message != null)
                 {
