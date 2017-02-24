@@ -2,6 +2,9 @@
 using ChatLoco.Services.User_Service;
 using System;
 using System.Collections.Generic;
+using ChatLoco.DAL;
+using System.Linq;
+
 
 namespace ChatLoco.Services.Message_Service
 {
@@ -14,24 +17,32 @@ namespace ChatLoco.Services.Message_Service
 
         public static MessageDTO GetMessage(int messageId)
         {
+            System.Diagnostics.Debug.WriteLine("getting meesagfes");
+            ChatLocoContext DbContext = new ChatLocoContext();
             try
             {
-                return MessageCache[messageId];
+                return MessageCache[messageId];//if it exists in the cache return it
             }
-            catch(Exception e)
+            catch(Exception e)//if it doesnt exist grab it from the database
             {
                 return null;
+                MessageDTO message = DbContext.Messages.FirstOrDefault(msg => msg.Id == messageId);
+                if (message != null)
+                {
+                    MessageCache.Add(message.Id, message);
+                }
+                return message;
             }
         }
 
         public static MessageDTO CreateMessage(int userId, int chatroomId, string rawMessage)
         {
+            System.Diagnostics.Debug.WriteLine("creating message!!");
+            ChatLocoContext DbContext = new ChatLocoContext();
             try
             {
-                uniqueId += 1;
                 MessageDTO m = new MessageDTO()
                 {
-                    Id = uniqueId,
                     UserId = userId,
                     ChatroomId = chatroomId,
                     RawMessage = rawMessage,
@@ -44,7 +55,13 @@ namespace ChatLoco.Services.Message_Service
 
                 m.FormattedMessage = formattedMessage;
 
+                //add it to the table and commit the changes
+                System.Diagnostics.Debug.WriteLine("adding message!!");
+                DbContext.Messages.Add(m);
+                DbContext.SaveChanges();
+
                 MessageCache.Add(m.Id, m);
+
 
                 return m;
             }
