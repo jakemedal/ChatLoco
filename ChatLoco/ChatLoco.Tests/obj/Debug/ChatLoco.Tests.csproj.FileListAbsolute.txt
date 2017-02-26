@@ -1,56 +1,56 @@
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\ApplicationInsights.config
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\csc.exe
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\Microsoft.CodeAnalysis.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\Microsoft.CSharp.Core.targets
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\Microsoft.VisualBasic.Core.targets
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\System.Collections.Immutable.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\System.Reflection.Metadata.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\vbc.exe
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\VBCSCompiler.exe
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\VBCSCompiler.exe.config
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\ChatLoco.Tests.dll.config
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\ChatLoco.Tests.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\ChatLoco.Tests.pdb
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\ChatLoco.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Newtonsoft.Json.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Helpers.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Mvc.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Razor.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.WebPages.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.WebPages.Razor.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Optimization.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.Security.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Owin.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\EntityFramework.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\ChatLoco.pdb
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Newtonsoft.Json.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Helpers.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Mvc.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Razor.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.WebPages.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.WebPages.Razor.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Optimization.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.Security.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\EntityFramework.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\obj\Debug\ChatLoco.Tests.csprojResolveAssemblyReference.cache
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\obj\Debug\ChatLoco.Tests.dll
-Z:\Chatloco\WIP\trunk\ChatLoco\ChatLoco.Tests\obj\Debug\ChatLoco.Tests.pdb
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\ApplicationInsights.config
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\csc.exe
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\System.Collections.Immutable.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\System.Reflection.Metadata.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\vbc.exe
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\VBCSCompiler.exe
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\roslyn\VBCSCompiler.exe.config
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\ChatLoco.Tests.dll.config
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\ChatLoco.Tests.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\ChatLoco.Tests.pdb
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\ChatLoco.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Helpers.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Mvc.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Razor.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.WebPages.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Optimization.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.Security.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Owin.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\EntityFramework.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\ChatLoco.pdb
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Helpers.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Mvc.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Razor.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.WebPages.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\System.Web.Optimization.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.Security.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\EntityFramework.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\obj\Debug\ChatLoco.Tests.csprojResolveAssemblyReference.cache
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\obj\Debug\ChatLoco.Tests.dll
+C:\Users\Angelo\Documents\ChatLoco WIP\trunk\ChatLoco\ChatLoco.Tests\obj\Debug\ChatLoco.Tests.pdb

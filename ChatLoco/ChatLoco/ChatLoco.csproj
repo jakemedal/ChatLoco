@@ -205,6 +205,7 @@
     <Compile Include="Controllers\ChatroomController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\ChatLocoContext.cs" />
     <Compile Include="DAL\ChatLocoInitializer.cs" />
     <Compile Include="Entities\MessageDTO\MessageDTO.cs" />
@@ -223,6 +224,10 @@
     <Compile Include="Models\Chatroom_Model\UserInformationModel.cs" />
     <Compile Include="Models\Request_Model\RequestModel.cs" />
     <Compile Include="Models\Response_Model\ResponseModel.cs" />
+    <Compile Include="Models\User_Model\CreateUserRequestModel.cs" />
+    <Compile Include="Models\User_Model\CreateUserResponseModel.cs" />
+    <Compile Include="Models\User_Model\LoginRequestModel.cs" />
+    <Compile Include="Models\User_Model\LogoutRequestModel.cs" />
     <Compile Include="Services\Chatroom_Service\ChatroomModelService.cs" />
     <Compile Include="Services\Chatroom_Service\ChatroomService.cs" />
     <Compile Include="Services\Chatroom_Service\MessageSend.cs" />
@@ -314,7 +319,11 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Shared\accountchecking.js" />
     <Content Include="Scripts\Shared\errorhandling.js" />
+    <Content Include="Scripts\Shared\statushandling.js" />
+    <Content Include="Scripts\User\create.js" />
+    <Content Include="Scripts\User\login.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -353,6 +362,9 @@
     <Content Include="Views\Chatroom\Chat.cshtml" />
     <Content Include="Views\Chatroom\Index.cshtml" />
     <Content Include="Views\Chatroom\Partial\Chatroom.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\_Login.cshtml" />
+    <Content Include="Views\Shared\_AccountHandling.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

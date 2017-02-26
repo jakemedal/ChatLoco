@@ -1,5 +1,5 @@
 ﻿
-namespace ChatLoco.Models.User_Models
+namespace ChatLoco.Models.User_Model
 {
     public class UserModel
     {

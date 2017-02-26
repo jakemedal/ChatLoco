@@ -23,7 +23,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Find A Chatroom?", "Index", "Chatroom")</li>
+                    <li>@Html.ActionLink("Launch ChatLoco", "Index", "Chatroom")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -35,11 +35,9 @@
                 @Scripts.Render("~/bundles/errorhandling")
         <div hidden id="error-dialog">
         </div>
+        <div hidden id="status-dialog">
+        </div>
         @RenderBody()
-        @*<hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>*@
     </div>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

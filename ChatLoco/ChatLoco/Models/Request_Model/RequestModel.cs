@@ -9,6 +9,6 @@ namespace ChatLoco.Models.Request_Model
 {
     public abstract class RequestModel : BaseModel
     {
-
+        public int UserId { get; set; }
     }
 }

@@ -14,8 +14,16 @@ namespace ChatLoco
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
 
+            bundles.Add(new StyleBundle("~/bundles/accountchecking").Include(
+                            "~/Scripts/Shared/accountchecking.js"));
+
             bundles.Add(new StyleBundle("~/bundles/errorhandling").Include(
-                            "~/Scripts/Shared/errorhandling.js"));
+                            "~/Scripts/Shared/errorhandling.js",
+                            "~/Scripts/Shared/statushandling.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/user").Include(
+                            "~/Scripts/User/login.js",
+                            "~/Scripts/User/create.js"));
 
             bundles.Add(new StyleBundle("~/bundles/chatroom").Include(
                             "~/Scripts/Chatroom/chatroom.js"));

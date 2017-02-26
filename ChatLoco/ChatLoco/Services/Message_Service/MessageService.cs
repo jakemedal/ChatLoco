@@ -17,7 +17,7 @@ namespace ChatLoco.Services.Message_Service
 
         public static MessageDTO GetMessage(int messageId)
         {
-            System.Diagnostics.Debug.WriteLine("getting meesagfes");
+            System.Diagnostics.Debug.WriteLine("getting meesages");
             ChatLocoContext DbContext = new ChatLocoContext();
             try
             {

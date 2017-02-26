@@ -1,0 +1,12 @@
+﻿@model ChatLoco.Models.Base_Model.BaseModel
+
+<div hidden id="account-dialog" title="Login Information">
+    
+</div>
+
+@Scripts.Render("~/bundles/accountchecking")
+
+<script>
+    _currentUser = @Html.Raw(Json.Encode(Model.User));
+    CheckUserLogin();
+</script>

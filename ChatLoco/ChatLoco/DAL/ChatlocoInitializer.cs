@@ -15,10 +15,10 @@ namespace ChatLoco.DAL
         {
             var users = new List<UserDTO>
             {
-                new UserDTO { Id = 0, Username = "Test_User_0", JoinDate = null, PasswordHash = null},
-                new UserDTO { Id = 1, Username = "Test_User_1", JoinDate = null, PasswordHash = null},
-                new UserDTO { Id = 2, Username = "Test_User_2", JoinDate = null, PasswordHash = null},
-                new UserDTO { Id = 3, Username = "Test_User_3", JoinDate = null, PasswordHash = null},
+                new UserDTO { Id = 0, Username = "Test_User_0", JoinDate = DateTime.Now, PasswordHash = null},
+                new UserDTO { Id = 1, Username = "Test_User_1", JoinDate = DateTime.Now, PasswordHash = null},
+                new UserDTO { Id = 2, Username = "Test_User_2", JoinDate = DateTime.Now, PasswordHash = null},
+                new UserDTO { Id = 3, Username = "Test_User_3", JoinDate = DateTime.Now, PasswordHash = null},
             };
 
             users.ForEach(u => context.Users.Add(u));
@@ -26,9 +26,9 @@ namespace ChatLoco.DAL
 
             var messages = new List<MessageDTO>
             {
-                MessageService.CreateMessage(0, 0, "Test Message 0"),
-                MessageService.CreateMessage(1, 0, "Test Message 1"),
-                MessageService.CreateMessage(2, 0, "Test Message 2"),
+                new MessageDTO { Id = 0, ChatroomId = 0, DateCreated = DateTime.Now, FormattedMessage = "Test: Test", RawMessage = "Test", UserId = 0 },
+                new MessageDTO { Id = 1, ChatroomId = 0, DateCreated = DateTime.Now, FormattedMessage = "Test: Test", RawMessage = "Test", UserId = 0 },
+                new MessageDTO { Id = 2, ChatroomId = 0, DateCreated = DateTime.Now, FormattedMessage = "Test: Test", RawMessage = "Test", UserId = 0 }
             };
 
             messages.ForEach(m => context.Messages.Add(m));

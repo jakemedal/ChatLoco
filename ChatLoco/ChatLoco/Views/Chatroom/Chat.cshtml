@@ -1,5 +1,6 @@
 ﻿@model ChatLoco.Models.Chatroom_Model.ChatResponseModel
 
+@Html.Partial("~/Views/Shared/_AccountHandling.cshtml", Model.User)
 
 @* Many of the divs are empty, this is because they are populated by JS since they represent active users, messages, or chatrooms *@
 

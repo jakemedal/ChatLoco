@@ -1,0 +1,21 @@
+﻿
+
+<h2>Create User</h2>
+
+<div id="create-user-form-container">
+    <form id="create-user-form">
+        Username : <input type="text" name="username" />
+        <br />
+        Email : <input type="email" name="email" />
+        <br />
+        Password : <input type="password" name="password" />
+        <br />
+        Confirm Password : <input type="password" name="confirmPassword" />
+        <br />
+        <input type="hidden" value="@Request.Url.GetLeftPart(UriPartial.Authority)" />
+        <input type="submit" />
+    </form>
+</div>
+
+
+@Scripts.Render("~/bundles/user")

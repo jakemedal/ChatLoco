@@ -6,7 +6,9 @@ namespace ChatLoco.Entities.UserDTO
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public DateTime? JoinDate { get; set; }
-        public long? PasswordHash { get; set; }
+        public DateTime JoinDate { get; set; }
+        public string PasswordHash { get; set; }
+        public DateTime? LastLoginDate { get; set; }
+        public string Email { get; set; }
     }
 }

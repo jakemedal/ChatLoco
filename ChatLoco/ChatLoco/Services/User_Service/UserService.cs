@@ -1,5 +1,6 @@
 ﻿using ChatLoco.DAL;
 using ChatLoco.Entities.UserDTO;
+using ChatLoco.Models.Error_Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,67 @@ namespace ChatLoco.Services.User_Service
 {
     public static class UserService
     {
-        private static int UniqueId = 10;
+        public static Dictionary<int, UserDTO> UsersCache = new Dictionary<int, UserDTO>();
 
-        public static int GetUniqueId()
+        //Found at http://stackoverflow.com/questions/3984138/hash-string-in-c-sharp
+        internal static string GetStringSha256Hash(string text)
         {
-            UniqueId += 1;
-            return UniqueId;
+            if (String.IsNullOrEmpty(text))
+                return String.Empty;
+
+            using (var sha = new System.Security.Cryptography.SHA256Managed())
+            {
+                byte[] textData = System.Text.Encoding.UTF8.GetBytes(text);
+                byte[] hash = sha.ComputeHash(textData);
+                return BitConverter.ToString(hash).Replace("-", String.Empty);
+            }
         }
 
-        public static Dictionary<int, UserDTO> UsersCache = new Dictionary<int, UserDTO>()
+        public static List<ErrorModel> CreateUser(string username, string email, string password)
         {
-        };
+            List<ErrorModel> errors = new List<ErrorModel>();
+            if (DoesUserExist(username))
+            {
+                errors.Add(new ErrorModel("Username already exists."));
+                return errors;
+            }
+
+            ChatLocoContext db = new ChatLocoContext();
+            if(db.Users.FirstOrDefault(u => u.Email == email) != null)
+            {
+                errors.Add(new ErrorModel("Email already in use."));
+                return errors;
+            }
+
+            string passwordHash = GetStringSha256Hash(password);
+
+            UserDTO user = new UserDTO()
+            {
+                Email = email,
+                JoinDate = DateTime.Now,
+                LastLoginDate = null,
+                PasswordHash = passwordHash,
+                Username = username
+            };
+
+            db.Users.Add(user);
+            db.SaveChanges();
+
+            return errors;
+        }
+
+        public static bool Logout(int userId)
+        {
+
+            return true; 
+        }
+
+        public static bool Login(string username, string password)
+        {
+            string passwordHash = GetStringSha256Hash(password);
+
+            return true;
+        }
 
         public static UserDTO GetUser(int id)
         {
@@ -50,6 +101,13 @@ namespace ChatLoco.Services.User_Service
 
             return user;
         }
+
+        public static bool DoesUserExist(string username)
+        {
+            ChatLocoContext db = new ChatLocoContext();
+            UserDTO user = db.Users.FirstOrDefault(u => u.Username == username);
+            return (user != null);
+        }
         
         public static bool DoesUserExist(int id)
         {
@@ -68,28 +126,6 @@ namespace ChatLoco.Services.User_Service
                     return true;
                 }
                 return false;
-            }
-        }
-
-        public static UserDTO CreateUser(int id, string username)
-        {
-            ChatLocoContext DbContext = new ChatLocoContext();
-            try
-            {
-                UserDTO u = new UserDTO()
-                {
-                    Username = username
-                };
-
-                DbContext.Users.Add(u);
-                DbContext.SaveChanges();
-
-                UsersCache.Add(id, u);
-                return u;
-            }
-            catch(Exception e)
-            {
-                return null;
             }
         }
     }

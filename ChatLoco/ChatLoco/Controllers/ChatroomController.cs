@@ -20,7 +20,7 @@ namespace ChatLoco.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View(new ChatRequestModel());
         }
 
         public ActionResult Chat()
@@ -49,11 +49,10 @@ namespace ChatLoco.Controllers
                     ChatroomService.CreateChatroom(chatroomId, chatroomName);
                 }
                 
-                UserDTO user = UserService.GetUser(request.Username);
+                UserDTO user = UserService.GetUser(request.UserId);
                 if (user == null)
                 {
-                    int userId = UserService.GetUniqueId();
-                    user = UserService.CreateUser(userId, request.Username);
+                    response.AddError("Could not find user.");
                 }
 
                 if (!ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, user.Id))
