@@ -11,6 +11,7 @@ using ChatLoco.Models.Error_Model;
 using ChatLoco.Services.Message_Service;
 using AutoMapper;
 using ChatLoco.Entities.UserDTO;
+using System.IO;
 
 namespace ChatLoco.Controllers
 {
@@ -33,7 +34,7 @@ namespace ChatLoco.Controllers
         {
             ChatResponseModel response = new ChatResponseModel();
 
-            if (request.ChatroomName == null || request.Username == null) 
+            if (request.ChatroomName == null || request.UserHandle == null) 
             {
                 response.Errors.Add(new ErrorModel("Invalid chatroom parameters"));
             }
@@ -49,28 +50,50 @@ namespace ChatLoco.Controllers
                     ChatroomService.CreateChatroom(chatroomId, chatroomName);
                 }
                 
-                UserDTO user = UserService.GetUser(request.UserId);
+                UserDTO user = UserService.GetUser(request.User.Id);
                 if (user == null)
                 {
                     response.AddError("Could not find user.");
                 }
 
-                if (!ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, user.Id))
+                if (!ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, user.Id, request.UserHandle))
                 {
                     response.AddError("Invalid user or chatroom provided.");
                 }
 
-                response.ChatroomId = chatroomId;
-                response.ChatroomName = chatroomName;
-                response.ParentChatroomId = parentChatroomId;
-                response.Username = request.Username;
-                response.UserId = user.Id;
+                var chatroomModel = new ChatroomModel()
+                {
+                    ChatroomId = chatroomId,
+                    ChatroomName = chatroomName,
+                    ParentChatroomId = parentChatroomId,
+                    UserHandle = request.UserHandle,
+                    UserId = user.Id
+                };
 
+                //response.Data = PartialView("~/Views/Chatroom/_Chat.cshtml", chatroomModel);
+                response.Data = RenderPartialViewToString(this.ControllerContext, "~/Views/Chatroom/_Chat.cshtml", chatroomModel);
             }
-            
-            return View(response);
+            return Json(response);
         }
-        
+
+        //Taken from http://stackoverflow.com/questions/22098233/partialview-to-html-string
+        protected string RenderPartialViewToString(ControllerContext context, string viewName, object model)
+        {
+            if (string.IsNullOrEmpty(viewName))
+                viewName = context.RouteData.GetRequiredString("action");
+
+            ViewData.Model = model;
+
+            using (StringWriter sw = new StringWriter())
+            {
+                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(context, viewName);
+                ViewContext viewContext = new ViewContext(context, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+
+                return sw.GetStringBuilder().ToString();
+            }
+        }
+
         [HttpPost]
         public ActionResult ComposeMessage(ComposeMessageRequestModel request)
         {
@@ -78,13 +101,10 @@ namespace ChatLoco.Controllers
 
             try
             {
-                int chatroomId = request.ChatroomId;
+                var m = ChatroomService.SendMessage(request.Message, request.UserId, request.ChatroomId, request.ParentChatroomId);
 
-                MessageDTO message = MessageService.CreateMessage(request.UserId, chatroomId, request.Message);
-
-                ChatroomService.SendMessage(message, chatroomId, request.ParentChatroomId);
-
-                response.Id = message.Id;
+                response.MessageId = m.MessageId;
+                response.Errors.AddRange(m.Errors);
             }
             catch(Exception e)
             {
@@ -105,7 +125,7 @@ namespace ChatLoco.Controllers
             if (ChatroomService.CanUserJoinChatroom(chatroomId, parentChatroomId, userId))
             {
                 ChatroomService.RemoveUserFromChatroom(request.CurrentChatroomId, parentChatroomId, userId);
-                ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, userId);
+                ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, userId, request.UserHandle);
                 response.Name = ChatroomService.GetChatroomName(chatroomId, parentChatroomId);
                 response.Id = chatroomId;
             }
@@ -119,7 +139,14 @@ namespace ChatLoco.Controllers
         [HttpPost]
         public ActionResult CreateChatroom(CreateChatroomRequestModel request)
         {
-            CreateChatroomResponseModel response = Mapper.Map<CreateChatroomRequestModel, CreateChatroomResponseModel>(request);
+            //CreateChatroomResponseModel response = Mapper.Map<CreateChatroomRequestModel, CreateChatroomResponseModel>(request);
+
+            var response = new CreateChatroomResponseModel()
+            {
+                ChatroomName = request.ChatroomName,
+                ParentChatroomId = request.ParentChatroomId,
+                UserId = request.UserId
+            };
 
             response.ChatroomId = request.ChatroomName.GetHashCode(); //TODO temporary until DB is linked up
 

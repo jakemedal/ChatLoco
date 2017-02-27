@@ -1,16 +1,19 @@
-﻿@model ChatLoco.Models.Chatroom_Model.ChatRequestModel
+﻿@model ChatLoco.Models.Base_Model.BaseModel
 
 @Html.Partial("~/Views/Shared/_AccountHandling.cshtml", Model)
 
-<h1>Find a Chatroom</h1>
+<div id="content-container">
+    <h1>Find a Chatroom</h1>
 
-<div id="InformationContainer">
-    @using (Html.BeginForm("Chat", "Chatroom", FormMethod.Post))
-    {
-        <br />
-        <p> Chatroom Name: @Html.TextBoxFor(model => model.ChatroomName, new { @class = "ChatroomName-Input" }) </p>
-        <br />
-        <p>Username: @Html.TextBoxFor(model => model.Username, new { @class = "Username-Input" }) </p>
-        <input type="submit" />
-    }
+    <div id="find-chatroom-container">
+        <form id="find-chatroom-form">
+            <br />
+            <p>Chatroom Name: <input type="text" name="chatroomName" /></p>
+            <br />
+            <p>User Handle: <input type="text" name="userHandle" /></p>
+            <input type="submit" />
+        </form>
+    </div>
 </div>
+
+@Scripts.Render("~/bundles/chatroom")

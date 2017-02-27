@@ -84,11 +84,11 @@ namespace ChatLoco.Classes.Chatroom
             }
         }
 
-        public bool AddUser(UserDTO user)
+        public bool AddUser(UserDTO user, string userHandle)
         {
             try
             {
-                ActiveUser activeUser = new ActiveUser(user, true, AllUsers);
+                ActiveUser activeUser = new ActiveUser(user, userHandle, true, AllUsers);
                 AllUsers.Add(user.Id, activeUser);
                 return true;
             }
@@ -106,7 +106,7 @@ namespace ChatLoco.Classes.Chatroom
             {
                 UserInformationModel u = new UserInformationModel(){
                     Id = a.Key,
-                    Username = a.Value.UserName
+                    Username = a.Value.UserHandle
                 };
                 usersInformation.Add(u);
             }
@@ -133,15 +133,7 @@ namespace ChatLoco.Classes.Chatroom
 
         public void UpdateUser(int id)
         {
-            try
-            {
-                AllUsers[id].IsActive = true;
-            }
-            catch(Exception e)
-            {
-                UserDTO u = UserService.GetUser(id);
-                AddUser(u);
-            }
+            AllUsers[id].IsActive = true;
         }
 
         public List<MessageInformationModel> GetAllMessagesInformation()
@@ -197,6 +189,11 @@ namespace ChatLoco.Classes.Chatroom
             {
                 return null;
             }
+        }
+
+        public string GetUserHandle(int userId)
+        {
+            return AllUsers[userId].UserHandle;
         }
 
         public bool AddMessage(MessageDTO message)

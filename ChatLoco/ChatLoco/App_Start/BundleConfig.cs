@@ -26,7 +26,8 @@ namespace ChatLoco
                             "~/Scripts/User/create.js"));
 
             bundles.Add(new StyleBundle("~/bundles/chatroom").Include(
-                            "~/Scripts/Chatroom/chatroom.js"));
+                            "~/Scripts/Chatroom/chatroom.js",
+                            "~/Scripts/Chatroom/index.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

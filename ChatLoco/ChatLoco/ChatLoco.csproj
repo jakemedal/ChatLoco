@@ -213,6 +213,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Chatroom_Model\ChatroomModel.cs" />
     <Compile Include="Models\Chatroom_Model\ComposeMessageRequestModel.cs" />
     <Compile Include="Models\Chatroom_Model\ComposeMessageResponseModel.cs" />
     <Compile Include="Models\Chatroom_Model\CreateChatroomRequestModel.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="Models\User_Model\CreateUserRequestModel.cs" />
     <Compile Include="Models\User_Model\CreateUserResponseModel.cs" />
     <Compile Include="Models\User_Model\LoginRequestModel.cs" />
+    <Compile Include="Models\User_Model\LoginResponseModel.cs" />
     <Compile Include="Models\User_Model\LogoutRequestModel.cs" />
     <Compile Include="Services\Chatroom_Service\ChatroomModelService.cs" />
     <Compile Include="Services\Chatroom_Service\ChatroomService.cs" />
@@ -306,6 +308,7 @@
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Scripts\Chatroom\chatroom.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\Chatroom\index.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
@@ -323,7 +326,6 @@
     <Content Include="Scripts\Shared\errorhandling.js" />
     <Content Include="Scripts\Shared\statushandling.js" />
     <Content Include="Scripts\User\create.js" />
-    <Content Include="Scripts\User\login.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -359,9 +361,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Chatroom\Chat.cshtml" />
+    <Content Include="Views\Chatroom\_Chat.cshtml" />
     <Content Include="Views\Chatroom\Index.cshtml" />
-    <Content Include="Views\Chatroom\Partial\Chatroom.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\_Login.cshtml" />
     <Content Include="Views\Shared\_AccountHandling.cshtml" />

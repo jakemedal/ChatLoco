@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ChatLoco.Entities.UserDTO;
 using ChatLoco.Models.Chatroom_Model;
 using ChatLoco.Models.User_Model;
 using System;
@@ -21,6 +22,11 @@ namespace ChatLoco.Services.Mapping_Service
             Mapper.Initialize(cfg => cfg.CreateMap<CreateUserRequestModel, CreateUserResponseModel>()
             .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.Username))
             .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+            );
+
+            Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, UserModel>()
+            .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.Username))
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             );
 
         }

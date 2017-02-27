@@ -7,6 +7,6 @@ namespace ChatLoco.Models.Chatroom_Model
     public class ChatRequestModel : RequestModel
     {
         public string ChatroomName { get; set; }
-        public string Username { get; set; }
+        public string UserHandle { get; set; }
     }
 }

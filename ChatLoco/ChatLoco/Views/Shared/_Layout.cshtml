@@ -25,7 +25,11 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Launch ChatLoco", "Index", "Chatroom")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                    @Html.ActionLink("Create Account", "Create", "User")
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

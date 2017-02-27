@@ -8,5 +8,6 @@ namespace ChatLoco.Services.Chatroom_Service
     {
         public bool IsSent { get; set; }
         public List<ErrorModel> Errors = new List<ErrorModel>();
+        public int MessageId { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿@model ChatLoco.Models.Chatroom_Model.ChatResponseModel
-
-@Html.Partial("~/Views/Shared/_AccountHandling.cshtml", Model.User)
+﻿@model ChatLoco.Models.Chatroom_Model.ChatroomModel
 
 @* Many of the divs are empty, this is because they are populated by JS since they represent active users, messages, or chatrooms *@
 
@@ -17,7 +15,7 @@ else
         @* These inputs are hidden so that we can get their values easily in JS *@
         <input type="hidden" id="ChatroomId" value="@Model.ChatroomId" />
         <input type="hidden" id="ChatroomName" value="@Model.ChatroomName" />
-        <input type="hidden" id="Username" value="@Model.Username" />
+        <input type="hidden" id="UserHandle" value="@Model.UserHandle" />
         <input type="hidden" id="UserId" value="@Model.UserId" />
         <input type="hidden" id="ParentChatroomId" value="@Model.ParentChatroomId" />
 
@@ -56,7 +54,7 @@ else
 
             <div id="ComposeContainer">
                 <form id="ComposeForm">
-                    @Model.Username : <input type="text" name="ComposedMessage" />
+                    @Model.UserHandle : <input type="text" name="ComposedMessage" />
                     <input type="submit" />
                 </form>
             </div>
@@ -71,6 +69,3 @@ else
 
     </div>
 }
-
-
-@Scripts.Render("~/bundles/chatroom")

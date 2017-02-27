@@ -34,7 +34,7 @@ namespace ChatLoco.Services.Message_Service
             }
         }
 
-        public static MessageDTO CreateMessage(int userId, int chatroomId, string rawMessage)
+        public static MessageDTO CreateMessage(int userId, int chatroomId, string rawMessage, string userHandle)
         {
             System.Diagnostics.Debug.WriteLine("creating message!!");
             ChatLocoContext DbContext = new ChatLocoContext();
@@ -49,8 +49,7 @@ namespace ChatLoco.Services.Message_Service
             };
 
                 string currentTime = m.DateCreated.ToString("MM/dd [h:mm:ss tt]");
-                string username = UserService.GetUser(userId).Username;
-                string formattedMessage = string.Format("{0} [{1}] : {2}", currentTime, username, rawMessage);
+                string formattedMessage = string.Format("{0} [{1}] : {2}", currentTime, userHandle, rawMessage);
 
                 m.FormattedMessage = formattedMessage;
 

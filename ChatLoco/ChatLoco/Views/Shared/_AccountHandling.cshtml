@@ -1,5 +1,25 @@
 ﻿@model ChatLoco.Models.Base_Model.BaseModel
 
+<div class="navbar navbar-inverse navbar-fixed-left" id="account-navbar" hidden>
+    <div class="container">
+        <div class="navbar-header" id="logged-in-as">
+            <h4 id="username-header" class="text-info">Logged in as: </h4>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-center">
+                <li>
+                    @Html.ActionLink("Settings", "Settings", "User")
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-center">
+                <li>
+                    @Html.ActionLink("Logout", "Logout", "User")
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <div hidden id="account-dialog" title="Login Information">
     
 </div>

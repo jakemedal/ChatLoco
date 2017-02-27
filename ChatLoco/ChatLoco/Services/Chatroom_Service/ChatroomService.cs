@@ -5,6 +5,7 @@ using ChatLoco.DAL;
 using ChatLoco.Entities.MessageDTO;
 using ChatLoco.Models.Chatroom_Service;
 using ChatLoco.Models.Error_Model;
+using ChatLoco.Services.Message_Service;
 using ChatLoco.Services.User_Service;
 using System;
 using System.Collections.Generic;
@@ -90,12 +91,11 @@ namespace ChatLoco.Services.Chatroom_Service
             }
         }
 
-        public static bool AddUserToChatroom(int chatroomId, int parentId, int userId)
+        public static bool AddUserToChatroom(int chatroomId, int parentId, int userId, string userHandle)
         {
             try
             {
-                GetChatroom(chatroomId, parentId).AddUser(UserService.GetUser(userId));
-                return true;
+                return GetChatroom(chatroomId, parentId).AddUser(UserService.GetUser(userId), userHandle);
             }
             catch(Exception e)
             {
@@ -148,13 +148,18 @@ namespace ChatLoco.Services.Chatroom_Service
             }
         }
 
-        public static MessageSend SendMessage(MessageDTO message, int chatroomId, int parentId)
+        public static MessageSend SendMessage(string message, int userId, int chatroomId, int parentId)
         {
             MessageSend messageSend = new MessageSend();
             try
             {
-                GetChatroom(chatroomId, parentId).AddMessage(message);
+                var chatroom = GetChatroom(chatroomId, parentId);
+
+                var m = MessageService.CreateMessage(userId, chatroom.Id, message, chatroom.GetUserHandle(userId));
+
+                chatroom.AddMessage(m);
                 messageSend.IsSent = true;
+                messageSend.MessageId = m.Id;
             }
             catch (Exception e)
             {

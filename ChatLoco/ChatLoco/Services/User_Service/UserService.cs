@@ -1,6 +1,8 @@
-﻿using ChatLoco.DAL;
+﻿using AutoMapper;
+using ChatLoco.DAL;
 using ChatLoco.Entities.UserDTO;
 using ChatLoco.Models.Error_Model;
+using ChatLoco.Models.User_Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,11 +67,33 @@ namespace ChatLoco.Services.User_Service
             return true; 
         }
 
-        public static bool Login(string username, string password)
+        public static LoginResponseModel GetLoginResponseModel(LoginRequestModel request)
         {
-            string passwordHash = GetStringSha256Hash(password);
+            var response = new LoginResponseModel();
+            string passwordHash = GetStringSha256Hash(request.Password);
 
-            return true;
+            var user = GetUser(request.Username);
+            if (user == null)
+            {
+                response.LoginErrors.Add(new ErrorModel("Username not found."));
+                return response;
+            }
+
+            if(!passwordHash.Equals(user.PasswordHash, StringComparison.Ordinal))
+            {
+                response.LoginErrors.Add(new ErrorModel("Incorrect password."));
+                return response;
+            }
+
+            var db = new ChatLocoContext();
+
+            user.LastLoginDate = DateTime.Now;
+
+            db.SaveChanges();
+
+            response.User = Mapper.Map<UserDTO, UserModel>(user);
+
+            return response;
         }
 
         public static UserDTO GetUser(int id)

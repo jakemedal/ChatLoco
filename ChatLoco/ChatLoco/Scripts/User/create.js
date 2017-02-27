@@ -52,7 +52,8 @@ function createUser(e) {
             }
 
         },
-        error: function () {
+        error: function (data) {
+            document.write(data.responseText);
         }
     });
 

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using ChatLoco.Models.Error_Model;
+﻿using ChatLoco.Models.Error_Model;
 using ChatLoco.Models.User_Model;
 using ChatLoco.Services.User_Service;
 using System;
@@ -8,13 +7,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using AutoMapper;
 
 namespace ChatLoco.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Settings()
         {
             return View();
         }
@@ -32,7 +36,12 @@ namespace ChatLoco.Controllers
         [HttpPost]
         public ActionResult CreateUser(CreateUserRequestModel request)
         {
-            CreateUserResponseModel response = Mapper.Map<CreateUserRequestModel, CreateUserResponseModel>(request);
+            //CreateUserResponseModel response = Mapper.Map<CreateUserRequestModel, CreateUserResponseModel>(request);
+            var response = new CreateUserResponseModel()
+            {
+                Username = request.Username,
+                Email = request.Email
+            };
 
             response.Errors = UserService.CreateUser(request.Username, request.Email, request.Password); //this creates a user and returns errors if it cannot
 
@@ -51,13 +60,13 @@ namespace ChatLoco.Controllers
         {
             return PartialView("~/Views/User/_Login.cshtml");
         }
-
-        [ValidateAntiForgeryToken]
+        
         [HttpPost]
         public ActionResult Login(LoginRequestModel request)
         {
-            UserService.Login(request.Username, request.Password);
-            return View();
+            var response = UserService.GetLoginResponseModel(request);
+
+            return Json(response);
         }
     }
 }

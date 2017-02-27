@@ -9,6 +9,7 @@ namespace ChatLoco.Classes.Chatroom
         public int Id { get; }
         public string UserName { get; }
         public bool IsActive { get; set; }
+        public string UserHandle { get; set; }
 
         //parent list that the user belongs to
         //this list belongs to the chatroom that the user is in
@@ -17,12 +18,13 @@ namespace ChatLoco.Classes.Chatroom
 
         Timer IdleTimer;
 
-        public ActiveUser(UserDTO user, bool isActive, Dictionary<int, ActiveUser> usersList)
+        public ActiveUser(UserDTO user, string userHandle, bool isActive, Dictionary<int, ActiveUser> usersList)
         {
             Id = user.Id;
             UserName = user.Username;
             IsActive = isActive;
             BelongsToUsersList = usersList;
+            UserHandle = userHandle;
 
             //create a timer that calls the IdleCheck method every 11 seconds
             IdleTimer = new Timer();

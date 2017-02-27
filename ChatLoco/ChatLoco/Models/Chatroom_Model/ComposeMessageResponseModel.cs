@@ -8,6 +8,6 @@ namespace ChatLoco.Models.Chatroom_Model
 {
     public class ComposeMessageResponseModel : ResponseModel
     {
-        public int Id { get; set; }
+        public int MessageId { get; set; }
     }
 }
