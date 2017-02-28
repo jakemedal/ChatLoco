@@ -15,5 +15,7 @@ function DisplayErrors(errors) {
         $errorDialog.append("<p>" + $errorMessage + "</p>");
     }
     $errorDialog.dialog();
+
+    HideLoading();
     return true;
 }

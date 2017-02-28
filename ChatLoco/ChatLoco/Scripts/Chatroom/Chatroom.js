@@ -74,6 +74,7 @@ var Chatroom = function () {
     }
 
     function OpenChat($newChatroomId, $userHandle) {
+        ShowLoading();
 
         var $model = {
             UserId: _UserId,
@@ -117,6 +118,8 @@ var Chatroom = function () {
 
                 GetChatroomInformation();
                 GetNewMessages();
+
+                HideLoading();
             },
             error: function (e) { }
         });
@@ -166,6 +169,9 @@ var Chatroom = function () {
 
     function CreateSubChatroom(e) {
         e.preventDefault();
+
+        ShowLoading();
+
         var $form = this;
 
         var $subChatroomName = $form[0].value;
@@ -204,6 +210,8 @@ var Chatroom = function () {
                 });
 
                 $form[0].value = "";
+
+                HideLoading();
             },
             error: function () { }
         });

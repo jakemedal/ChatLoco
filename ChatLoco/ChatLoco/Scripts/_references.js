@@ -13,5 +13,6 @@
 /// <reference path="respond.js" />
 /// <reference path="shared/accountchecking.js" />
 /// <reference path="shared/errorhandling.js" />
+/// <reference path="shared/notifications.js" />
 /// <reference path="shared/statushandling.js" />
 /// <reference path="user/create.js" />

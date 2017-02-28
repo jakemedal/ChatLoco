@@ -10,7 +10,11 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
+<body id="body">
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/errorhandling")
+    @Html.Partial("~/Views/Shared/_Notifications.cshtml")
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -33,10 +37,7 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-                @Scripts.Render("~/bundles/jquery")
-                @Scripts.Render("~/bundles/jqueryui")
-                @Scripts.Render("~/bundles/errorhandling")
+    <div id="content-container" class="container body-content">
         <div hidden id="error-dialog">
         </div>
         <div hidden id="status-dialog">

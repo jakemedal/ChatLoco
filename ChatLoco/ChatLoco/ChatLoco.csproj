@@ -253,6 +253,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\Loading.gif" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -324,6 +325,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Shared\accountchecking.js" />
     <Content Include="Scripts\Shared\errorhandling.js" />
+    <Content Include="Scripts\Shared\notifications.js" />
     <Content Include="Scripts\Shared\statushandling.js" />
     <Content Include="Scripts\User\create.js" />
     <Content Include="Scripts\_references.js" />
@@ -367,6 +369,7 @@
     <Content Include="Views\User\_Login.cshtml" />
     <Content Include="Views\Shared\_AccountHandling.cshtml" />
     <Content Include="Views\Chatroom\_JoinChatRoomForm.cshtml" />
+    <Content Include="Views\Shared\_Notifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

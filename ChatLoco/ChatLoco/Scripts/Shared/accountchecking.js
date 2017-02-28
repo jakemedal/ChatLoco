@@ -32,6 +32,7 @@ function CheckUserLogin(e) {
     }
 
     if (_loginFormData == null) {
+        ShowLoading();
         $.ajax({
             type: "GET",
             url: '/User/GetLoginForm',
@@ -45,6 +46,7 @@ function CheckUserLogin(e) {
                 _loginForm.on("submit", login);
 
                 OpenAccountDialog();
+                HideLoading();
             }
         });
     }
@@ -68,6 +70,8 @@ function OpenAccountDialog() {
 //this can be handled in plaintext since securing an SSL certificate will automatically encrypt all traffic both ways
 function login(e) {
     e.preventDefault();
+
+    ShowLoading();
 
     var $form = this;
 
@@ -104,6 +108,8 @@ function login(e) {
                 $("#account-navbar").show();
                 $("#username-header").append(GetUser().Username);
             }
+
+            HideLoading();
 
         },
         error: function () {

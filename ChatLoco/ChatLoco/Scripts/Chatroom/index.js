@@ -1,11 +1,12 @@
-﻿
-var _findChatroomForm = $("#find-chatroom-form");
+﻿var _findChatroomForm = $("#find-chatroom-form");
 var _chatroom = null;
 
 _findChatroomForm.on("submit", FindChatroom)
 
 function FindChatroom(e) {
     e.preventDefault();
+
+    ShowLoading();
 
     var $form = this;
 
@@ -33,6 +34,7 @@ function FindChatroom(e) {
                 _chatroom = new Chatroom();
             }
 
+            HideLoading();
         },
         error: function (data) {
             document.write(data.responseText);

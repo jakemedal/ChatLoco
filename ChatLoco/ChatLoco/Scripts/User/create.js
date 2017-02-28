@@ -7,6 +7,8 @@ _createForm.on("submit", createUser);
 
 //this can be handled in plaintext since securing an SSL certificate will automatically encrypt all traffic both ways
 function createUser(e) {
+    ShowLoading();
+
     e.preventDefault();
 
     var $form = this;
@@ -51,6 +53,7 @@ function createUser(e) {
                 DisplayStatus(msg)
             }
 
+            HideLoading();
         },
         error: function (data) {
             document.write(data.responseText);
