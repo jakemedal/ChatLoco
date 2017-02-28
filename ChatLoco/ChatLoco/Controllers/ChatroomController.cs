@@ -119,15 +119,17 @@ namespace ChatLoco.Controllers
             int chatroomId = request.ChatroomId;
             int parentChatroomId = request.ParentChatroomId;
             int userId = request.UserId;
+            string userHandle = request.UserHandle;
 
             JoinChatroomResponseModel response = new JoinChatroomResponseModel();
 
             if (ChatroomService.CanUserJoinChatroom(chatroomId, parentChatroomId, userId))
             {
                 ChatroomService.RemoveUserFromChatroom(request.CurrentChatroomId, parentChatroomId, userId);
-                ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, userId, request.UserHandle);
+                ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, userId, userHandle);
                 response.Name = ChatroomService.GetChatroomName(chatroomId, parentChatroomId);
                 response.Id = chatroomId;
+                response.UserHandle = userHandle;
             }
             else
             {

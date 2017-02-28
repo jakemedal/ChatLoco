@@ -13,9 +13,13 @@ var Chatroom = function () {
     var _UserHandle = $("#UserHandle")[0].value;
     var _UserId = $("#UserId")[0].value;
     var _ParentChatroomId = $("#ParentChatroomId")[0].value;
+    var _PrivateChatroomRequestForm = $("#user-handle-form")[0];
+    var _UserHandleContainer = $("#user-handle-container");
 
     var _ParentChatroomButton = $("#ParentChatroomButton");
     var _CreateSubChatroomsContainer = $("#CreateSubChatroomContainer");
+
+    var _PrivateChatroomRequestDialog = $("#user-handle-dialog");
 
     GetNewMessages();
     setInterval(GetNewMessages, 1000);
@@ -25,12 +29,13 @@ var Chatroom = function () {
 
     $("#ComposeForm").on("submit", SendComposedMessage);
     $("#CreateSubChatroomForm").on("submit", CreateSubChatroom);
-    $("#ParentChatroomButton").on("click", OpenChat);
+    $("#ParentChatroomButton").on("click", ChatroomClicked);
+    $("#SubChatroomsList").on("click", ChatroomClicked);
+    $("#user-handle-form").on("submit", ChatroomRequestFormSubmit);
 
-    $("#SubChatroomsList").on("click", OpenChat);
-
-    function OpenChat(e) {
+    function ChatroomClicked(e) {
         e.preventDefault();
+
         var $element = document.elementFromPoint(e.clientX, e.clientY);
         var $newChatroomId = $element.value;
 
@@ -38,11 +43,41 @@ var Chatroom = function () {
             return;
         }
 
+        _PrivateChatroomRequestForm.elements.newChatroomId.value = $newChatroomId;
+
+        var $buttons = [{
+            text: "Chat!",
+            click: ChatroomRequestFormSubmit
+        }];
+
+        _PrivateChatroomRequestDialog.dialog({
+            title: "Requesting to join " + $element.textContent,
+            modal: true,
+            buttons: $buttons
+        });
+
+    }
+
+    function ChatroomRequestFormSubmit(e) {
+        if (e) {
+            e.preventDefault();
+        }
+
+        _PrivateChatroomRequestDialog.dialog("close");
+        var $userHandle = _PrivateChatroomRequestForm.elements.userHandle.value;
+        var $newChatroomId = _PrivateChatroomRequestForm.elements.newChatroomId.value;
+
+        OpenChat($newChatroomId, $userHandle);
+    }
+
+    function OpenChat($newChatroomId, $userHandle) {
+
         var $model = {
             UserId: _UserId,
             ChatroomId: $newChatroomId,
             ParentChatroomId: _ParentChatroomId,
-            CurrentChatroomId: _ChatroomId
+            CurrentChatroomId: _ChatroomId,
+            UserHandle: $userHandle
         };
 
         $.ajax({
@@ -63,6 +98,10 @@ var Chatroom = function () {
                 $("#ChatroomNameDisplay").html(data.Name);
 
                 _MessagesContainer.html("");
+
+                GetUser().UserHandle = data.UserHandle;
+
+                _UserHandleContainer.html(data.UserHandle);
 
                 if (_ChatroomId == _ParentChatroomId) {
                     _ParentChatroomButton.removeClass("btn btn-primary").addClass("btn btn-primary");

@@ -54,7 +54,7 @@ else
 
             <div id="ComposeContainer">
                 <form id="ComposeForm">
-                    @Model.UserHandle : <input type="text" name="ComposedMessage" />
+                    <span id="user-handle-container">@Model.UserHandle</span> : <input type="text" name="ComposedMessage" />
                     <input type="submit" />
                 </form>
             </div>
@@ -66,6 +66,9 @@ else
                 @* This is filled in by JS *@
             </div>
         </div>
-
+        
+        <div id="user-handle-dialog" hidden>
+            @Html.Partial("_JoinChatRoomForm")
+        </div>
     </div>
 }
