@@ -1,6 +1,7 @@
 ﻿var _findChatroomForm = $("#find-chatroom-form");
 var _chatroom = null;
 
+getGeolocation();
 _findChatroomForm.on("submit", FindChatroom)
 
 function FindChatroom(e) {
@@ -40,5 +41,20 @@ function FindChatroom(e) {
             document.write(data.responseText);
         }
     });
+
+}
+
+function getGeolocation() {
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+
+    function showPosition(position) {
+        $("#lat").val(position.coords.latitude);
+        $("#lon").val(position.coords.longitude);
+    }
 
 }
