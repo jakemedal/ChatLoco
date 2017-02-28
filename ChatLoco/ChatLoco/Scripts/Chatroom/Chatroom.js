@@ -13,13 +13,13 @@ var Chatroom = function () {
     var _UserHandle = $("#UserHandle")[0].value;
     var _UserId = $("#UserId")[0].value;
     var _ParentChatroomId = $("#ParentChatroomId")[0].value;
-    var _PrivateChatroomRequestForm = $("#user-handle-form")[0];
+    var _PrivateChatroomRequestForm = $("#private-chatroom-request-form")[0];
     var _UserHandleContainer = $("#user-handle-container");
 
     var _ParentChatroomButton = $("#ParentChatroomButton");
     var _CreateSubChatroomsContainer = $("#CreateSubChatroomContainer");
 
-    var _PrivateChatroomRequestDialog = $("#user-handle-dialog");
+    var _PrivateChatroomRequestDialog = $("#private-chatroom-dialog");
 
     GetNewMessages();
     setInterval(GetNewMessages, 1000);
@@ -31,7 +31,7 @@ var Chatroom = function () {
     $("#CreateSubChatroomForm").on("submit", CreateSubChatroom);
     $("#ParentChatroomButton").on("click", ChatroomClicked);
     $("#SubChatroomsList").on("click", ChatroomClicked);
-    $("#user-handle-form").on("submit", ChatroomRequestFormSubmit);
+    $("#private-chatroom-request-form").on("submit", ChatroomRequestFormSubmit);
 
     function ChatroomClicked(e) {
         e.preventDefault();
@@ -43,6 +43,7 @@ var Chatroom = function () {
             return;
         }
 
+        _PrivateChatroomRequestForm.elements.userHandle.value = GetUser().UserHandle;
         _PrivateChatroomRequestForm.elements.newChatroomId.value = $newChatroomId;
 
         var $buttons = [{
@@ -65,6 +66,8 @@ var Chatroom = function () {
 
         _PrivateChatroomRequestDialog.dialog("close");
         var $userHandle = _PrivateChatroomRequestForm.elements.userHandle.value;
+        _PrivateChatroomRequestForm.elements.userHandle.value = "";
+
         var $newChatroomId = _PrivateChatroomRequestForm.elements.newChatroomId.value;
 
         OpenChat($newChatroomId, $userHandle);

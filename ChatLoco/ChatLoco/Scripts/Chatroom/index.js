@@ -28,6 +28,7 @@ function FindChatroom(e) {
                 return;
             }
             else {
+                GetUser().UserHandle = $userHandle;
                 $("#content-container").html("").append(response.Data);
                 _chatroom = new Chatroom();
             }
