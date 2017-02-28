@@ -159,7 +159,7 @@ var Chatroom = function () {
                     if ($subChatroomId === _ChatroomId) {
                         $buttonType = 'primary';
                     }
-                    _SubChatroomsList.append('<li><button value="' + $subChatroomId + '" type="button" class="btn btn-' + $buttonType + '">' + $subChatroomName + '</button></li><br/>');
+                    _SubChatroomsList.append('<p><button value="' + $subChatroomId + '" type="button" class="btn btn-' + $buttonType + '">' + $subChatroomName + '</button></p>');
                 }
 
             },

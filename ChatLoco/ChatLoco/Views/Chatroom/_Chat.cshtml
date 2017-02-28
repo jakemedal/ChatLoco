@@ -25,9 +25,9 @@ else
             <button id="ParentChatroomButton" value="@Model.ChatroomId" type="button" class="btn btn-primary">@Model.ChatroomName</button>
 
             <div id="SubChatroomsContainer" class="pre-scrollable">
-                <ul id="SubChatroomsList">
+                <div id="SubChatroomsList">
                     @* This is filled in by JS *@
-                </ul>
+                </div>
             </div>
 
             <div id="CreateSubChatroomContainer">
@@ -72,3 +72,5 @@ else
         </div>
     </div>
 }
+
+@Styles.Render("~/Content/chatroom")

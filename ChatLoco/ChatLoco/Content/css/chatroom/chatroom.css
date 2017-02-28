@@ -1,0 +1,27 @@
+﻿
+    #MessagesContainer {
+        width: 100%;
+        height: 200px;
+        background-color: lightsteelblue;
+    }
+
+    #UsersContainer{
+        width: 100%;
+        height: 200px;
+        background-color: cornflowerblue;
+    }
+
+    #UsersContainer p {
+        color: white;
+        margin-left: 10%;
+    }
+
+    #SubChatroomsList{
+        width: 100%;
+        height: 200px;
+        background-color: lightsteelblue;
+    }
+
+    #SubChatroomsList button{
+        margin-left: 10%;
+    }

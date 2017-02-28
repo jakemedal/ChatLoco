@@ -49,6 +49,9 @@ namespace ChatLoco
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").IncludeDirectory("~/Content/themes/base", "*.css", true));
+
+            bundles.Add(new StyleBundle("~/Content/chatroom").Include(
+                      "~/Content/css/chatroom/chatroom.css"));
         }
     }
 }
