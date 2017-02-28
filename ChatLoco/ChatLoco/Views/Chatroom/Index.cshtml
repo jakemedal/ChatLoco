@@ -2,6 +2,15 @@
 
 @Html.Partial("~/Views/Shared/_AccountHandling.cshtml", Model)
 
+<head>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+
 <div id="content-container">
     <h1>Find a Chatroom</h1>
     <h5>Coordinates: <input id="lat" type="text" disabled /> <input id="lon" type="text" disabled/> </h5>
@@ -14,7 +23,14 @@
             <p>User Handle: <input type="text" name="userHandle" /></p>
             <input type="submit" />
         </form>
+        <br/>
+        <body>
+            <div id="map"></div>
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzJTQNNWNeo6oJFvL0p4tlzG5m3GhC8Nc&libraries=places&callback=initMap" async defer></script>
+        </body>
     </div>
+
 </div>
 
 @Scripts.Render("~/bundles/chatroom")
+
