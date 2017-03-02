@@ -1,9 +1,11 @@
 ﻿
+<link href="@Url.Content("~/Content/css/index/index.css")" rel="stylesheet" />
 
-
-<div class="jumotron">
-    <h1>ChatLoco</h1>
-    <h2>@Html.ActionLink("Launch ChatLoco", "Index", "Chatroom")</h2>
+<div id="welcome" class="text-center">
+    <img src="/Content/images/logo_transparent.png" />
+    <div class="h2">Welcome to ChatLoco! The world premiere in location-based chat services.</div>
+    <button id ="launchPad" class="btn btn-info btn-group-lg" type="button" 
+            onclick="location.href='@Url.Action("Index", "Chatroom")'">Launch ChatLoco</button>
 </div>
 
 

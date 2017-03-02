@@ -1,0 +1,12 @@
+﻿body { 
+    background: url("/Content/images/background.png") no-repeat center center fixed;
+    background-size: cover;
+}
+#welcome {
+    color:white;
+}
+#launchPad {
+    margin: 20px;
+    font-size:large;
+    font-weight:bold;
+}
