@@ -34,45 +34,39 @@ namespace ChatLoco.Controllers
         {
             ChatResponseModel response = new ChatResponseModel();
 
-            if (request.ChatroomName == null || request.UserHandle == null) 
+            int chatroomId = request.ChatroomId;
+            int parentChatroomId = chatroomId; //temporary during initial testing
+
+            string chatroomName = request.ChatroomName;
+
+            if (!ChatroomService.DoesChatroomExist(chatroomId))
             {
-                response.Errors.Add(new ErrorModel("Invalid chatroom parameters"));
+                ChatroomService.CreateChatroom(chatroomId, chatroomName);
             }
-            else
-            {
-                int chatroomId = request.ChatroomName.GetHashCode();
-                int parentChatroomId = chatroomId; //temporary during initial testing
-
-                string chatroomName = request.ChatroomName;
-
-                if (!ChatroomService.DoesChatroomExist(chatroomId))
-                {
-                    ChatroomService.CreateChatroom(chatroomId, chatroomName);
-                }
                 
-                UserDTO user = UserService.GetUser(request.User.Id);
-                if (user == null)
-                {
-                    response.AddError("Could not find user.");
-                }
-
-                if (!ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, user.Id, request.UserHandle))
-                {
-                    response.AddError("Invalid user or chatroom provided.");
-                }
-
-                var chatroomModel = new ChatroomModel()
-                {
-                    ChatroomId = chatroomId,
-                    ChatroomName = chatroomName,
-                    ParentChatroomId = parentChatroomId,
-                    UserHandle = request.UserHandle,
-                    UserId = user.Id
-                };
-
-                //response.Data = PartialView("~/Views/Chatroom/_Chat.cshtml", chatroomModel);
-                response.Data = RenderPartialViewToString(this.ControllerContext, "~/Views/Chatroom/_Chat.cshtml", chatroomModel);
+            UserDTO user = UserService.GetUser(request.User.Id);
+            if (user == null)
+            {
+                response.AddError("Could not find user.");
             }
+
+            if (!ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, user.Id, request.UserHandle))
+            {
+                response.AddError("Invalid user or chatroom provided.");
+            }
+
+            var chatroomModel = new ChatroomModel()
+            {
+                ChatroomId = chatroomId,
+                ChatroomName = chatroomName,
+                ParentChatroomId = parentChatroomId,
+                UserHandle = request.UserHandle,
+                UserId = user.Id
+            };
+
+            //response.Data = PartialView("~/Views/Chatroom/_Chat.cshtml", chatroomModel);
+            response.Data = RenderPartialViewToString(this.ControllerContext, "~/Views/Chatroom/_Chat.cshtml", chatroomModel);
+            
             return Json(response);
         }
 
