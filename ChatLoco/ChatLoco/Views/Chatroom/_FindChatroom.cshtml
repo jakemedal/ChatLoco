@@ -1,18 +1,22 @@
 ﻿
 
-    <h1>Find a Chatroom</h1>
-    <h5>Coordinates: <input id="lat" type="text" disabled /> <input id="lon" type="text" disabled/> </h5>
+<h1>Find a Chatroom</h1>
+<h5>Coordinates: <input id="lat" type="text" disabled /> <input id="lon" type="text" disabled/> </h5>
 
-    <div id="find-chatroom-container">
-        <form id="find-chatroom-form">
-            <br />
-            <p>Coord 1: <input type="text" name="coord1" /> Coord 2: <input type="text" name="coord2"/></p>
-            <br />
-            <p>User Handle: <input type="text" name="userHandle" /></p>
-            <input type="submit" />
-        </form>
-        <br/>
-    </div>
+<div id="find-chatroom-container">
+    <form id="find-chatroom-form">
+        <br />
+        <p>Coord 1: <input type="text" id="coord1" /> Coord 2: <input type="text" id="coord2" /></p>
+        <br />
+        <select id="chatroomPlaces">
+            <option selected="selected" value=""> Use Coordinates </option>
+        </select>            
+        <br />
+        <p>User Handle: <input type="text" name="userHandle" /></p>
+        <input type="submit" />
+    </form>
+    <br/>
+</div>
 
 <div id="map"></div>
 

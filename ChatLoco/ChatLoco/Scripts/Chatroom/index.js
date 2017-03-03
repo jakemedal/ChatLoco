@@ -1,6 +1,8 @@
 ﻿
 function FindChatroom() {
     var _findChatroomForm = null;
+    var _updateLocationForm = null;
+
     var _chatroom = null;
 
     var FindChatroom = function(e) {
@@ -12,13 +14,16 @@ function FindChatroom() {
 
         var $coord1 = $form.elements.coord1.value;
         var $coord2 = $form.elements.coord2.value;
+
         var $userHandle = $form.elements.userHandle.value;
 
-        //TODO: This will be replaced when we use google api to get unique location id by coordinates
-        var $chatroomId = parseInt($coord1) + parseInt($coord2);
-
-        //TODO: This will be replaced when we use google api to get location names by coordinates
-        var $chatroomName = "Name: " + $coord1 + ", " + $coord2;
+        if ($form.elements.chatroomPlaces.value === '') {
+            $chatroomId = parseInt($coord1) + parseInt($coord2);
+            $chatroomName = "Coords: " + $coord1 + ", " + $coord2;
+        } else {
+            $chatroomId = $("#chatroomPlaces").val();
+            $chatroomName = $("#chatroomPlaces option:selected").text();
+        }
 
         var $model = {
             ChatroomId: $chatroomId,
@@ -56,6 +61,7 @@ function FindChatroom() {
 
         _findChatroomForm = $("#find-chatroom-form");
         _findChatroomForm.on("submit", FindChatroom);
+
     }
 
     return {

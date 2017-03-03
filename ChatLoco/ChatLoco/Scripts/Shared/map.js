@@ -45,6 +45,8 @@ function MapObject() {
                             animation: google.maps.Animation.DROP,
                             title: 'Chatroom: ' + results[i].name
                         });
+
+                        jQuery('#chatroomPlaces').append(jQuery("<option></option>").val(results[i]['place_id']).text(results[i]['name']));
                     }
                 }
             }
