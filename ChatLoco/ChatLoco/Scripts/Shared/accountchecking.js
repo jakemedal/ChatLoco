@@ -1,7 +1,9 @@
 ﻿function Account() {
 
     var _currentUser = null;
-    var _accountDialog = $("#account-dialog");
+    var _loginDialog = $("#login-dialog");
+    var _accountNavbar = $("#account-navbar");
+    var _chatroomContainer = $("#chatroom-container");
     var _loginFormData = null;
 
     var _loginForm = null;
@@ -10,6 +12,10 @@
     $(document).on("click", CheckUserLogin);
 
     $("#logout-link").on("click", Logout);
+
+    function ShowDimBehindDialog() {
+        notifications.ShowDim('100', 'black', '0.7');
+    }
 
     function Logout(e) {
         e.preventDefault();
@@ -27,7 +33,23 @@
                     return;
                 }
                 _currentUser = null;
-                status.DisplayStatus("<p>Logged out successfully.</p>");
+
+                $.ajax({
+                    type: "GET",
+                    url: '/Chatroom/GetFindChatroom',
+                    success: function (data) {
+                        $("#chatroom-container").html("").append(data);
+                        findChatroom = new FindChatroom();
+                        findChatroom.init();
+                    },
+                    error: function(data){
+                        error.DisplayCrash(data);
+                    }
+                });
+
+                statusHandling.DisplayStatus("<p>Logged out successfully.</p>");
+                ShowDimBehindDialog();
+                _accountNavbar.hide();
             },
             error: function (data) {
                 error.DisplayCrash(data);
@@ -67,34 +89,42 @@
                 url: '/User/GetLoginForm',
                 success: function (data) {
                     _loginFormData = data;
-                    _accountDialog.html("").append(_loginFormData);
+                    _loginDialog.html("").append(_loginFormData);
 
                     _loginForm = $("#login-form");
                     _loginInformationContainer = $("#login-information-container");
 
                     _loginForm.on("submit", login);
 
-                    OpenAccountDialog();
                     notifications.HideLoading();
+                    OpenLoginDialog();
                 }
             });
         }
         else {
-            OpenAccountDialog();
+            OpenLoginDialog();
         }
 
     }
 
-    function OpenAccountDialog() {
-        if (typeof _accountDialog == 'undefined') {
+    function OpenLoginDialog() {
+        if (typeof _loginDialog == 'undefined') {
             return;
         }
 
-        _accountDialog.dialog({
+        ShowDimBehindDialog();
+        _loginDialog.dialog({
             title: "Please Login"
         });
     }
 
+    function CloseLoginDialog() {
+        if (typeof _loginDialog == 'undefined') {
+            return;
+        }
+
+        _loginDialog.dialog("close");
+    }
 
     //this can be handled in plaintext since securing an SSL certificate will automatically encrypt all traffic both ways
     function login(e) {
@@ -130,15 +160,17 @@
                         var $errorMessage = data.LoginErrors[j].ErrorMessage;
                         $loginErrorsContainer.append("<p>" + $errorMessage + "</p>");
                     }
+                    notifications.HideLoading();
+                    ShowDimBehindDialog();
                 }
                 else {
-                    _loginInformationContainer.html("").html("<p>Logged in successfully.</p>");
+                    CloseLoginDialog();
+                    statusHandling.DisplayStatus("<p>Logged in successfully.</p>");
                     UpdateCurrentUser(data.User);
-                    $("#account-navbar").show();
-                    $("#username-header").append(GetUser().Username);
+                    _accountNavbar.show();
+                    $("#username-header").html("").append(GetUser().Username);
+                    notifications.HideLoading();
                 }
-
-                notifications.HideLoading();
 
             },
             error: function () {

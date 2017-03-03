@@ -1,76 +1,63 @@
 ﻿@model ChatLoco.Models.Chatroom_Model.ChatroomModel
 
-@* Many of the divs are empty, this is because they are populated by JS since they represent active users, messages, or chatrooms *@
+    @* These inputs are hidden so that we can get their values easily in JS *@
+    <input type="hidden" id="ChatroomId" value="@Model.ChatroomId" />
+    <input type="hidden" id="ChatroomName" value="@Model.ChatroomName" />
+    <input type="hidden" id="UserHandle" value="@Model.UserHandle" />
+    <input type="hidden" id="UserId" value="@Model.UserId" />
+    <input type="hidden" id="ParentChatroomId" value="@Model.ParentChatroomId" />
 
-@if (Model.Errors != null && Model.Errors.Any())
-{
-    foreach (var error in Model.Errors)
-    {
-        <p>Error: @error.ErrorMessage</p>
-    }
-}
-else
-{
-    <div id="ChatContainer" class="container-fluid ">
-        @* These inputs are hidden so that we can get their values easily in JS *@
-        <input type="hidden" id="ChatroomId" value="@Model.ChatroomId" />
-        <input type="hidden" id="ChatroomName" value="@Model.ChatroomName" />
-        <input type="hidden" id="UserHandle" value="@Model.UserHandle" />
-        <input type="hidden" id="UserId" value="@Model.UserId" />
-        <input type="hidden" id="ParentChatroomId" value="@Model.ParentChatroomId" />
+    @* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
+    <div id="OtherChatroomsPaneContainer" class="col-lg-2">
+        <br/>
+        <button id="ParentChatroomButton" value="@Model.ChatroomId" type="button" class="btn btn-primary">@Model.ChatroomName</button>
 
-        @* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
-        <div id="OtherChatroomsPaneContainer" class="col-lg-2">
-            <br/>
-            <button id="ParentChatroomButton" value="@Model.ChatroomId" type="button" class="btn btn-primary">@Model.ChatroomName</button>
-
-            <div id="SubChatroomsContainer" class="pre-scrollable">
-                <div id="SubChatroomsList">
-                    @* This is filled in by JS *@
-                </div>
-            </div>
-
-            <div id="CreateSubChatroomContainer">
-                <form id="CreateSubChatroomForm">
-                    Create Chatroom : <input type="text" name="SubChatroomName" />
-                    <input type="submit" />
-                </form>
-
-                @* This hidden container is the pop up dialog used when creating a chatroom *@
-                <div hidden id="SubChatroomDialog" title="Chatroom Creation Information">
-                    @* This is filled in by JS *@
-                </div>
-            </div>
-
-        </div>
-
-        <div id="MessagesPaneContainer" class="col-lg-8">
-
-            <h1 >Chatroom: <span id="ChatroomNameDisplay">@Model.ChatroomName</span></h1>
-
-            <div id="MessagesContainer" class="pre-scrollable">
-                @* This is filled in by JS *@
-            </div>
-
-            <div id="ComposeContainer">
-                <form id="ComposeForm">
-                    <span id="user-handle-container">@Model.UserHandle</span> : <input type="text" name="ComposedMessage" />
-                    <input type="submit" />
-                </form>
-            </div>
-        </div>
-
-        <div id="UsersPaneContainer" class="col-lg-2">
-            <h3>Current Users</h3>
-            <div id="UsersContainer" class="pre-scrollable">
+        <div id="SubChatroomsContainer" class="pre-scrollable">
+            <div id="SubChatroomsList">
                 @* This is filled in by JS *@
             </div>
         </div>
-        
-        <div id="private-chatroom-dialog" hidden>
-            @Html.Partial("_JoinChatRoomForm")
+
+        <div id="CreateSubChatroomContainer">
+            <form id="CreateSubChatroomForm">
+                Create Chatroom : <input type="text" name="SubChatroomName" />
+                <input type="submit" />
+            </form>
+
+            @* This hidden container is the pop up dialog used when creating a chatroom *@
+            <div hidden id="SubChatroomDialog" title="Chatroom Creation Information">
+                @* This is filled in by JS *@
+            </div>
+        </div>
+
+    </div>
+
+    <div id="MessagesPaneContainer" class="col-lg-8">
+
+        <h1 >Chatroom: <span id="ChatroomNameDisplay">@Model.ChatroomName</span></h1>
+
+        <div id="MessagesContainer" class="pre-scrollable">
+            @* This is filled in by JS *@
+        </div>
+
+        <div id="ComposeContainer">
+            <form id="ComposeForm">
+                <span id="user-handle-container">@Model.UserHandle</span> : <input type="text" name="ComposedMessage" />
+                <input type="submit" />
+            </form>
         </div>
     </div>
-}
+
+    <div id="UsersPaneContainer" class="col-lg-2">
+        <h3>Current Users</h3>
+        <div id="UsersContainer" class="pre-scrollable">
+            @* This is filled in by JS *@
+        </div>
+    </div>
+        
+    <div id="private-chatroom-dialog" hidden>
+        @Html.Partial("_JoinChatRoomForm")
+    </div>
+
 
 @Styles.Render("~/Content/chatroom")

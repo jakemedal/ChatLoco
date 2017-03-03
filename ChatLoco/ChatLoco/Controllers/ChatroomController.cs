@@ -24,6 +24,12 @@ namespace ChatLoco.Controllers
             return View(new ChatRequestModel());
         }
 
+        [HttpGet]
+        public ActionResult GetFindChatroom()
+        {
+            return PartialView("_FindChatroom");
+        }
+
         public ActionResult Chat()
         {
             return View("Index");

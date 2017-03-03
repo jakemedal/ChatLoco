@@ -1,5 +1,5 @@
 ﻿
-function Status() {
+function StatusHandling() {
 
     function DisplayStatus(message) {
         var $statusDialog = $("#status-dialog")
@@ -13,6 +13,6 @@ function Status() {
     return {
         DisplayStatus: DisplayStatus
     }
-}
+};
 
-var status = new Status();
+var statusHandling = new StatusHandling();

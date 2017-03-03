@@ -20,7 +20,7 @@ function createUser(e) {
     var $redirectUrl = $form[4].value;
 
     if ($password != $confirmPassword) {
-        status.DisplayStatus("<p>Passwords do not match.</p>");
+        statusHandling.DisplayStatus("<p>Passwords do not match.</p>");
         $form[2].value = "";
         $form[3].value = "";
         return;
@@ -50,7 +50,7 @@ function createUser(e) {
                 setTimeout(function () {
                     window.location = $redirectUrl;
                 }, 5000);
-                status.DisplayStatus(msg)
+                statusHandling.DisplayStatus(msg)
             }
 
             notifications.HideLoading();
