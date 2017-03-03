@@ -13,7 +13,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-center">
                 <li>
-                    @Html.ActionLink("Logout", "Logout", "User")
+                    @Html.ActionLink("Logout", "Logout", "User", new { @id="logout-link" })
                 </li>
             </ul>
         </div>
@@ -28,5 +28,5 @@
 
 <script>
     _currentUser = @Html.Raw(Json.Encode(Model.User));
-    CheckUserLogin();
+    account.CheckUserLogin();
 </script>

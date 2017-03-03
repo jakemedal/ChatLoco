@@ -63,8 +63,15 @@ namespace ChatLoco.Services.User_Service
 
         public static bool Logout(int userId)
         {
-
-            return true; 
+            try
+            {
+                UsersCache.Remove(userId);
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
         }
 
         public static LoginResponseModel GetLoginResponseModel(LoginRequestModel request)

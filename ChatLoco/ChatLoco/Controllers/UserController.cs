@@ -51,8 +51,14 @@ namespace ChatLoco.Controllers
         [HttpPost]
         public ActionResult Logout(LogoutRequestModel request)
         {
+            var response = new LogoutResponseModel();
 
-            return View();
+            if(!UserService.Logout(request.User.Id))
+            {
+                response.AddError("Could not logout user.");
+            }
+
+            return Json(response);
         }
 
         [HttpGet]

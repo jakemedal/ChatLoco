@@ -6,7 +6,7 @@ _findChatroomForm.on("submit", FindChatroom)
 function FindChatroom(e) {
     e.preventDefault();
 
-    ShowLoading();
+    notifications.ShowLoading();
 
     var $form = this;
 
@@ -24,7 +24,7 @@ function FindChatroom(e) {
         ChatroomId: $chatroomId,
         ChatroomName: $chatroomName,
         UserHandle: $userHandle,
-        User: GetUser()
+        User: account.GetUser()
     }
 
     $.ajax({
@@ -33,16 +33,16 @@ function FindChatroom(e) {
         data: $model,
         success: function (response) {
 
-            if (DisplayErrors(response.Errors)) {
+            if (error.DisplayErrors(response)) {
                 return;
             }
             else {
-                GetUser().UserHandle = $userHandle;
+                account.GetUser().UserHandle = $userHandle;
                 $("#content-container").html("").append(response.Data);
                 _chatroom = new Chatroom();
             }
 
-            HideLoading();
+            notifications.HideLoading();
         },
         error: function (data) {
             document.write(data.responseText);

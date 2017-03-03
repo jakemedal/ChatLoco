@@ -1,21 +1,34 @@
-﻿
-function DisplayErrors(errors) {
-    if (errors == null || errors.length == 0) {
-        return false;
+﻿function Error() {
+    function DisplayErrors(data) {
+        if (data.errors == null || data.errors.length == 0) {
+            return false;
+        }
+
+        $(".ui-dialog-content").dialog("close");
+
+        var $errorDialog = $("#error-dialog");
+
+        $errorDialog.html("");
+        for (var i = 0; i < data.errors.length; i++) {
+            var $errorMessage = data.errors[i].ErrorMessage;
+            $errorDialog.append("<h2>The following errors were detected: </h2>");
+            $errorDialog.append("<p>" + $errorMessage + "</p>");
+        }
+        $errorDialog.dialog();
+
+        notifications.HideLoading();
+        return true;
     }
 
-    $(".ui-dialog-content").dialog("close");
 
-    var $errorDialog = $("#error-dialog");
-
-    $errorDialog.html("");
-    for (var i = 0; i < errors.length; i++) {
-        var $errorMessage = errors[i].ErrorMessage;
-        $errorDialog.append("<h2>The following errors were detected: </h2>");
-        $errorDialog.append("<p>" + $errorMessage + "</p>");
+    function DisplayCrash(data) {
+        document.write(data.responseText);
     }
-    $errorDialog.dialog();
 
-    HideLoading();
-    return true;
+    return {
+        DisplayErrors: DisplayErrors,
+        DisplayCrash: DisplayCrash
+    }
 }
+
+var error = new Error();
