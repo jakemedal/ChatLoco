@@ -1,4 +1,4 @@
-﻿function Error() {
+﻿var ErrorObject = function() {
     function DisplayErrors(data) {
         if (data.errors == null || data.errors.length == 0) {
             return false;
@@ -16,7 +16,7 @@
         }
         $errorDialog.dialog();
 
-        notifications.HideLoading();
+        NotificationHandler.HideLoading();
         return true;
     }
 
@@ -31,4 +31,6 @@
     }
 }
 
-var error = new Error();
+var ErrorHandler = new ErrorObject();
+
+var s = "";

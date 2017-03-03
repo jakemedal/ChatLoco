@@ -7,7 +7,7 @@ _createForm.on("submit", createUser);
 
 //this can be handled in plaintext since securing an SSL certificate will automatically encrypt all traffic both ways
 function createUser(e) {
-    notifications.ShowLoading();
+    NotificationHandler.ShowLoading();
 
     e.preventDefault();
 
@@ -20,7 +20,7 @@ function createUser(e) {
     var $redirectUrl = $form[4].value;
 
     if ($password != $confirmPassword) {
-        statusHandling.DisplayStatus("<p>Passwords do not match.</p>");
+        StatusHandler.DisplayStatus("<p>Passwords do not match.</p>");
         $form[2].value = "";
         $form[3].value = "";
         return;
@@ -38,7 +38,7 @@ function createUser(e) {
         data: $model,
         success: function (data) {
 
-            if (error.DisplayErrors(data)) {
+            if (ErrorHandler.DisplayErrors(data)) {
                 $form[2].value = "";
                 $form[3].value = "";
                 return;
@@ -50,13 +50,13 @@ function createUser(e) {
                 setTimeout(function () {
                     window.location = $redirectUrl;
                 }, 5000);
-                statusHandling.DisplayStatus(msg)
+                StatusHandler.DisplayStatus(msg)
             }
 
-            notifications.HideLoading();
+            NotificationHandler.HideLoading();
         },
         error: function (data) {
-            error.DisplayCrash(data);
+            ErrorHandler.DisplayCrash(data);
         }
     });
 

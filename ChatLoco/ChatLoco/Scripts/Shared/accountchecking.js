@@ -1,4 +1,4 @@
-﻿function Account() {
+﻿var AccountObject = function() {
 
     var _currentUser = null;
     var _loginDialog = $("#login-dialog");
@@ -14,7 +14,7 @@
     $("#logout-link").on("click", Logout);
 
     function ShowDimBehindDialog() {
-        notifications.ShowDim('100', 'black', '0.7');
+        NotificationHandler.ShowDim('100', 'black', '0.7');
     }
 
     function Logout(e) {
@@ -29,7 +29,7 @@
             url: '/User/Logout',
             data: $model,
             success: function (data) {
-                if (error.DisplayErrors(data)) {
+                if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
                 _currentUser = null;
@@ -43,16 +43,16 @@
                         findChatroom.init();
                     },
                     error: function(data){
-                        error.DisplayCrash(data);
+                        ErrorHandler.DisplayCrash(data);
                     }
                 });
 
-                statusHandling.DisplayStatus("<p>Logged out successfully.</p>");
+                StatusHandler.DisplayStatus("<p>Logged out successfully.</p>");
                 ShowDimBehindDialog();
                 _accountNavbar.hide();
             },
             error: function (data) {
-                error.DisplayCrash(data);
+                ErrorHandler.DisplayCrash(data);
             }
         });
 
@@ -83,7 +83,7 @@
         }
 
         if (_loginFormData == null) {
-            notifications.ShowLoading();
+            NotificationHandler.ShowLoading();
             $.ajax({
                 type: "GET",
                 url: '/User/GetLoginForm',
@@ -96,7 +96,7 @@
 
                     _loginForm.on("submit", login);
 
-                    notifications.HideLoading();
+                    NotificationHandler.HideLoading();
                     OpenLoginDialog();
                 }
             });
@@ -130,7 +130,7 @@
     function login(e) {
         e.preventDefault();
 
-        notifications.ShowLoading();
+        NotificationHandler.ShowLoading();
 
         var $form = this;
 
@@ -147,7 +147,7 @@
             url: '/User/Login',
             data: $model,
             success: function (data) {
-                if (error.DisplayErrors(data)) {
+                if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
 
@@ -160,16 +160,16 @@
                         var $errorMessage = data.LoginErrors[j].ErrorMessage;
                         $loginErrorsContainer.append("<p>" + $errorMessage + "</p>");
                     }
-                    notifications.HideLoading();
+                    NotificationHandler.HideLoading();
                     ShowDimBehindDialog();
                 }
                 else {
                     CloseLoginDialog();
-                    statusHandling.DisplayStatus("<p>Logged in successfully.</p>");
+                    StatusHandler.DisplayStatus("<p>Logged in successfully.</p>");
                     UpdateCurrentUser(data.User);
                     _accountNavbar.show();
                     $("#username-header").html("").append(GetUser().Username);
-                    notifications.HideLoading();
+                    NotificationHandler.HideLoading();
                 }
 
             },
@@ -185,4 +185,4 @@
     }
 }
 
-var account = new Account();
+var AccountHandler = new AccountObject();

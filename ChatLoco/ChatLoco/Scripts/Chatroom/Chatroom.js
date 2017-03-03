@@ -43,7 +43,7 @@ var Chatroom = function () {
             return;
         }
 
-        _PrivateChatroomRequestForm.elements.userHandle.value = account.GetUser().UserHandle;
+        _PrivateChatroomRequestForm.elements.userHandle.value = AccountHandler.GetUser().UserHandle;
         _PrivateChatroomRequestForm.elements.newChatroomId.value = $newChatroomId;
 
         var $buttons = [{
@@ -74,7 +74,7 @@ var Chatroom = function () {
     }
 
     function OpenChat($newChatroomId, $userHandle) {
-        notifications.ShowLoading();
+        NotificationHandler.ShowLoading();
 
         var $model = {
             UserId: _UserId,
@@ -91,7 +91,7 @@ var Chatroom = function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                if (error.DisplayErrors(data)) {
+                if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
 
@@ -103,7 +103,7 @@ var Chatroom = function () {
 
                 _MessagesContainer.html("");
 
-                account.GetUser().UserHandle = data.UserHandle;
+                AccountHandler.GetUser().UserHandle = data.UserHandle;
 
                 _UserHandleContainer.html(data.UserHandle);
 
@@ -119,7 +119,7 @@ var Chatroom = function () {
                 GetChatroomInformation();
                 GetNewMessages();
 
-                notifications.HideLoading();
+                NotificationHandler.HideLoading();
             },
             error: function (e) { }
         });
@@ -140,7 +140,7 @@ var Chatroom = function () {
             dataType: "json",
             success: function (data) {
 
-                if (error.DisplayErrors(data)) {
+                if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
 
@@ -170,7 +170,7 @@ var Chatroom = function () {
     function CreateSubChatroom(e) {
         e.preventDefault();
 
-        notifications.ShowLoading();
+        NotificationHandler.ShowLoading();
 
         var $form = this;
 
@@ -188,7 +188,7 @@ var Chatroom = function () {
             data: $model,
             success: function (data) {
 
-                if (error.DisplayErrors(data)) {
+                if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
 
@@ -211,7 +211,7 @@ var Chatroom = function () {
 
                 $form[0].value = "";
 
-                notifications.HideLoading();
+                NotificationHandler.HideLoading();
             },
             error: function () { }
         });
@@ -237,7 +237,7 @@ var Chatroom = function () {
             data: $model,
             success: function (data) {
 
-                if (error.DisplayErrors(data)) {
+                if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
 

@@ -1,51 +1,60 @@
 ﻿
-function initMap() {
+function MapObject() {
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        alert("Geolocation is not supported by this browser.");
-    }
+    var initMap = function () {
 
-    function showPosition(position) {
-        var lat = position.coords.latitude;
-        var lon = position.coords.longitude
-        $("#lat").val(lat);
-        $("#lon").val(lon);
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
 
-        getNearbyPlaces(lat, lon);
-    }
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude
+            $("#lat").val(lat);
+            $("#lon").val(lon);
 
-    function getNearbyPlaces(lat, lon) {
-        var loc = { lat: lat, lng: lon };
+            getNearbyPlaces(lat, lon);
+        }
 
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: loc,
-            zoom: 19
-        });
+        function getNearbyPlaces(lat, lon) {
+            var loc = { lat: lat, lng: lon };
 
-        var request = {
-            location: loc,
-            radius: '100',
-        };
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: loc,
+                zoom: 19
+            });
 
-        service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(request, callback);
+            var request = {
+                location: loc,
+                radius: '100',
+            };
 
-        function callback(results, status) {
-            console.log(results);
+            service = new google.maps.places.PlacesService(map);
+            service.nearbySearch(request, callback);
 
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-                for (i = 0; i < results.length; i++) {
-                    marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(results[i].geometry.location.lat(), results[i].geometry.location.lng()),
-                        map: map,
-                        animation: google.maps.Animation.DROP,
-                        title: 'Chatroom: ' + results[i].name
-                    });
+            function callback(results, status) {
+                console.log(results);
+
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                    for (i = 0; i < results.length; i++) {
+                        marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(results[i].geometry.location.lat(), results[i].geometry.location.lng()),
+                            map: map,
+                            animation: google.maps.Animation.DROP,
+                            title: 'Chatroom: ' + results[i].name
+                        });
+                    }
                 }
             }
         }
+
     }
 
+    return {
+        initMap: initMap
+    }
 }
+
+var MapHandler = new MapObject();

@@ -1,4 +1,4 @@
-﻿function Notifications() {
+﻿var NotificationObject = function() {
     var _loadingContainer = $("#loading-container");
     var _dimContainer = $("#dim-container");
 
@@ -62,4 +62,4 @@
     }
 }
 
-var notifications = new Notifications();
+var NotificationHandler = new NotificationObject();
