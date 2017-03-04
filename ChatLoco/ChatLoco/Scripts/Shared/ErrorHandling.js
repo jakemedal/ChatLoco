@@ -1,6 +1,6 @@
 ﻿var ErrorObject = function() {
     function DisplayErrors(data) {
-        if (data.errors == null || data.errors.length == 0) {
+        if (data.Errors == null || data.Errors.length == 0) {
             return false;
         }
 
@@ -9,8 +9,8 @@
         var $errorDialog = $("#error-dialog");
 
         $errorDialog.html("");
-        for (var i = 0; i < data.errors.length; i++) {
-            var $errorMessage = data.errors[i].ErrorMessage;
+        for (var i = 0; i < data.Errors.length; i++) {
+            var $errorMessage = data.Errors[i].ErrorMessage;
             $errorDialog.append("<h2>The following errors were detected: </h2>");
             $errorDialog.append("<p>" + $errorMessage + "</p>");
         }

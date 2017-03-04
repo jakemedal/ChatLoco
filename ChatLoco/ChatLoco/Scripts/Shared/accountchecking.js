@@ -20,8 +20,18 @@
     function Logout(e) {
         e.preventDefault();
 
+        var $parentChatroomId = -1;
+        var $chatroomId = -1;
+
+        if (ChatroomHandler) {
+            $parentChatroomId = ChatroomHandler.GetParentChatroomId;
+            $chatroomId = ChatroomHandler.GetChatroomId;
+        }
+
         var $model = {
-            User: GetUser()
+            User: GetUser(),
+            ParentChatroomId: $parentChatroomId,
+            ChatroomId: $chatroomId
         };
 
         $.ajax({

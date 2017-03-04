@@ -12,6 +12,7 @@ using ChatLoco.Services.Message_Service;
 using AutoMapper;
 using ChatLoco.Entities.UserDTO;
 using System.IO;
+using ChatLoco.Services.Security_Service;
 
 namespace ChatLoco.Controllers
 {
@@ -49,16 +50,16 @@ namespace ChatLoco.Controllers
             {
                 ChatroomService.CreateChatroom(chatroomId, chatroomName);
             }
-                
-            UserDTO user = UserService.GetUser(request.User.Id);
-            if (user == null)
-            {
-                response.AddError("Could not find user.");
-            }
 
-            if (!ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, user.Id, request.UserHandle))
+            var joinErrors = SecurityService.CanUserJoinChatroom(chatroomId, parentChatroomId, request.User.Id, request.UserHandle);
+            response.Errors.AddRange(joinErrors);
+
+            if(joinErrors.Count == 0)
             {
-                response.AddError("Invalid user or chatroom provided.");
+                if (!ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, request.User.Id, request.UserHandle))
+                {
+                    response.AddError("Error adding user into chatroom.");
+                }
             }
 
             var chatroomModel = new ChatroomModel()
@@ -67,7 +68,7 @@ namespace ChatLoco.Controllers
                 ChatroomName = chatroomName,
                 ParentChatroomId = parentChatroomId,
                 UserHandle = request.UserHandle,
-                UserId = user.Id
+                UserId = request.User.Id
             };
 
             //response.Data = PartialView("~/Views/Chatroom/_Chat.cshtml", chatroomModel);
@@ -123,7 +124,10 @@ namespace ChatLoco.Controllers
 
             JoinChatroomResponseModel response = new JoinChatroomResponseModel();
 
-            if (ChatroomService.CanUserJoinChatroom(chatroomId, parentChatroomId, userId))
+            var joinErrors = SecurityService.CanUserJoinChatroom(chatroomId, parentChatroomId, userId, userHandle);
+            response.Errors.AddRange(joinErrors);
+
+            if (joinErrors.Count == 0)
             {
                 ChatroomService.RemoveUserFromChatroom(request.CurrentChatroomId, parentChatroomId, userId);
                 ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, userId, userHandle);
@@ -131,10 +135,7 @@ namespace ChatLoco.Controllers
                 response.Id = chatroomId;
                 response.UserHandle = userHandle;
             }
-            else
-            {
-                response.AddError("Cannot access room.");
-            }
+
             return Json(response);
         }
         

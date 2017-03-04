@@ -236,6 +236,7 @@
     <Compile Include="Services\Chatroom_Service\MessageSend.cs" />
     <Compile Include="Services\Mapping_Service\MappingService.cs" />
     <Compile Include="Services\Message_Service\MessageService.cs" />
+    <Compile Include="Services\Security_Service\SecurityService.cs" />
     <Compile Include="Services\User_Service\UserService.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Base_Model\BaseModel.cs" />

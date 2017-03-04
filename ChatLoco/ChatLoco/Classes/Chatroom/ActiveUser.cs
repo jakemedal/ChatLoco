@@ -15,16 +15,18 @@ namespace ChatLoco.Classes.Chatroom
         //this list belongs to the chatroom that the user is in
         //we need it so we can remove ourself from the list if necessary
         private Dictionary<int, ActiveUser> BelongsToUsersList;
+        private HashSet<string> BelongsToHandlesList;
 
         Timer IdleTimer;
 
-        public ActiveUser(UserDTO user, string userHandle, bool isActive, Dictionary<int, ActiveUser> usersList)
+        public ActiveUser(UserDTO user, string userHandle, bool isActive, Dictionary<int, ActiveUser> usersList, HashSet<string>handlesList)
         {
             Id = user.Id;
             UserName = user.Username;
             IsActive = isActive;
             BelongsToUsersList = usersList;
             UserHandle = userHandle;
+            BelongsToHandlesList = handlesList;
 
             //create a timer that calls the IdleCheck method every 11 seconds
             IdleTimer = new Timer();
@@ -40,6 +42,10 @@ namespace ChatLoco.Classes.Chatroom
             IdleTimer.Enabled = false;
             IdleTimer.Stop();
             IdleTimer.Dispose();
+
+            BelongsToHandlesList.Remove(UserHandle);
+            BelongsToHandlesList = null;
+
             BelongsToUsersList.Remove(Id);
             BelongsToUsersList = null;
         }

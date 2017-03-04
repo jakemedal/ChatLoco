@@ -9,5 +9,7 @@ namespace ChatLoco.Models.User_Model
     public class LogoutRequestModel : RequestModel
     {
         public int UserId { get; set; }
+        public int ChatroomId { get; set; }
+        public int ParentChatroomId { get; set; }
     }
 }

@@ -1,37 +1,74 @@
 ﻿
-var Chatroom = function () {
+var ChatroomObject = function () {
 
     var _AllMessages = [];
     var _AllMessagesIds = [];
 
-    var _MessagesContainer = $("#MessagesContainer");
-    var _UsersContainer = $("#UsersContainer");
-    var _SubChatroomsList = $("#SubChatroomsList");
+    var _MessagesContainer = null;
+    var _UsersContainer = null;
+    var _SubChatroomsList = null;
 
-    var _ChatroomName = $("#ChatroomName")[0].value;
-    var _ChatroomId = $("#ChatroomId")[0].value;
-    var _UserHandle = $("#UserHandle")[0].value;
-    var _UserId = $("#UserId")[0].value;
-    var _ParentChatroomId = $("#ParentChatroomId")[0].value;
-    var _PrivateChatroomRequestForm = $("#private-chatroom-request-form")[0];
-    var _UserHandleContainer = $("#user-handle-container");
+    var _ChatroomName = null;
+    var _ChatroomId = null;
+    var _UserHandle = null;
+    var _UserId = null;
+    var _ParentChatroomId = null;
+    var _PrivateChatroomRequestForm = null;
+    var _UserHandleContainer = null;
 
-    var _ParentChatroomButton = $("#ParentChatroomButton");
-    var _CreateSubChatroomsContainer = $("#CreateSubChatroomContainer");
+    var _ParentChatroomButton = null;
+    var _CreateSubChatroomsContainer = null;
 
-    var _PrivateChatroomRequestDialog = $("#private-chatroom-dialog");
+    var _PrivateChatroomRequestDialog = null;
 
-    GetNewMessages();
-    setInterval(GetNewMessages, 1000);
+    var _GetNewMessagesInterval = null;
+    var _GetChatroomInformationInterval = null;
 
-    GetChatroomInformation();
-    setInterval(GetChatroomInformation, 5000);
+    var Destroy = function () {
+        if (_GetChatroomInformationInterval != null) {
+            clearInterval(_GetChatroomInformationInterval);
+        }
 
-    $("#ComposeForm").on("submit", SendComposedMessage);
-    $("#CreateSubChatroomForm").on("submit", CreateSubChatroom);
-    $("#ParentChatroomButton").on("click", ChatroomClicked);
-    $("#SubChatroomsList").on("click", ChatroomClicked);
-    $("#private-chatroom-request-form").on("submit", ChatroomRequestFormSubmit);
+        if (_GetNewMessagesInterval != null) {
+            clearInterval(_GetNewMessagesInterval);
+        }
+    }
+
+    var init = function () {
+        Destroy();
+
+        _AllMessages = [];
+        _AllMessagesIds = [];
+
+        _MessagesContainer = $("#MessagesContainer");
+        _UsersContainer = $("#UsersContainer");
+        _SubChatroomsList = $("#SubChatroomsList");
+
+        _ChatroomName = $("#ChatroomName")[0].value;
+        _ChatroomId = $("#ChatroomId")[0].value;
+        _UserHandle = $("#UserHandle")[0].value;
+        _UserId = $("#UserId")[0].value;
+        _ParentChatroomId = $("#ParentChatroomId")[0].value;
+        _PrivateChatroomRequestForm = $("#private-chatroom-request-form")[0];
+        _UserHandleContainer = $("#user-handle-container");
+
+        _ParentChatroomButton = $("#ParentChatroomButton");
+        _CreateSubChatroomsContainer = $("#CreateSubChatroomContainer");
+
+        _PrivateChatroomRequestDialog = $("#private-chatroom-dialog");
+
+        GetNewMessages();
+        _GetNewMessagesInterval = setInterval(GetNewMessages, 1000);
+
+        GetChatroomInformation();
+        _GetChatroomInformationInterval = setInterval(GetChatroomInformation, 5000);
+
+        $("#ComposeForm").on("submit", SendComposedMessage);
+        $("#CreateSubChatroomForm").on("submit", CreateSubChatroom);
+        $("#ParentChatroomButton").on("click", ChatroomClicked);
+        $("#SubChatroomsList").on("click", ChatroomClicked);
+        $("#private-chatroom-request-form").on("submit", ChatroomRequestFormSubmit);
+    }
 
     function ChatroomClicked(e) {
         e.preventDefault();
@@ -249,6 +286,14 @@ var Chatroom = function () {
 
     }
 
+    function GetChatroomId() {
+        return _ChatroomId;
+    }
+
+    function GetParentChatroomId() {
+        return _ParentChatroomId;
+    }
+
     function GetNewMessages() {
         var $model = {
             ChatroomId: _ChatroomId,
@@ -280,4 +325,13 @@ var Chatroom = function () {
             }
         });
     }
+
+    return {
+        init: init,
+        Destroy: Destroy,
+        GetChatroomId: GetChatroomId,
+        GetParentChatroomId: GetParentChatroomId
+    }
 }
+
+var ChatroomHandler = new ChatroomObject();

@@ -66,13 +66,6 @@ namespace ChatLoco.Services.Chatroom_Service
             }
         }
 
-        public static bool CanUserJoinChatroom(int chatroomId, int parentId, int userId)
-        {
-            Chatroom c = GetChatroom(chatroomId, parentId);
-
-            return c == null ? false : c.CanUserJoinChatroom(userId);
-        }
-
         public static string GetChatroomName(int chatroomId, int parentId)
         {
             return GetChatroom(chatroomId, parentId).Name;
@@ -117,7 +110,7 @@ namespace ChatLoco.Services.Chatroom_Service
             }
         }
 
-        private static Chatroom GetChatroom(int parentChatroomId)
+        public static Chatroom GetChatroom(int parentChatroomId)
         {
             try
             {
@@ -129,7 +122,7 @@ namespace ChatLoco.Services.Chatroom_Service
             }
         }
 
-        private static Chatroom GetChatroom(int chatroomId, int parentId)
+        public static Chatroom GetChatroom(int chatroomId, int parentId)
         {
             try
             {

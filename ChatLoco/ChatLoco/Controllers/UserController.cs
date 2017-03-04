@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using AutoMapper;
+using ChatLoco.Services.Chatroom_Service;
 
 namespace ChatLoco.Controllers
 {
@@ -52,6 +53,14 @@ namespace ChatLoco.Controllers
         public ActionResult Logout(LogoutRequestModel request)
         {
             var response = new LogoutResponseModel();
+
+            if(request.ChatroomId != -1 && request.ParentChatroomId != -1)
+            {
+                if (!ChatroomService.RemoveUserFromChatroom(request.ChatroomId, request.ParentChatroomId, request.User.Id))
+                {
+                    response.AddError("Could not remove user from chatroom.");
+                }
+            }
 
             if(!UserService.Logout(request.User.Id))
             {

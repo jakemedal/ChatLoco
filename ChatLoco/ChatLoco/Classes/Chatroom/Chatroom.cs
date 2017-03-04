@@ -1,7 +1,6 @@
 ﻿using ChatLoco.Entities.MessageDTO;
 using ChatLoco.Entities.UserDTO;
 using ChatLoco.Models.Chatroom_Service;
-using ChatLoco.Services.User_Service;
 using System;
 using System.Collections.Generic;
 
@@ -13,6 +12,7 @@ namespace ChatLoco.Classes.Chatroom
 
         private Dictionary<int, string> FormattedMessagesCache = new Dictionary<int, string>();
         private List<int> FormattedMessageOrder = new List<int>();
+        private HashSet<string> UserHandles = new HashSet<string>();
 
         private Dictionary<int, ActiveUser> AllUsers = new Dictionary<int, ActiveUser>();
         public string Name { get; set; }
@@ -24,8 +24,6 @@ namespace ChatLoco.Classes.Chatroom
         {
             Name = name;
             Id = id;
-            //AddMessage(MessageService.CreateMessage(0, Id, "Test Message 1"));
-            //AddMessage(MessageService.CreateMessage(0, Id, "Test Message 2"));
         }
 
         public List<string> GetOrderedFormattedMessages()
@@ -88,8 +86,9 @@ namespace ChatLoco.Classes.Chatroom
         {
             try
             {
-                ActiveUser activeUser = new ActiveUser(user, userHandle, true, AllUsers);
+                ActiveUser activeUser = new ActiveUser(user, userHandle, true, AllUsers, UserHandles);
                 AllUsers.Add(user.Id, activeUser);
+                UserHandles.Add(userHandle);
                 return true;
             }
             catch (Exception e)
@@ -158,10 +157,9 @@ namespace ChatLoco.Classes.Chatroom
             }
         }
 
-        //TODO - Security features here, later on
-        public bool CanUserJoinChatroom(int userId)
+        public bool DoesHandleExist(string userHandle)
         {
-            return true;
+            return UserHandles.Contains(userHandle);
         }
 
         public List<MessageInformationModel> GetNewMessagesInformation(List<int> currentMessagesIds)
@@ -214,7 +212,7 @@ namespace ChatLoco.Classes.Chatroom
         {
             try
             {
-                //we call the user's destroy method, it handles destruction of its internal lists and removal from this list
+                //we call the user's destroy method, it handles destruction of its internal lists, removal from this users list, and removal from userhandles list
                 AllUsers[id].Destroy();
                 return true;
             }
