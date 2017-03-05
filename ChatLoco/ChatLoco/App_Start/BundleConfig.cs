@@ -47,7 +47,7 @@ namespace ChatLoco
                       "~/Scripts/bootstrap/bootstrap.js",
                       "~/Scripts/bootstrap/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/css/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
