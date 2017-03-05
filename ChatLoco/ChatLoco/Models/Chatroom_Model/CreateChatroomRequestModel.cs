@@ -11,6 +11,8 @@ namespace ChatLoco.Models.Chatroom_Model
     {
         public string ChatroomName { get; set; }
         public int ParentChatroomId { get; set; }
-        public int UserId { get; set; }
+        public string Blacklist { get; set; }
+        public string Password { get; set; }
+        public int? Capacity { get; set; }
     }
 }

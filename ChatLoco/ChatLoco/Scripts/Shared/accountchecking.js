@@ -24,8 +24,8 @@
         var $chatroomId = -1;
 
         if (ChatroomHandler) {
-            $parentChatroomId = ChatroomHandler.GetParentChatroomId;
-            $chatroomId = ChatroomHandler.GetChatroomId;
+            $parentChatroomId = ChatroomHandler.GetParentChatroomId();
+            $chatroomId = ChatroomHandler.GetChatroomId();
         }
 
         var $model = {

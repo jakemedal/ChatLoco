@@ -17,12 +17,15 @@ var ChatroomObject = function () {
     var _UserHandleContainer = null;
 
     var _ParentChatroomButton = null;
-    var _CreateSubChatroomsContainer = null;
 
     var _PrivateChatroomRequestDialog = null;
 
     var _GetNewMessagesInterval = null;
     var _GetChatroomInformationInterval = null;
+
+    var _CreatePrivateChatroomDialogButton = null;
+    var _CreatePrivateChatroomDialog = null;
+    var _CreatePrivateChatroomForm = null;
 
     var Destroy = function () {
         if (_GetChatroomInformationInterval != null) {
@@ -40,6 +43,12 @@ var ChatroomObject = function () {
         _AllMessages = [];
         _AllMessagesIds = [];
 
+        _CreatePrivateChatroomDialogButton = $("#create-private-chatroom-dialog-button");
+        _CreatePrivateChatroomDialogButton.on("click", OpenCreatePrivateChatroomDialog);
+
+        _CreatePrivateChatroomDialog = $("#create-private-chatroom-dialog");
+        _CreatePrivateChatroomForm = $("#create-private-chatroom-form");
+
         _MessagesContainer = $("#MessagesContainer");
         _UsersContainer = $("#UsersContainer");
         _SubChatroomsList = $("#SubChatroomsList");
@@ -53,7 +62,6 @@ var ChatroomObject = function () {
         _UserHandleContainer = $("#user-handle-container");
 
         _ParentChatroomButton = $("#ParentChatroomButton");
-        _CreateSubChatroomsContainer = $("#CreateSubChatroomContainer");
 
         _PrivateChatroomRequestDialog = $("#private-chatroom-dialog");
 
@@ -64,10 +72,24 @@ var ChatroomObject = function () {
         _GetChatroomInformationInterval = setInterval(GetChatroomInformation, 5000);
 
         $("#ComposeForm").on("submit", SendComposedMessage);
-        $("#CreateSubChatroomForm").on("submit", CreateSubChatroom);
         $("#ParentChatroomButton").on("click", ChatroomClicked);
         $("#SubChatroomsList").on("click", ChatroomClicked);
         $("#private-chatroom-request-form").on("submit", ChatroomRequestFormSubmit);
+    }
+
+    function OpenCreatePrivateChatroomDialog(e) {
+        e.preventDefault();
+
+        var $buttons = [{
+            text: "Create",
+            click: CreatePrivateChatroom
+        }];
+
+        _CreatePrivateChatroomDialog.dialog({
+            title: "Create Private Chatroom",
+            modal: true,
+            buttons: $buttons
+        });
     }
 
     function ChatroomClicked(e) {
@@ -146,11 +168,9 @@ var ChatroomObject = function () {
 
                 if (_ChatroomId == _ParentChatroomId) {
                     _ParentChatroomButton.removeClass("btn btn-primary").addClass("btn btn-primary");
-                    _CreateSubChatroomsContainer.show();
                 }
                 else {
                     _ParentChatroomButton.removeClass("btn btn-primary").addClass("btn btn-secondary");
-                    _CreateSubChatroomsContainer.hide();
                 }
 
                 GetChatroomInformation();
@@ -204,20 +224,38 @@ var ChatroomObject = function () {
         });
     }
 
-    function CreateSubChatroom(e) {
+    function ClearCreatePrivateChatroomForm() {
+
+        var $form = _CreatePrivateChatroomForm[0];
+
+        $form.elements.name.value = "";
+        $form.elements.password.value = "";
+        $form.elements.blacklist.value = "";
+        $form.elements.capacity.value = "";
+    }
+
+    function CreatePrivateChatroom(e) {
         e.preventDefault();
 
         NotificationHandler.ShowLoading();
 
-        var $form = this;
+        var $form = _CreatePrivateChatroomForm[0];
 
-        var $subChatroomName = $form[0].value;
+        var $ChatroomName = $form.elements.name.value;
+        var $Password = $form.elements.password.value;
+        var $Blacklist = $form.elements.blacklist.value;
+        var $Capacity = $form.elements.capacity.value;
 
         var $model = {
-            ChatroomName: $subChatroomName,
-            UserId: _UserId,
-            ParentChatroomId: _ParentChatroomId
+            ChatroomName: $ChatroomName,
+            ParentChatroomId: _ParentChatroomId,
+            Password: $Password,
+            Blacklist: $Blacklist,
+            Capacity: $Capacity,
+            User: AccountHandler.GetUser()
         };
+
+        _CreatePrivateChatroomDialog.dialog("close");
 
         $.ajax({
             type: "POST",
@@ -228,25 +266,12 @@ var ChatroomObject = function () {
                 if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
-
-                var $responseMessage = "";
-
-                $responseMessage = "<p>Chatroom " + data.ChatroomName + " created successfully.</p>";
-                GetChatroomInformation();
-
-                var $subChatroomDialog = $('#SubChatroomDialog');
-
-                $subChatroomDialog.html("").append($responseMessage);
-                $subChatroomDialog.dialog({
-                    modal: true,
-                    buttons: {
-                        Ok: function () {
-                            $(this).dialog("close");
-                        }
-                    }
-                });
-
-                $form[0].value = "";
+                else {
+                    var $responseMessage = "<p>Chatroom " + data.ChatroomName + " created successfully.</p>";
+                    StatusHandler.DisplayStatus($responseMessage);
+                    GetChatroomInformation();
+                    ClearCreatePrivateChatroomForm();
+                }
 
                 NotificationHandler.HideLoading();
             },
@@ -287,11 +312,21 @@ var ChatroomObject = function () {
     }
 
     function GetChatroomId() {
-        return _ChatroomId;
+        if (_ChatroomId) {
+            return _ChatroomId;
+        }
+        else {
+            return -1;
+        }
     }
 
     function GetParentChatroomId() {
-        return _ParentChatroomId;
+        if (_ParentChatroomId) {
+            return _ParentChatroomId;
+        }
+        else {
+            return -1;
+        }
     }
 
     function GetNewMessages() {

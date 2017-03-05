@@ -9,6 +9,9 @@ namespace ChatLoco.Classes.Chatroom
     public class Chatroom
     {
         public int Id { get; set; }
+        public string[] Blacklist { get; set; }
+        public string PasswordHash { get; set; }
+        public int? Capacity { get; set; }
 
         private Dictionary<int, string> FormattedMessagesCache = new Dictionary<int, string>();
         private List<int> FormattedMessageOrder = new List<int>();
@@ -55,11 +58,23 @@ namespace ChatLoco.Classes.Chatroom
             }
         }
 
-        public bool CreatePrivateChatroom(int chatroomId, string chatroomName)
+        public bool DoesPrivateChatroomExist(int chatroomId)
+        {
+            return AllSubChatrooms.ContainsKey(chatroomId);
+        }
+
+        public bool CreatePrivateChatroom(PrivateChatroomOptions options)
         {
             try
             {
-                Chatroom c = new Chatroom(chatroomId, chatroomName);
+                Chatroom c = new Chatroom(options.Id, options.Name);
+                c.PasswordHash = options.PasswordHash;
+                if(options.Blacklist != null)
+                {
+                    c.Blacklist = options.Blacklist.Split(',');
+                }
+                c.Capacity = options.Capacity;
+
                 AllSubChatrooms.Add(c.Id, c);
                 return true;
             }

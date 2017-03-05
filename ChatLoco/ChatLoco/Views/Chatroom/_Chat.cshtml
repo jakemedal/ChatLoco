@@ -18,16 +18,21 @@
             </div>
         </div>
 
-        <div id="CreateSubChatroomContainer">
-            <form id="CreateSubChatroomForm">
-                Create Chatroom : <input type="text" name="SubChatroomName" />
-                <input type="submit" />
-            </form>
+        <br />
 
-            @* This hidden container is the pop up dialog used when creating a chatroom *@
-            <div hidden id="SubChatroomDialog" title="Chatroom Creation Information">
-                @* This is filled in by JS *@
-            </div>
+        <button id="create-private-chatroom-dialog-button" type="button" class="btn btn-default"> + </button>
+
+        <div id="create-private-chatroom-dialog" hidden>
+            <span id="create-private-chatroom-response"></span>
+            <form id="create-private-chatroom-form">
+                Create Chatroom : <input type="text" name="name" />
+                <br />
+                Password (optional) : <input type="password" name="password" />
+                <br />
+                Blacklist Accounts (optional) : <input type="text" name="blacklist" />
+                <br />
+                Capacity (optional) : <input type="number" name="capacity" />
+            </form>
         </div>
 
     </div>

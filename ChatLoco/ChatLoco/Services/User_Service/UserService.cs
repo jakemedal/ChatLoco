@@ -3,6 +3,7 @@ using ChatLoco.DAL;
 using ChatLoco.Entities.UserDTO;
 using ChatLoco.Models.Error_Model;
 using ChatLoco.Models.User_Model;
+using ChatLoco.Services.Security_Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,20 +14,6 @@ namespace ChatLoco.Services.User_Service
     public static class UserService
     {
         public static Dictionary<int, UserDTO> UsersCache = new Dictionary<int, UserDTO>();
-
-        //Found at http://stackoverflow.com/questions/3984138/hash-string-in-c-sharp
-        internal static string GetStringSha256Hash(string text)
-        {
-            if (String.IsNullOrEmpty(text))
-                return String.Empty;
-
-            using (var sha = new System.Security.Cryptography.SHA256Managed())
-            {
-                byte[] textData = System.Text.Encoding.UTF8.GetBytes(text);
-                byte[] hash = sha.ComputeHash(textData);
-                return BitConverter.ToString(hash).Replace("-", String.Empty);
-            }
-        }
 
         public static List<ErrorModel> CreateUser(string username, string email, string password)
         {
@@ -44,7 +31,7 @@ namespace ChatLoco.Services.User_Service
                 return errors;
             }
 
-            string passwordHash = GetStringSha256Hash(password);
+            string passwordHash = SecurityService.GetStringSha256Hash(password);
 
             UserDTO user = new UserDTO()
             {
@@ -77,7 +64,7 @@ namespace ChatLoco.Services.User_Service
         public static LoginResponseModel GetLoginResponseModel(LoginRequestModel request)
         {
             var response = new LoginResponseModel();
-            string passwordHash = GetStringSha256Hash(request.Password);
+            string passwordHash = SecurityService.GetStringSha256Hash(request.Password);
 
             var user = GetUser(request.Username);
             if (user == null)

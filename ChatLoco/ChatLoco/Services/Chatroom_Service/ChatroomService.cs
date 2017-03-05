@@ -3,9 +3,11 @@
 using ChatLoco.Classes.Chatroom;
 using ChatLoco.DAL;
 using ChatLoco.Entities.MessageDTO;
+using ChatLoco.Models.Chatroom_Model;
 using ChatLoco.Models.Chatroom_Service;
 using ChatLoco.Models.Error_Model;
 using ChatLoco.Services.Message_Service;
+using ChatLoco.Services.Security_Service;
 using ChatLoco.Services.User_Service;
 using System;
 using System.Collections.Generic;
@@ -163,16 +165,36 @@ namespace ChatLoco.Services.Chatroom_Service
             return messageSend;
         }
 
-        public static bool CreatePrivateChatroom(int parentChatroomId, int chatroomId, string chatroomName)
+        public static List<ErrorModel> CreatePrivateChatroom(CreateChatroomRequestModel request)
         {
-            try
+            var errors = new List<ErrorModel>();
+
+            var chatroom = GetChatroom(request.ParentChatroomId);
+
+            int privateChatroomId = request.ChatroomName.GetHashCode();
+
+            if (chatroom.DoesPrivateChatroomExist(privateChatroomId))
             {
-                return GetChatroom(parentChatroomId).CreatePrivateChatroom(chatroomId, chatroomName); ;
+                errors.Add(new ErrorModel("A private chatroom with this name already exists."));
             }
-            catch(Exception e)
+            else
             {
-                return false;
+                var options = new PrivateChatroomOptions()
+                {
+                    Id = privateChatroomId,
+                    Blacklist = request.Blacklist,
+                    PasswordHash = SecurityService.GetStringSha256Hash(request.Password),
+                    Capacity = request.Capacity,
+                    Name = request.ChatroomName
+                };
+
+                if (!chatroom.CreatePrivateChatroom(options))
+                {
+                    errors.Add(new ErrorModel("Could not create private chatroom."));
+                }
             }
+
+            return errors;
         }
 
     }

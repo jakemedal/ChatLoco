@@ -142,22 +142,18 @@ namespace ChatLoco.Controllers
         [HttpPost]
         public ActionResult CreateChatroom(CreateChatroomRequestModel request)
         {
-            //CreateChatroomResponseModel response = Mapper.Map<CreateChatroomRequestModel, CreateChatroomResponseModel>(request);
-
             var response = new CreateChatroomResponseModel()
             {
                 ChatroomName = request.ChatroomName,
                 ParentChatroomId = request.ParentChatroomId,
-                UserId = request.UserId
+                UserId = request.User.Id
             };
 
             response.ChatroomId = request.ChatroomName.GetHashCode(); //TODO temporary until DB is linked up
 
-            bool wasCreated = ChatroomService.CreatePrivateChatroom(request.ParentChatroomId, response.ChatroomId, request.ChatroomName);
-            if (!wasCreated)
-            {
-                response.AddError("Chatroom could not be created.");
-            }
+            var errors = ChatroomService.CreatePrivateChatroom(request);
+
+            response.Errors.AddRange(errors);
 
             return Json(response);
         }
