@@ -5,6 +5,30 @@
     background-size: cover;
 }
 
+.white{
+    color: white;
+}
+
+.black{
+    color: black;
+}
+
+.grey{
+    color: grey;
+}
+
+.red{
+    color: red;
+}
+
+.blue{
+    color: blue;
+}
+
+.green{
+    color: green;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
