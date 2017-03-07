@@ -8,41 +8,87 @@ namespace ChatLoco.Classes.Chatroom
 {
     public class Chatroom
     {
-        public int Id { get; set; }
-        public string[] Blacklist { get; set; }
-        public string PasswordHash { get; set; }
-        public int? Capacity { get; set; }
+        public int Id { get; }
+        private string[] Blacklist { get; set; }
+        private string PasswordHash { get; set; }
+        private int? Capacity { get; set; }
 
         private Dictionary<int, string> FormattedMessagesCache = new Dictionary<int, string>();
         private List<int> FormattedMessageOrder = new List<int>();
         private HashSet<string> UserHandles = new HashSet<string>();
 
         private Dictionary<int, ActiveUser> AllUsers = new Dictionary<int, ActiveUser>();
-        public string Name { get; set; }
+        public string Name { get; }
         private Dictionary<int, Chatroom> AllSubChatrooms = new Dictionary<int, Chatroom>(); 
-        public bool IsPrivate { get; set; }
-        public Chatroom Parent { get; set; }
-        
+        private bool IsPrivate { get; set; }
+        private Chatroom Parent { get; set; }
+
+        public bool IsOnBlacklist(string username)
+        {
+            if(Blacklist == null)
+            {
+                return false;
+            }
+
+            foreach(string s in Blacklist)
+            {
+                if (s.Equals(username))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool CheckPasswordHash(string passwordHash)
+        {
+            return PasswordHash.Equals(passwordHash);
+        }
+
+        public bool HasPassword {
+            get {
+                return (PasswordHash != null);
+            }
+        }
+
+        public bool IsAtCapacity
+        {
+            get
+            {
+                if (!Capacity.HasValue)
+                {
+                    return false;
+                }
+                else
+                {
+                    return (AllUsers.Count >= Capacity.Value);
+                }
+            }
+        }
+
         public Chatroom(int id, string name)
         {
             Name = name;
             Id = id;
         }
 
-        public List<string> GetOrderedFormattedMessages()
+        public List<string> OrderedFormattedMessages
         {
-            try
+            get
             {
-                List<string> orderedMessages = new List<string>();
-                foreach (int i in FormattedMessageOrder)
+                try
                 {
-                    orderedMessages.Add(FormattedMessagesCache[i]);
+                    List<string> orderedMessages = new List<string>();
+                    foreach (int i in FormattedMessageOrder)
+                    {
+                        orderedMessages.Add(FormattedMessagesCache[i]);
+                    }
+                    return orderedMessages;
                 }
-                return orderedMessages;
-            }
-            catch(Exception e)
-            {
-                return null;
+                catch (Exception e)
+                {
+                    return null;
+                }
             }
         }
 
@@ -112,37 +158,44 @@ namespace ChatLoco.Classes.Chatroom
             }
         }
         
-        public List<UserInformationModel> GetUsersInformation()
+        public List<UserInformationModel> UsersInformation
         {
-            List<UserInformationModel> usersInformation = new List<UserInformationModel>();
-
-            foreach(var a in AllUsers)
+            get
             {
-                UserInformationModel u = new UserInformationModel(){
-                    Id = a.Key,
-                    Username = a.Value.UserHandle
-                };
-                usersInformation.Add(u);
-            }
+                List<UserInformationModel> usersInformation = new List<UserInformationModel>();
 
-            return usersInformation;
+                foreach (var a in AllUsers)
+                {
+                    UserInformationModel u = new UserInformationModel()
+                    {
+                        Id = a.Key,
+                        Username = a.Value.UserHandle
+                    };
+                    usersInformation.Add(u);
+                }
+
+                return usersInformation;
+            }
         }
 
-        public List<JoinChatroomResponseModel> GetPrivateChatroomsInformation()
+        public List<JoinChatroomResponseModel> PrivateChatroomsInformation
         {
-            List<JoinChatroomResponseModel> chatroomsInformation = new List<JoinChatroomResponseModel>();
-
-            foreach (var privateChatroom in AllSubChatrooms)
+            get
             {
-                JoinChatroomResponseModel p = new JoinChatroomResponseModel()
-                {
-                    Id = privateChatroom.Key,
-                    Name = privateChatroom.Value.Name
-                };
-                chatroomsInformation.Add(p);
-            }
+                List<JoinChatroomResponseModel> chatroomsInformation = new List<JoinChatroomResponseModel>();
 
-            return chatroomsInformation;
+                foreach (var privateChatroom in AllSubChatrooms)
+                {
+                    JoinChatroomResponseModel p = new JoinChatroomResponseModel()
+                    {
+                        Id = privateChatroom.Key,
+                        Name = privateChatroom.Value.Name
+                    };
+                    chatroomsInformation.Add(p);
+                }
+
+                return chatroomsInformation;
+            }
         }
 
         public void UpdateUser(int id)
@@ -150,25 +203,28 @@ namespace ChatLoco.Classes.Chatroom
             AllUsers[id].IsActive = true;
         }
 
-        public List<MessageInformationModel> GetAllMessagesInformation()
+        public List<MessageInformationModel> MessagesInformation
         {
-            try
+            get
             {
-                List<MessageInformationModel> allMessagesInformation = new List<MessageInformationModel>();
-                foreach (int id in FormattedMessageOrder)
+                try
                 {
-                    MessageInformationModel m = new MessageInformationModel()
+                    List<MessageInformationModel> allMessagesInformation = new List<MessageInformationModel>();
+                    foreach (int id in FormattedMessageOrder)
                     {
-                        Id = id,
-                        FormattedMessage = FormattedMessagesCache[id]
-                    };
-                    allMessagesInformation.Add(m);
+                        MessageInformationModel m = new MessageInformationModel()
+                        {
+                            Id = id,
+                            FormattedMessage = FormattedMessagesCache[id]
+                        };
+                        allMessagesInformation.Add(m);
+                    }
+                    return allMessagesInformation;
                 }
-                return allMessagesInformation;
-            }
-            catch(Exception e)
-            {
-                return null;
+                catch (Exception e)
+                {
+                    return null;
+                }
             }
         }
 

@@ -13,13 +13,12 @@ using AutoMapper;
 using ChatLoco.Entities.UserDTO;
 using System.IO;
 using ChatLoco.Services.Security_Service;
+using ChatLoco.Models.PartialView_Model;
 
 namespace ChatLoco.Controllers
 {
     public class ChatroomController : Controller
     {
-        private ChatroomModelService _chatroomModelService = new ChatroomModelService();
-
         public ActionResult Index()
         {
             return View(new ChatRequestModel());
@@ -39,7 +38,7 @@ namespace ChatLoco.Controllers
         [HttpPost]
         public ActionResult Chat(ChatRequestModel request)
         {
-            ChatResponseModel response = new ChatResponseModel();
+            var response = new PartialViewModel();
 
             int chatroomId = request.ChatroomId;
             int parentChatroomId = chatroomId; //temporary during initial testing
@@ -51,7 +50,7 @@ namespace ChatLoco.Controllers
                 ChatroomService.CreateChatroom(chatroomId, chatroomName);
             }
 
-            var joinErrors = SecurityService.CanUserJoinChatroom(chatroomId, parentChatroomId, request.User.Id, request.UserHandle);
+            var joinErrors = SecurityService.CanUserJoinChatroom(request);
             response.Errors.AddRange(joinErrors);
 
             if(joinErrors.Count == 0)
@@ -115,6 +114,23 @@ namespace ChatLoco.Controllers
             return Json(response);
         }
 
+        [HttpPost]
+        public ActionResult GetJoinChatroomForm(GetJoinChatroomFormRequestModel request)
+        {
+            var response = new PartialViewModel();
+
+            var model = new GetJoinChatroomFormResponseModel();
+
+            model.HasPassword = ChatroomService.HasPassword(request.ParentChatroomId, request.ChatroomId);
+            model.ChatroomName = ChatroomService.GetChatroomName(request.ParentChatroomId, request.ChatroomId);
+
+            model.NewChatroomId = request.ChatroomId;
+
+            response.Data = RenderPartialViewToString(this.ControllerContext, "~/Views/Chatroom/_JoinChatroomForm.cshtml", model);
+
+            return Json(response);
+        }
+
         public ActionResult JoinChatroom(JoinChatroomRequestModel request)
         {
             int chatroomId = request.ChatroomId;
@@ -124,14 +140,14 @@ namespace ChatLoco.Controllers
 
             JoinChatroomResponseModel response = new JoinChatroomResponseModel();
 
-            var joinErrors = SecurityService.CanUserJoinChatroom(chatroomId, parentChatroomId, userId, userHandle);
+            var joinErrors = SecurityService.CanUserJoinChatroom(request);
             response.Errors.AddRange(joinErrors);
 
             if (joinErrors.Count == 0)
             {
                 ChatroomService.RemoveUserFromChatroom(request.CurrentChatroomId, parentChatroomId, userId);
                 ChatroomService.AddUserToChatroom(chatroomId, parentChatroomId, userId, userHandle);
-                response.Name = ChatroomService.GetChatroomName(chatroomId, parentChatroomId);
+                response.Name = ChatroomService.GetChatroomName(parentChatroomId, chatroomId);
                 response.Id = chatroomId;
                 response.UserHandle = userHandle;
             }

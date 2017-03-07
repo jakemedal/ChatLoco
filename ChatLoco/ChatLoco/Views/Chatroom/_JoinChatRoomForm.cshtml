@@ -1,7 +1,13 @@
-﻿
+﻿@model ChatLoco.Models.Chatroom_Model.GetJoinChatroomFormResponseModel
+
 <form id="private-chatroom-request-form">
     <p>User Handle: <input name="userHandle" type="text" /></p>
     <br />
-    <input name="newChatroomId" type="hidden" />
-    <input type="submit" hidden/>
+    @if (Model.HasPassword)
+    {
+        <p>Chatroom Password: <input type="password" name="password" /></p>
+        <br />
+    }
+    <input name="newChatroomId" type="hidden" value="@Model.NewChatroomId"/>
+    <input type="hidden" value="@Model.ChatroomName" name="chatroomName" />
 </form>

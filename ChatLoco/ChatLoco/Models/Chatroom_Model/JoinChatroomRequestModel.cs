@@ -10,5 +10,6 @@ namespace ChatLoco.Models.Chatroom_Service
         public int ParentChatroomId { get; set; }
         public int CurrentChatroomId { get; set; }
         public string UserHandle { get; set; }
+        public string Password { get; set; }
     }
 }

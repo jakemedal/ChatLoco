@@ -1,4 +1,6 @@
 ﻿using ChatLoco.Classes.Chatroom;
+using ChatLoco.Models.Chatroom_Model;
+using ChatLoco.Models.Chatroom_Service;
 using ChatLoco.Models.Error_Model;
 using ChatLoco.Services.Chatroom_Service;
 using System;
@@ -11,13 +13,37 @@ namespace ChatLoco.Services.Security_Service
     public static class SecurityService
     {
         
-        public static List<ErrorModel> CanUserJoinChatroom(int chatroomId, int parentId, int userId, string userHandle)
+        public static List<ErrorModel> CanUserJoinChatroom(ChatRequestModel request)
+        {
+            var model = new JoinChatroomRequestModel();
+            model.ChatroomId = request.ChatroomId;
+            model.ParentChatroomId = request.ChatroomId;
+            model.Password = null;
+            model.UserHandle = request.UserHandle;
+            model.User = request.User;
+
+            return CanUserJoinChatroom(model);
+        }
+
+        public static List<ErrorModel> CanUserJoinChatroom(JoinChatroomRequestModel request)
         {
             var errors = new List<ErrorModel>();
 
-            Chatroom c = ChatroomService.GetChatroom(chatroomId, parentId);
+            Chatroom c = ChatroomService.GetChatroom(request.ChatroomId, request.ParentChatroomId);
 
-            if (c.DoesHandleExist(userHandle))
+            if (c.HasPassword && !c.CheckPasswordHash(GetStringSha256Hash(request.Password)))
+            {
+                errors.Add(new ErrorModel("Incorrect Password."));
+            }
+            else if (c.IsAtCapacity)
+            {
+                errors.Add(new ErrorModel("Chatroom is full."));
+            }
+            else if (c.IsOnBlacklist(request.User.Username))
+            {
+                errors.Add(new ErrorModel("User blocked from chatroom."));
+            }
+            else if (c.DoesHandleExist(request.UserHandle))
             {
                 errors.Add(new ErrorModel("User Handle already exists in Chatroom."));
             }

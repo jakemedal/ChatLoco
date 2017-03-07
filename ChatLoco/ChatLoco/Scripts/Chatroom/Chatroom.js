@@ -13,7 +13,6 @@ var ChatroomObject = function () {
     var _UserHandle = null;
     var _UserId = null;
     var _ParentChatroomId = null;
-    var _PrivateChatroomRequestForm = null;
     var _UserHandleContainer = null;
 
     var _ParentChatroomButton = null;
@@ -58,7 +57,6 @@ var ChatroomObject = function () {
         _UserHandle = $("#UserHandle")[0].value;
         _UserId = $("#UserId")[0].value;
         _ParentChatroomId = $("#ParentChatroomId")[0].value;
-        _PrivateChatroomRequestForm = $("#private-chatroom-request-form")[0];
         _UserHandleContainer = $("#user-handle-container");
 
         _ParentChatroomButton = $("#ParentChatroomButton");
@@ -92,6 +90,29 @@ var ChatroomObject = function () {
         });
     }
 
+    function SetupRequestChatroomDialog() {
+        var $form = _PrivateChatroomRequestDialog.find("#private-chatroom-request-form")[0];
+
+        if (typeof $form != 'undefined') {
+
+            $form.elements.userHandle.value = AccountHandler.GetUser().UserHandle;
+
+            var $chatroomName = $form.elements.chatroomName.value;
+
+            var $buttons = [{
+                text: "Chat!",
+                click: ChatroomRequestFormSubmit
+            }];
+
+            _PrivateChatroomRequestDialog.dialog({
+                title: "Requesting to join " + $chatroomName,
+                modal: true,
+                buttons: $buttons
+            });
+        }
+
+    }
+
     function ChatroomClicked(e) {
         e.preventDefault();
 
@@ -102,20 +123,12 @@ var ChatroomObject = function () {
             return;
         }
 
-        _PrivateChatroomRequestForm.elements.userHandle.value = AccountHandler.GetUser().UserHandle;
-        _PrivateChatroomRequestForm.elements.newChatroomId.value = $newChatroomId;
+        var $model = {
+            ParentChatroomId: _ParentChatroomId,
+            ChatroomId: $newChatroomId
+        }
 
-        var $buttons = [{
-            text: "Chat!",
-            click: ChatroomRequestFormSubmit
-        }];
-
-        _PrivateChatroomRequestDialog.dialog({
-            title: "Requesting to join " + $element.textContent,
-            modal: true,
-            buttons: $buttons
-        });
-
+        PartialViewHandler.GetAndRenderPartialView("/Chatroom/GetJoinChatroomForm", "POST", $model, _PrivateChatroomRequestDialog, SetupRequestChatroomDialog);
     }
 
     function ChatroomRequestFormSubmit(e) {
@@ -124,15 +137,22 @@ var ChatroomObject = function () {
         }
 
         _PrivateChatroomRequestDialog.dialog("close");
-        var $userHandle = _PrivateChatroomRequestForm.elements.userHandle.value;
-        _PrivateChatroomRequestForm.elements.userHandle.value = "";
 
-        var $newChatroomId = _PrivateChatroomRequestForm.elements.newChatroomId.value;
+        var $form = _PrivateChatroomRequestDialog.find("#private-chatroom-request-form")[0];
 
-        OpenChat($newChatroomId, $userHandle);
+        var $userHandle = $form.elements.userHandle.value;
+
+        var $password = null;
+        if ($form.elements.password) {
+            $password = $form.elements.password.value;
+        }
+
+        var $newChatroomId = $form.elements.newChatroomId.value;
+
+        OpenChat($newChatroomId, $userHandle, $password);
     }
 
-    function OpenChat($newChatroomId, $userHandle) {
+    function OpenChat($newChatroomId, $userHandle, $password) {
         NotificationHandler.ShowLoading();
 
         var $model = {
@@ -140,7 +160,9 @@ var ChatroomObject = function () {
             ChatroomId: $newChatroomId,
             ParentChatroomId: _ParentChatroomId,
             CurrentChatroomId: _ChatroomId,
-            UserHandle: $userHandle
+            UserHandle: $userHandle,
+            Password: $password,
+            User: AccountHandler.GetUser()
         };
 
         $.ajax({

@@ -25,13 +25,13 @@
         <div id="create-private-chatroom-dialog" hidden>
             <span id="create-private-chatroom-response"></span>
             <form id="create-private-chatroom-form">
-                Create Chatroom : <input type="text" name="name" />
+                Create Chatroom <input type="text" name="name" />
                 <br />
-                Password (optional) : <input type="password" name="password" />
+                Password (optional) <input type="password" name="password" />
                 <br />
-                Blacklist Accounts (optional) : <input type="text" name="blacklist" />
+                Blacklist Accounts (separated by commas) (optional) <input type="text" name="blacklist" />
                 <br />
-                Capacity (optional) : <input type="number" name="capacity" />
+                Capacity (optional) <input type="number" name="capacity" />
             </form>
         </div>
 
@@ -47,7 +47,7 @@
 
         <div id="ComposeContainer">
             <form id="ComposeForm">
-                <span id="user-handle-container">@Model.UserHandle</span> : <input type="text" name="ComposedMessage" />
+                <span class="white" id="user-handle-container">@Model.UserHandle</span> : <input type="text" name="ComposedMessage" />
                 <input type="submit" />
             </form>
         </div>
@@ -61,7 +61,6 @@
     </div>
         
     <div id="private-chatroom-dialog" hidden>
-        @Html.Partial("_JoinChatRoomForm")
     </div>
 
 

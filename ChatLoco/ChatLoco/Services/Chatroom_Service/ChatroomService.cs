@@ -22,12 +22,12 @@ namespace ChatLoco.Services.Chatroom_Service
 
         public static List<UserInformationModel> GetUsersInformation(int parentChatroomId, int chatroomId)
         {
-            return GetChatroom(chatroomId, parentChatroomId).GetUsersInformation();
+            return GetChatroom(chatroomId, parentChatroomId).UsersInformation;
         }
 
         public static List<JoinChatroomResponseModel> GetPrivateChatroomsInformation(int parentChatroomId)
         {
-            return GetChatroom(parentChatroomId).GetPrivateChatroomsInformation();
+            return GetChatroom(parentChatroomId).PrivateChatroomsInformation;
         }
 
         public static bool UpdateUserInChatroom(int parentChatroomId, int chatroomId, int userId)
@@ -43,11 +43,21 @@ namespace ChatLoco.Services.Chatroom_Service
             }
         }
 
+        public static string GetChatroomName(int parentChatroomId, int chatroomId)
+        {
+            return GetChatroom(chatroomId, parentChatroomId).Name;
+        }
+
+        public static bool HasPassword(int parentChatroomId, int chatroomId)
+        {
+            return GetChatroom(chatroomId, parentChatroomId).HasPassword;
+        }
+
         public static List<MessageInformationModel> GetNewMessagesInformation(int parentChatroomId, int chatroomId, List<int> existingIds)
         {
             if(existingIds == null)
             {
-                return GetChatroom(chatroomId, parentChatroomId).GetAllMessagesInformation();
+                return GetChatroom(chatroomId, parentChatroomId).MessagesInformation;
             }
             else
             {
@@ -66,11 +76,6 @@ namespace ChatLoco.Services.Chatroom_Service
             {
                 return false;
             }
-        }
-
-        public static string GetChatroomName(int chatroomId, int parentId)
-        {
-            return GetChatroom(chatroomId, parentId).Name;
         }
 
         public static bool RemoveUserFromChatroom(int chatroomId, int parentId, int userId)
@@ -179,11 +184,17 @@ namespace ChatLoco.Services.Chatroom_Service
             }
             else
             {
+                string passwordHash = null;
+                if(request.Password != null && request.Password.Length > 0)
+                {
+                    passwordHash = SecurityService.GetStringSha256Hash(request.Password);
+                }
+
                 var options = new PrivateChatroomOptions()
                 {
                     Id = privateChatroomId,
                     Blacklist = request.Blacklist,
-                    PasswordHash = SecurityService.GetStringSha256Hash(request.Password),
+                    PasswordHash = passwordHash,
                     Capacity = request.Capacity,
                     Name = request.ChatroomName
                 };

@@ -23,6 +23,9 @@ namespace ChatLoco
             bundles.Add(new StyleBundle("~/bundles/notifications").Include(
                             "~/Scripts/Shared/notifications.js"));
 
+            bundles.Add(new StyleBundle("~/bundles/partialview").Include(
+                            "~/Scripts/Shared/partialviewhandling.js"));
+
             bundles.Add(new StyleBundle("~/bundles/errorhandling").Include(
                             "~/Scripts/Shared/errorhandling.js",
                             "~/Scripts/Shared/statushandling.js"));

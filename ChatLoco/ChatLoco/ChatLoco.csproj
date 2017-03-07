@@ -224,11 +224,15 @@
     <Compile Include="Models\Chatroom_Model\ComposeMessageResponseModel.cs" />
     <Compile Include="Models\Chatroom_Model\CreateChatroomRequestModel.cs" />
     <Compile Include="Models\Chatroom_Model\CreateChatroomResponseModel.cs" />
+    <Compile Include="Models\Chatroom_Model\GetJoinChatroomFormRequestModel.cs" />
+    <Compile Include="Models\Chatroom_Model\GetJoinChatroomFormResponseModel.cs" />
     <Compile Include="Models\Chatroom_Model\GetNewMessagesResponseModel.cs" />
     <Compile Include="Models\Chatroom_Model\JoinChatroomRequestModel.cs" />
     <Compile Include="Models\Chatroom_Model\MessageInformationModel.cs" />
     <Compile Include="Models\Chatroom_Model\JoinChatroomResponseModel.cs" />
     <Compile Include="Models\Chatroom_Model\UserInformationModel.cs" />
+    <Compile Include="Models\Error_Model\ErrorsModel.cs" />
+    <Compile Include="Models\PartialView_Model\PartialViewModel.cs" />
     <Compile Include="Models\Request_Model\RequestModel.cs" />
     <Compile Include="Models\Response_Model\ResponseModel.cs" />
     <Compile Include="Models\User_Model\CreateUserRequestModel.cs" />
@@ -237,7 +241,6 @@
     <Compile Include="Models\User_Model\LoginResponseModel.cs" />
     <Compile Include="Models\User_Model\LogoutRequestModel.cs" />
     <Compile Include="Models\User_Model\LogoutResponseModel.cs" />
-    <Compile Include="Services\Chatroom_Service\ChatroomModelService.cs" />
     <Compile Include="Services\Chatroom_Service\ChatroomService.cs" />
     <Compile Include="Services\Chatroom_Service\MessageSend.cs" />
     <Compile Include="Services\Mapping_Service\MappingService.cs" />
@@ -246,7 +249,6 @@
     <Compile Include="Services\User_Service\UserService.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Base_Model\BaseModel.cs" />
-    <Compile Include="Models\Chatroom_Model\ChatResponseModel.cs" />
     <Compile Include="Models\Chatroom_Model\ChatRequestModel.cs" />
     <Compile Include="Models\Chatroom_Model\GetChatroomInformationRequestionModel.cs" />
     <Compile Include="Models\Chatroom_Model\GetNewMessagesRequestModel.cs" />
@@ -341,6 +343,7 @@
     <Content Include="Scripts\Shared\errorhandling.js" />
     <Content Include="Scripts\Shared\map.js" />
     <Content Include="Scripts\Shared\notifications.js" />
+    <Content Include="Scripts\Shared\partialviewhandling.js" />
     <Content Include="Scripts\Shared\statushandling.js" />
     <Content Include="Scripts\User\create.js" />
     <Content Include="Scripts\_references.js" />
@@ -383,7 +386,7 @@
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\_Login.cshtml" />
     <Content Include="Views\Shared\_AccountHandling.cshtml" />
-    <Content Include="Views\Chatroom\_JoinChatRoomForm.cshtml" />
+    <Content Include="Views\Chatroom\_JoinChatroomForm.cshtml" />
     <Content Include="Views\Shared\_Notifications.cshtml" />
     <Content Include="Views\Chatroom\_FindChatroom.cshtml" />
   </ItemGroup>
