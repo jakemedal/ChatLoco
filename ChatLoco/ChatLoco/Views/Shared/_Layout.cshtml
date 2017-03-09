@@ -57,8 +57,11 @@
     </div>
 
     <div id="revision-container">
-        <p>Version 0.57</p>
+        <p id="revision-string">
+            @* Populated by layout.js *@
+        </p>
     </div>
+    @Scripts.Render("~/bundles/layout")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

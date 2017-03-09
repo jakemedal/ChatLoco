@@ -17,6 +17,9 @@ namespace ChatLoco
             bundles.Add(new StyleBundle("~/bundles/accountchecking").Include(
                             "~/Scripts/Shared/accountchecking.js"));
 
+            bundles.Add(new StyleBundle("~/bundles/layout").Include(
+                            "~/Scripts/Shared/layout.js"));
+
             bundles.Add(new StyleBundle("~/bundles/map").Include(
                             "~/Scripts/Shared/map.js"));
 

@@ -194,6 +194,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Labels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Labels.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -203,6 +208,7 @@
     <Compile Include="Classes\Chatroom\Chatroom.cs" />
     <Compile Include="Classes\Chatroom\PrivateChatroomOptions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\apiController.cs" />
     <Compile Include="Controllers\ChatroomController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -341,6 +347,7 @@
     <Content Include="Scripts\bootstrap\respond.min.js" />
     <Content Include="Scripts\Shared\accountchecking.js" />
     <Content Include="Scripts\Shared\errorhandling.js" />
+    <Content Include="Scripts\Shared\layout.js" />
     <Content Include="Scripts\Shared\map.js" />
     <Content Include="Scripts\Shared\notifications.js" />
     <Content Include="Scripts\Shared\partialviewhandling.js" />
@@ -393,6 +400,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\" />
+    <Folder Include="Views\api\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -402,6 +410,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\Labels.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Migrations\201703051754582_InitialCreate.resx">
       <DependentUpon>201703051754582_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
