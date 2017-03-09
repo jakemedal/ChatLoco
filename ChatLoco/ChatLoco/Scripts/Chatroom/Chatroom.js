@@ -73,6 +73,14 @@ var ChatroomObject = function () {
         $("#ParentChatroomButton").on("click", ChatroomClicked);
         $("#SubChatroomsList").on("click", ChatroomClicked);
         $("#private-chatroom-request-form").on("submit", ChatroomRequestFormSubmit);
+
+        ChangeChatroomNameTo(_ChatroomName);
+    }
+
+    function ChangeChatroomNameTo(name) {
+        _ChatroomName = name;
+        document.title = name;
+        $("#ChatroomNameDisplay").html(name);
     }
 
     function OpenCreatePrivateChatroomDialog(e) {
@@ -180,8 +188,6 @@ var ChatroomObject = function () {
                 _AllMessagesIds = [];
                 _ChatroomId = data.Id;
 
-                $("#ChatroomNameDisplay").html(data.Name);
-
                 _MessagesContainer.html("");
 
                 AccountHandler.GetUser().UserHandle = data.UserHandle;
@@ -197,6 +203,8 @@ var ChatroomObject = function () {
 
                 GetChatroomInformation();
                 GetNewMessages();
+
+                ChangeChatroomNameTo(data.Name);
 
                 NotificationHandler.HideLoading();
             },
@@ -376,6 +384,7 @@ var ChatroomObject = function () {
                 }
                 if (data.MessagesInformation.length != 0) {
                     _MessagesContainer.scrollTop(_MessagesContainer[0].scrollHeight);
+                    NotificationHandler.ShowNewMessageAlert();
                 }
             },
             error: function (data) {
@@ -383,12 +392,17 @@ var ChatroomObject = function () {
         });
     }
 
+    function GetChatroomName() {
+        return _ChatroomName;
+    }
+
     return {
         init: init,
         Destroy: Destroy,
         GetChatroomId: GetChatroomId,
-        GetParentChatroomId: GetParentChatroomId
+        GetParentChatroomId: GetParentChatroomId,
+        GetChatroomName: GetChatroomName
     }
 }
 
-var ChatroomHandler = new ChatroomObject();
+var ChatroomHandler = null;

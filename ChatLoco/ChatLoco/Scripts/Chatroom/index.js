@@ -44,6 +44,7 @@ function FindChatroom() {
                 else {
                     AccountHandler.GetUser().UserHandle = $userHandle;
                     $("#chatroom-container").html("").append(response.Data);
+                    ChatroomHandler = new ChatroomObject();
                     ChatroomHandler.init();
                 }
 

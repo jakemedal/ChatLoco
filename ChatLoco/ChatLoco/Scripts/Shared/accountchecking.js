@@ -8,6 +8,8 @@
 
     var _loginForm = null;
     var _loginInformationContainer = null;
+    var _idle = false;
+    var _idleCheckInterval = null
 
     $(document).on("click", CheckUserLogin);
 
@@ -189,10 +191,49 @@
 
     };
 
+    var _idleCheck = false;
+
+    function MarkAsIdle() {
+        if (_idleCheck) {
+            _idle = true;
+        }
+        else {
+            _idleCheck = true;
+        }
+    }
+
+    function IsIdle() {
+        return _idle;
+    }
+
+    function UpdateIdle() {
+        _idle = false;
+        _idleCheck = false;
+        NotificationHandler.HideNewMessageAlert();
+    }
+
+    function init() {
+        _idleCheckInterval = setInterval(MarkAsIdle, 1000);
+
+        $(document).on("mousemove", UpdateIdle);
+    }
+
+    function destroy() {
+        if (_idleCheckInterval) {
+            clearInterval(_idleCheckInterval);
+        }
+    }
+
     return {
         GetUser: GetUser,
-        CheckUserLogin: CheckUserLogin
+        CheckUserLogin: CheckUserLogin,
+        UpdateIdle: UpdateIdle,
+        IsIdle: IsIdle,
+        init: init,
+        destroy: destroy
     }
 }
 
 var AccountHandler = new AccountObject();
+
+AccountHandler.init();

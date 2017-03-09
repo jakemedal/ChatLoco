@@ -54,11 +54,25 @@
         });
     });
 
+    function ShowNewMessageAlert() {
+        if (ChatroomHandler && AccountHandler.IsIdle()) {
+            document.title = " (!) " + ChatroomHandler.GetChatroomName();
+        }
+    }
+
+    function HideNewMessageAlert() {
+        if (ChatroomHandler) {
+            document.title = ChatroomHandler.GetChatroomName();
+        }
+    }
+
     return {
         ShowLoading: ShowLoading,
         HideLoading: HideLoading,
         ShowDim: ShowDim,
-        HideDim: HideDim
+        HideDim: HideDim,
+        ShowNewMessageAlert: ShowNewMessageAlert,
+        HideNewMessageAlert: HideNewMessageAlert
     }
 }
 
