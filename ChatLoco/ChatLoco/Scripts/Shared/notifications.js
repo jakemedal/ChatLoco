@@ -12,16 +12,11 @@
         _loadingContainer.hide();
     }
 
-    function ShowDim(zIndex, color, opacity) {
+    function ShowDim(color, opacity) {
 
         var $color = 'blue';
         if (color) {
             $color = color;
-        }
-
-        var $zIndex = '1000'
-        if (zIndex) {
-            $zIndex = zIndex;
         }
 
         var $opacity = '0.5'
@@ -30,11 +25,7 @@
         }
 
         $(_dimContainer).css({
-            'position': 'absolute',
-            'width': '100%',
-            'height': '90%',
             'background': $color,
-            'z-index': $zIndex,
             'opacity': $opacity
         });
 

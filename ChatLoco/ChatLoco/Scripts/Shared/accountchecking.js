@@ -16,7 +16,7 @@
     $("#logout-link").on("click", Logout);
 
     function ShowDimBehindDialog() {
-        NotificationHandler.ShowDim('100', 'black', '0.7');
+        NotificationHandler.ShowDim('black', '0.7');
     }
 
     function Logout(e) {
