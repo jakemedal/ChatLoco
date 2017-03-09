@@ -3,6 +3,7 @@
     padding-bottom: 20px;
     background: url("/Content/images/background.png") no-repeat center center fixed;
     background-size: cover;
+    height:100%;
 }
 
 #dim-container{
@@ -51,6 +52,9 @@
 
 .green{
     color: green;
+}
+.off-white {
+    color:#F5F5F5;
 }
 
 /* Set padding to keep content from hitting the edges */
