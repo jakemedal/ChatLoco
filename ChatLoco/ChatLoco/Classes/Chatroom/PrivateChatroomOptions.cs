@@ -12,5 +12,6 @@ namespace ChatLoco.Classes.Chatroom
         public string Blacklist { get; set; }
         public int? Capacity { get; set; }
         public string Name { get; set; }
+        public Chatroom Parent { get; set; }
     }
 }

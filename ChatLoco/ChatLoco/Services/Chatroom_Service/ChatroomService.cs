@@ -20,6 +20,12 @@ namespace ChatLoco.Services.Chatroom_Service
 
         private static ChatLocoContext DbContext = new ChatLocoContext();
 
+        public static bool RemoveChatroomFromCache(int id)
+        {
+            ChatroomsCache.Remove(id);
+            return true;
+        }
+
         public static List<UserInformationModel> GetUsersInformation(int parentChatroomId, int chatroomId)
         {
             return GetChatroom(chatroomId, parentChatroomId).UsersInformation;
@@ -196,7 +202,8 @@ namespace ChatLoco.Services.Chatroom_Service
                     Blacklist = request.Blacklist,
                     PasswordHash = passwordHash,
                     Capacity = request.Capacity,
-                    Name = request.ChatroomName
+                    Name = request.ChatroomName,
+                    Parent = chatroom
                 };
 
                 if (!chatroom.CreatePrivateChatroom(options))

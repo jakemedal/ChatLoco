@@ -1,8 +1,10 @@
 ﻿using ChatLoco.Entities.MessageDTO;
 using ChatLoco.Entities.UserDTO;
 using ChatLoco.Models.Chatroom_Service;
+using ChatLoco.Services.Chatroom_Service;
 using System;
 using System.Collections.Generic;
+using System.Timers;
 
 namespace ChatLoco.Classes.Chatroom
 {
@@ -22,6 +24,61 @@ namespace ChatLoco.Classes.Chatroom
         private Dictionary<int, Chatroom> AllSubChatrooms = new Dictionary<int, Chatroom>(); 
         private bool IsPrivate { get; set; }
         private Chatroom Parent { get; set; }
+        private Timer IdleTimer { get; set; }
+
+        public Chatroom(int id, string name)
+        {
+            Name = name;
+            Id = id;
+            
+            IdleTimer = new Timer();
+            IdleTimer.Elapsed += new ElapsedEventHandler(IdleCheck);
+            IdleTimer.Interval = 60000;
+            IdleTimer.Enabled = true;
+        }
+
+        public void IdleCheck(object source, ElapsedEventArgs e)
+        {
+            if (!IsActive())
+            {
+                Destroy();
+            }
+        }
+
+        //recursive way to check chatroom, subchatrooms for activity
+        public bool IsActive()
+        {
+            if (AllUsers.Count != 0)
+            {
+                return true;
+            }
+            else
+            {
+                foreach (var kvPair in AllSubChatrooms)
+                {
+                    Chatroom c = kvPair.Value;
+                    if (c.IsActive())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        public void Destroy()
+        {
+            IdleTimer.Enabled = false;
+            IdleTimer.Stop();
+            IdleTimer.Dispose();
+
+            if(Parent != null)
+            {
+                Parent.AllSubChatrooms.Remove(Id);
+            }
+
+            ChatroomService.RemoveChatroomFromCache(Id);
+        }
 
         public bool IsOnBlacklist(string username)
         {
@@ -64,12 +121,6 @@ namespace ChatLoco.Classes.Chatroom
                     return (AllUsers.Count >= Capacity.Value);
                 }
             }
-        }
-
-        public Chatroom(int id, string name)
-        {
-            Name = name;
-            Id = id;
         }
 
         public List<string> OrderedFormattedMessages
@@ -120,6 +171,8 @@ namespace ChatLoco.Classes.Chatroom
                     c.Blacklist = options.Blacklist.Split(',');
                 }
                 c.Capacity = options.Capacity;
+
+                c.Parent = options.Parent;
 
                 AllSubChatrooms.Add(c.Id, c);
                 return true;
