@@ -1,21 +1,43 @@
 ﻿
-
-<h2>Create User</h2>
-
-<div id="create-user-form-container">
-    <form id="create-user-form">
-        Username : <input type="text" name="username" />
-        <br />
-        Email : <input type="email" name="email" />
-        <br />
-        Password : <input type="password" name="password" />
-        <br />
-        Confirm Password : <input type="password" name="confirmPassword" />
-        <br />
-        <input type="hidden" value="@Request.Url.GetLeftPart(UriPartial.Authority)" />
-        <input type="submit" />
-    </form>
+<br/><br /><br /><br /><br /><br />
+<div id="create-user-form-container" class="container">
+    <div class="col-md-6 col-md-offset-3">
+                <div class="card card-inverse" style="background-color: rgba(10, 10, 10, 0.7); border-color: #333;">
+                    <div class="white">
+                        <div class="card-block">
+                            <form id="create-user-form">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-header">
+                                            Create User
+                                        </div>
+                                        <div class="col-md-11 col-md-offset-1 form-group">
+                                            <label for="formGroupUsername">Username</label>
+                                            <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="" required />
+                                        </div>
+                                        <div class="col-md-11 col-md-offset-1 form-group">
+                                            <label for="formGroupEmail">Email</label>
+                                            <input type="email" class="form-control col-md-12" id="email" name="email" placeholder="Email" value="" required />
+                                        </div>
+                                        <div class="col-md-11 col-md-offset-1 form-group">
+                                            <label for="formGroupPassword">Password</label>
+                                            <input type="password" class="form-control col-md-12" id="password" name="password" placeholder="Password" value="" required />
+                                        </div>
+                                        <div class="col-md-11 col-md-offset-1 form-group">
+                                            <label for="formGroupConfPassword">Confirm Password</label>
+                                            <input type="password" class="form-control col-md-12" id="confPassword" name="confirmPassword" placeholder="Password" value="" required />
+                                        </div>
+                                        <div class="col-md-11 col-md-offset-1 form-group">
+                                            <input type="hidden" value="@Request.Url.GetLeftPart(UriPartial.Authority)" />
+                                            <input id="submit" name="submit" type="submit" value="Confirm" class="btn btn-primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+    </div>
 </div>
-
 
 @Scripts.Render("~/bundles/user")
