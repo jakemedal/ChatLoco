@@ -1,35 +1,40 @@
 ﻿
-<br/><br /><br /><br /><br /><br />
+<br/><br /><br /><br /><br />
 <div id="create-user-form-container" class="container">
     <div class="col-md-6 col-md-offset-3">
-                <div class="card card-inverse" style="background-color: rgba(10, 10, 10, 0.7); border-color: #333;">
+                <div class="card" style="background-color: rgba(10, 10, 10, 0.7); border-color: #ffffff;">
                     <div class="white">
                         <div class="card-block">
                             <form id="create-user-form">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="card-header">
-                                            Create User
+                                        <div class="card-header" style="text-align:center">
+                                            <h3>Create User</h3>
                                         </div>
-                                        <div class="col-md-11 col-md-offset-1 form-group">
+                                        <br/>
+                                        <div class="col-md-10 col-md-offset-1 form-group">
                                             <label for="formGroupUsername">Username</label>
-                                            <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="" required />
+                                            <input style="max-width:100%; background-color: rgba(0,0,0,0); color:#ffffff;" type="text" class="form-control" id="username" name="username" placeholder="Username" value="" required />
                                         </div>
-                                        <div class="col-md-11 col-md-offset-1 form-group">
+                                        <div class="col-md-10 col-md-offset-1 form-group">
                                             <label for="formGroupEmail">Email</label>
-                                            <input type="email" class="form-control col-md-12" id="email" name="email" placeholder="Email" value="" required />
+                                            <input style="max-width:100%; background-color: rgba(0,0,0,0); color:#ffffff;" type="email" class="form-control col-md-12" id="email" name="email" placeholder="Email" value="" required />
                                         </div>
-                                        <div class="col-md-11 col-md-offset-1 form-group">
+                                        <div class="col-md-10 col-md-offset-1 form-group">
                                             <label for="formGroupPassword">Password</label>
-                                            <input type="password" class="form-control col-md-12" id="password" name="password" placeholder="Password" value="" required />
+                                            <input style="max-width:100%; background-color: rgba(0,0,0,0); color:#ffffff;" type="password" class="form-control col-md-12" id="password" name="password" placeholder="Password" value="" required />
                                         </div>
-                                        <div class="col-md-11 col-md-offset-1 form-group">
+                                        <div class="col-md-10 col-md-offset-1 form-group">
                                             <label for="formGroupConfPassword">Confirm Password</label>
-                                            <input type="password" class="form-control col-md-12" id="confPassword" name="confirmPassword" placeholder="Password" value="" required />
+                                            <input style="max-width:100%; background-color: rgba(0,0,0,0); color:#ffffff;" type="password" class="form-control col-md-12" id="confPassword" name="confirmPassword" placeholder="Password" value="" required />
                                         </div>
-                                        <div class="col-md-11 col-md-offset-1 form-group">
+                                        <br/><br/><br/>
+                                        <div class="col-md-offset-3 form-group" style="text-align:center">
                                             <input type="hidden" value="@Request.Url.GetLeftPart(UriPartial.Authority)" />
-                                            <input id="submit" name="submit" type="submit" value="Confirm" class="btn btn-primary">
+                                            <input id="submit" name="submit" type="submit" value="Confirm" class="btn btn-lg btn-block" style="color:#ffffff; background-color: rgba(10,10,10,0.9);">
+                                        </div>
+                                        <div class="col-md-offset-3">
+                                            <p style="color:#ffffff;"><small>Already have an account?</small>   <strong><u>@Html.ActionLink("Login", "Index", "Chatroom")</u></strong></p>
                                         </div>
                                     </div>
                                 </div>
