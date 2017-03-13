@@ -8,19 +8,19 @@
     <input type="hidden" id="ParentChatroomId" value="@Model.ParentChatroomId" />
 
     @* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
-    <div id="OtherChatroomsPaneContainer" class="col-lg-2">
+    <div id="OtherChatroomsPaneContainer" class="col-lg-2" style="border-color: #000000;">
         <br/>
-        <button id="ParentChatroomButton" value="@Model.ChatroomId" type="button" class="btn btn-primary">@Model.ChatroomName</button>
+        <button id="ParentChatroomButton" style="background-color:#0099ff;" value="@Model.ChatroomId" type="button" class="btn btn-primary"><b>@Model.ChatroomName</b></button>
 
-        <div id="SubChatroomsContainer" class="pre-scrollable">
-            <div id="SubChatroomsList">
+        <div id="SubChatroomsContainer" class="pre-scrollable" style="background-color: #ffffff; border: solid; border-color: #0099ff; height: 3000px; margin-top: 15px;">
+            <div id="SubChatroomsList" style="height: 100%;">
                 @* This is filled in by JS *@
             </div>
         </div>
 
         <br />
 
-        <button id="create-private-chatroom-dialog-button" type="button" class="btn btn-default"> + </button>
+        <button id="create-private-chatroom-dialog-button" type="button" class="btn btn-default" style="border:solid; border-color: #0099ff;"> New Private Room </button>
 
         <div id="create-private-chatroom-dialog" hidden>
             <span id="create-private-chatroom-response"></span>
@@ -41,25 +41,32 @@
 
         <h1 class="white">Chatroom: <span id="ChatroomNameDisplay">@Model.ChatroomName</span></h1>
 
-        <div id="MessagesContainer" class="pre-scrollable">
+        <div id="MessagesContainer" style="background-color: lightsteelblue; border: solid; border-color: #0099ff; height: 5000px;" class="pre-scrollable">
             @* This is filled in by JS *@
         </div>
 
-        <div id="ComposeContainer">
+        <div id="ComposeContainer" style="width:100%; margin-top: 10px; background-color:#0099ff; border:solid; border-color:darkgray; padding: 4px;" class="col-md-8">
             <form id="ComposeForm">
-                <span class="white" id="user-handle-container">@Model.UserHandle</span> : <input type="text" name="ComposedMessage" />
-                <input type="submit" />
+                <span class="black" id="user-handle-container"><b>@Model.UserHandle</b></span> : <input style="width:1000px; color:#000000;" type="text" name="ComposedMessage" />
+                <input style="border: solid; border-color:#000000; margin-left: 50px" type="submit" />
+                <button id="Change-Font-Sytle-Button">Font Style</button>
+                <button id="Change-Font-Color-Button">Font Color</button>
+                <button id="Font-Bold-Button"><b>B</b></button>
+                <button id="Font-Italic-Button"><i>I</i></button>
+                <button id="Emoji-Button">:)</button>
             </form>
         </div>
     </div>
 
     <div id="UsersPaneContainer" class="col-lg-2">
         <h3 class="white">Current Users</h3>
-        <div id="UsersContainer" class="pre-scrollable">
+        <div id="UsersContainer" style="border: solid; border-color: #0099ff; background-color: lightsteelblue;" class="pre-scrollable">
             @* This is filled in by JS *@
         </div>
+        <div id="map"></div>
     </div>
-        
+    
+
     <div id="private-chatroom-dialog" hidden>
     </div>
 
