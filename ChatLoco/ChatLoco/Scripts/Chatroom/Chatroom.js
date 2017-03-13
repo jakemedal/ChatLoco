@@ -125,6 +125,12 @@ var ChatroomObject = function () {
         e.preventDefault();
 
         var $element = document.elementFromPoint(e.clientX, e.clientY);
+
+        //means we clicked the text, instead of the button
+        if ($element.id === 'parent-chatroom-button-text') {
+            $element = $element.parentElement;
+        }
+
         var $newChatroomId = $element.value;
 
         if (typeof $newChatroomId == 'undefined') {

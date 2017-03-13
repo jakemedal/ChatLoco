@@ -10,7 +10,9 @@
     @* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
     <div id="OtherChatroomsPaneContainer" class="col-lg-2" style="border-color: #000000;">
         <br/>
-        <button id="ParentChatroomButton" style="background-color:#0099ff;" value="@Model.ChatroomId" type="button" class="btn btn-primary"><b>@Model.ChatroomName</b></button>
+        <button id="ParentChatroomButton" style="background-color:#0099ff;" value="@Model.ChatroomId" type="button" class="btn btn-primary">
+            <b id="parent-chatroom-button-text" value="@Model.ChatroomId" >@Model.ChatroomName</b>
+        </button>
 
         <div id="SubChatroomsContainer" class="pre-scrollable" style="background-color: #ffffff; border: solid; border-color: #0099ff; height: 3000px; margin-top: 15px;">
             <div id="SubChatroomsList" style="height: 100%;">
