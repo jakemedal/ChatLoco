@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using ChatLoco.DAL;
 using ChatLoco.Entities.UserDTO;
+using ChatLoco.Entities.SettingDTO;
 using ChatLoco.Models.Error_Model;
 using ChatLoco.Models.User_Model;
 using ChatLoco.Services.Security_Service;
+using ChatLoco.Services.Setting_Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +46,13 @@ namespace ChatLoco.Services.User_Service
 
             db.Users.Add(user);
             db.SaveChanges();
+
+            SettingDTO settings = SettingService.CreateSettings(user.Id, user.Username);//the default handle is the users username
+            if (settings == null) {
+                //somehow failed to create user settings
+                errors.Add(new ErrorModel("Failure to create User Setting!."));
+                return errors;
+            }
 
             return errors;
         }
