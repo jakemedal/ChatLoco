@@ -212,10 +212,12 @@
     <Compile Include="Controllers\ChatroomController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\ChatLocoContext.cs" />
     <Compile Include="DAL\ChatLocoInitializer.cs" />
     <Compile Include="Entities\MessageDTO\MessageDTO.cs" />
+    <Compile Include="Entities\SettingDTO\SettingDTO.cs" />
     <Compile Include="Entities\UserDTO\UserDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -223,6 +225,14 @@
     <Compile Include="Migrations\201703051754582_InitialCreate.cs" />
     <Compile Include="Migrations\201703051754582_InitialCreate.Designer.cs">
       <DependentUpon>201703051754582_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703202208407_AddSettingTable.cs" />
+    <Compile Include="Migrations\201703202208407_AddSettingTable.Designer.cs">
+      <DependentUpon>201703202208407_AddSettingTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703202213341_ActualAddSettingTable.cs" />
+    <Compile Include="Migrations\201703202213341_ActualAddSettingTable.Designer.cs">
+      <DependentUpon>201703202213341_ActualAddSettingTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Chatroom_Model\ChatroomModel.cs" />
@@ -252,6 +262,7 @@
     <Compile Include="Services\Mapping_Service\MappingService.cs" />
     <Compile Include="Services\Message_Service\MessageService.cs" />
     <Compile Include="Services\Security_Service\SecurityService.cs" />
+    <Compile Include="Services\Setting_Service\SettingService.cs" />
     <Compile Include="Services\User_Service\UserService.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Base_Model\BaseModel.cs" />
@@ -401,6 +412,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="images\" />
     <Folder Include="Views\api\" />
+    <Folder Include="Views\Settings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -416,6 +428,12 @@
     </Content>
     <EmbeddedResource Include="Migrations\201703051754582_InitialCreate.resx">
       <DependentUpon>201703051754582_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703202208407_AddSettingTable.resx">
+      <DependentUpon>201703202208407_AddSettingTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703202213341_ActualAddSettingTable.resx">
+      <DependentUpon>201703202213341_ActualAddSettingTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
