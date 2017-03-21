@@ -1,76 +1,76 @@
 ﻿@model ChatLoco.Models.Chatroom_Model.ChatroomModel
 
-    @* These inputs are hidden so that we can get their values easily in JS *@
-    <input type="hidden" id="ChatroomId" value="@Model.ChatroomId" />
-    <input type="hidden" id="ChatroomName" value="@Model.ChatroomName" />
-    <input type="hidden" id="UserHandle" value="@Model.UserHandle" />
-    <input type="hidden" id="UserId" value="@Model.UserId" />
-    <input type="hidden" id="ParentChatroomId" value="@Model.ParentChatroomId" />
+@* These inputs are hidden so that we can get their values easily in JS *@
+<input type="hidden" id="ChatroomId" value="@Model.ChatroomId" />
+<input type="hidden" id="ChatroomName" value="@Model.ChatroomName" />
+<input type="hidden" id="UserHandle" value="@Model.UserHandle" />
+<input type="hidden" id="UserId" value="@Model.UserId" />
+<input type="hidden" id="ParentChatroomId" value="@Model.ParentChatroomId" />
 
-    @* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
-    <div id="OtherChatroomsPaneContainer" class="col-lg-2" style="border-color: #000000;">
-        <br/>
-        <button id="ParentChatroomButton" style="background-color:#0099ff;" value="@Model.ChatroomId" type="button" class="btn btn-primary">
-            <b id="parent-chatroom-button-text" value="@Model.ChatroomId" >@Model.ChatroomName</b>
-        </button>
+@* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
+<div id="OtherChatroomsPaneContainer" class="col-lg-2">
+    <br />
+    <button id="ParentChatroomButton" style="background-color:#0099ff;" value="@Model.ChatroomId" type="button" class="btn btn-primary">
+        <b id="parent-chatroom-button-text" value="@Model.ChatroomId">@Model.ChatroomName</b>
+    </button>
 
-        <div id="SubChatroomsContainer" class="pre-scrollable" style="background-color: #ffffff; border: solid; border-color: #0099ff; height: 3000px; margin-top: 15px;">
-            <div id="SubChatroomsList" style="height: 100%;">
-                @* This is filled in by JS *@
-            </div>
-        </div>
-
-        <br />
-
-        <button id="create-private-chatroom-dialog-button" type="button" class="btn btn-default" style="border:solid; border-color: #0099ff;"> New Private Room </button>
-
-        <div id="create-private-chatroom-dialog" hidden>
-            <span id="create-private-chatroom-response"></span>
-            <form id="create-private-chatroom-form">
-                Create Chatroom <input type="text" name="name" />
-                <br />
-                Password (optional) <input type="password" name="password" />
-                <br />
-                Blacklist Accounts (separated by commas) (optional) <input type="text" name="blacklist" />
-                <br />
-                Capacity (optional) <input type="number" name="capacity" />
-            </form>
-        </div>
-
-    </div>
-
-    <div id="MessagesPaneContainer" class="col-lg-8">
-
-        <h1 class="white">Chatroom: <span id="ChatroomNameDisplay">@Model.ChatroomName</span></h1>
-
-        <div id="MessagesContainer" style="background-color: lightsteelblue; border: solid; border-color: #0099ff; height: 5000px;" class="pre-scrollable">
+    <div id="SubChatroomsContainer" class="pre-scrollable" style="height: 3000px; margin-top: 15px;">
+        <div id="SubChatroomsList" style="height: 100%; background-color: rgba(0,0,0,0.6); border: solid; border-color: black;" class="well">
             @* This is filled in by JS *@
         </div>
-
-        <div id="ComposeContainer" style="width:100%; margin-top: 10px; background-color:#0099ff; border:solid; border-color:darkgray; padding: 4px;" class="col-md-8">
-            <form id="ComposeForm">
-                <span class="black" id="user-handle-container"><b>@Model.UserHandle</b></span> : <input style="width:1000px; color:#000000;" type="text" name="ComposedMessage" />
-                <input style="margin-left: 50px" type="submit" />
-                <button id="Change-Font-Sytle-Button">Font Style</button>
-                <button id="Change-Font-Color-Button">Font Color</button>
-                <button id="Font-Bold-Button"><b>B</b></button>
-                <button id="Font-Italic-Button"><i>I</i></button>
-                <button id="Emoji-Button">:)</button>
-            </form>
-        </div>
     </div>
 
-    <div id="UsersPaneContainer" class="col-lg-2">
-        <h3 class="white">Current Users</h3>
-        <div id="UsersContainer" style="border: solid; border-color: #0099ff; background-color: lightsteelblue; margin-top: 20px;" class="pre-scrollable">
-            @* This is filled in by JS *@
-        </div>
-        <div id="map"></div>
-    </div>
-    
+    <br />
 
-    <div id="private-chatroom-dialog" hidden>
+    <button id="create-private-chatroom-dialog-button" type="button" class="btn btn-default" style="border:solid; border-color: #000000;"> New Private Room </button>
+
+    <div id="create-private-chatroom-dialog" hidden>
+        <span id="create-private-chatroom-response"></span>
+        <form id="create-private-chatroom-form">
+            Create Chatroom <input type="text" name="name" />
+            <br />
+            Password (optional) <input type="password" name="password" />
+            <br />
+            Blacklist Accounts (separated by commas) (optional) <input type="text" name="blacklist" />
+            <br />
+            Capacity (optional) <input type="number" name="capacity" />
+        </form>
     </div>
+
+</div>
+
+<div id="MessagesPaneContainer" class="col-lg-8">
+
+    <h1 class="white">Chatroom: <span id="ChatroomNameDisplay">@Model.ChatroomName</span></h1>
+
+    <div id="MessagesContainer" style="background-color: rgba(0,0,0,0.6); border: solid; border-color: #000000; height: 5000px;" class="pre-scrollable white well">
+        @* This is filled in by JS *@
+    </div>
+
+    <div id="ComposeContainer" style="width:100%; margin-top: 10px; background-color:rgba(0,0,0,0.6); border:solid; border-color:#000000; padding: 4px;" class="col-md-8 well">
+        <form id="ComposeForm">
+            <span class="white" id="user-handle-container"><b>@Model.UserHandle</b></span> : <input style="width:1000px; color:#000000;" type="text" name="ComposedMessage" />
+            <input style="margin-left: 50px" type="submit" />
+            <button id="Change-Font-Sytle-Button">Font Style</button>
+            <button id="Change-Font-Color-Button">Font Color</button>
+            <button id="Font-Bold-Button"><b>B</b></button>
+            <button id="Font-Italic-Button"><i>I</i></button>
+            <button id="Emoji-Button">:)</button>
+        </form>
+    </div>
+</div>
+
+<div id="UsersPaneContainer" class="col-lg-2">
+    <h3 class="white">Current Users</h3>
+    <div id="UsersContainer" style="border: solid; border-color: #000000; background-color: rgba(0,0,0,0.6); margin-top: 20px;" class="pre-scrollable well">
+        @* This is filled in by JS *@
+    </div>
+    <div id="map2"></div>
+</div>
+
+
+<div id="private-chatroom-dialog" hidden>
+</div>
 
 
 @Styles.Render("~/Content/chatroom")
