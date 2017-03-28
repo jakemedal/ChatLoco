@@ -210,6 +210,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\apiController.cs" />
     <Compile Include="Controllers\ChatroomController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Models\Chatroom_Model\MessageInformationModel.cs" />
     <Compile Include="Models\Chatroom_Model\JoinChatroomResponseModel.cs" />
     <Compile Include="Models\Chatroom_Model\UserInformationModel.cs" />
+    <Compile Include="Models\Email_Model\EmailModel.cs" />
     <Compile Include="Models\Error_Model\ErrorsModel.cs" />
     <Compile Include="Models\PartialView_Model\PartialViewModel.cs" />
     <Compile Include="Models\Request_Model\RequestModel.cs" />
@@ -259,6 +261,7 @@
     <Compile Include="Models\User_Model\LogoutResponseModel.cs" />
     <Compile Include="Services\Chatroom_Service\ChatroomService.cs" />
     <Compile Include="Services\Chatroom_Service\MessageSend.cs" />
+    <Compile Include="Services\Email_Service\EmailService.cs" />
     <Compile Include="Services\Mapping_Service\MappingService.cs" />
     <Compile Include="Services\Message_Service\MessageService.cs" />
     <Compile Include="Services\Security_Service\SecurityService.cs" />
@@ -353,6 +356,7 @@
     <Content Include="Scripts\jquery\jquery.validate.min.js" />
     <Content Include="Scripts\jquery\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Contact\SendMail.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\bootstrap\respond.js" />
     <Content Include="Scripts\bootstrap\respond.min.js" />
@@ -412,6 +416,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="images\" />
     <Folder Include="Views\api\" />
+    <Folder Include="Views\Contact\" />
     <Folder Include="Views\Settings\" />
   </ItemGroup>
   <ItemGroup>
