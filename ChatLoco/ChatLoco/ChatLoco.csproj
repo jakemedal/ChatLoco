@@ -248,7 +248,8 @@
     <Compile Include="Models\Chatroom_Model\MessageInformationModel.cs" />
     <Compile Include="Models\Chatroom_Model\JoinChatroomResponseModel.cs" />
     <Compile Include="Models\Chatroom_Model\UserInformationModel.cs" />
-    <Compile Include="Models\Email_Model\EmailModel.cs" />
+    <Compile Include="Models\Email_Model\SendRequestModel.cs" />
+    <Compile Include="Models\Email_Model\SendResponseModel.cs" />
     <Compile Include="Models\Error_Model\ErrorsModel.cs" />
     <Compile Include="Models\PartialView_Model\PartialViewModel.cs" />
     <Compile Include="Models\Request_Model\RequestModel.cs" />
@@ -261,7 +262,7 @@
     <Compile Include="Models\User_Model\LogoutResponseModel.cs" />
     <Compile Include="Services\Chatroom_Service\ChatroomService.cs" />
     <Compile Include="Services\Chatroom_Service\MessageSend.cs" />
-    <Compile Include="Services\Email_Service\EmailService.cs" />
+    <Compile Include="Services\SendMail_Service\SendMailService.cs" />
     <Compile Include="Services\Mapping_Service\MappingService.cs" />
     <Compile Include="Services\Message_Service\MessageService.cs" />
     <Compile Include="Services\Security_Service\SecurityService.cs" />

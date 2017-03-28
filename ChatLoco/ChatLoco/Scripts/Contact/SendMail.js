@@ -21,20 +21,18 @@ function sendMail(e) {
         type: "POST",
         url: '/Contact/send',
         data: $model,
-        success: function (data) {
-            var msg = data.Message;
-            NotificationHandler.HideLoading();
-            if (data.status === "success") {
-                setTimeout(function () {
-                    window.location.replace($redirectUrl);
-                }, 3000)
-                StatusHandler.DisplayStatus(msg);
-            } else {
-                setTimeout(function () {
-                    window.location.reload();
-                }, 3000)
-                StatusHandler.DisplayStatus(msg);
+        success: function (response) {
+            if (ErrorHandler.DisplayErrors(response)) {
+                return;
             }
+
+            StatusHandler.DisplayStatus('<p>' + response.Message + '</p>');
+
+            setTimeout(function () {
+                window.location.replace($redirectUrl);
+            }, 3000);
+
+            NotificationHandler.HideLoading();
         },
         error: function (data) {
             ErrorHandler.DisplayCrash(data);
