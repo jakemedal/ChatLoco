@@ -1,7 +1,7 @@
 ﻿
 function FindChatroom() {
     var _findChatroomForm = null;
-    var _updateLocationForm = null;
+    var _changeLocationForm = null;
 
     var _chatroom = null;
 
@@ -12,18 +12,10 @@ function FindChatroom() {
 
         var $form = this;
 
-        var $coord1 = $form.elements.coord1.value;
-        var $coord2 = $form.elements.coord2.value;
-
         var $userHandle = $form.elements.userHandle.value;
 
-        if ($form.elements.chatroomPlaces.value === '') {
-            $chatroomId = parseInt($coord1) + parseInt($coord2);
-            $chatroomName = "Coords: " + $coord1 + ", " + $coord2;
-        } else {
-            $chatroomId = $("#chatroomPlaces").val();
-            $chatroomName = $("#chatroomPlaces option:selected").text();
-        }
+        $chatroomId = $("#chatroomPlaces").val();
+        $chatroomName = $("#chatroomPlaces option:selected").text();
 
         var $model = {
             ChatroomId: $chatroomId,
@@ -57,11 +49,26 @@ function FindChatroom() {
 
     }
 
+    var ChangeLocation = function (e) {
+        //get long and lat from e
+        e.preventDefault();
+        $("#chatroomPlaces").html("");
+
+        var $form = e.target;
+        var $lat = parseFloat($form[0].value);
+        var $lon = parseFloat($form[1].value);
+
+        MapHandler.getInitMap().getNearbyPlaces($lat, $lon);
+    }
+
     var init = function() {
         MapHandler.init();
 
         _findChatroomForm = $("#find-chatroom-form");
         _findChatroomForm.on("submit", FindChatroom);
+
+        _changeLocationForm = $("#change-location-form");
+        _changeLocationForm.on("submit", ChangeLocation);
 
     }
 

@@ -54,6 +54,9 @@ function MapObject() {
             }
         }
 
+        return {
+            getNearbyPlaces: getNearbyPlaces
+        }
     }
 
     var getInitMap = function () {
