@@ -58,7 +58,7 @@ function FindChatroom() {
     }
 
     var init = function() {
-        MapHandler.initMap();
+        MapHandler.init();
 
         _findChatroomForm = $("#find-chatroom-form");
         _findChatroomForm.on("submit", FindChatroom);

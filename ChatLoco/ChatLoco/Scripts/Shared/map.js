@@ -1,6 +1,8 @@
 ﻿
 function MapObject() {
 
+    var _initMap = null;
+
     var initMap = function () {
 
         if (navigator.geolocation) {
@@ -54,9 +56,22 @@ function MapObject() {
 
     }
 
+    var getInitMap = function () {
+        return _initMap;
+    }
+
+    var init = function () {
+        _initMap = initMap();
+
+        initMap();
+    }
+
     return {
-        initMap: initMap
+        init: init,
+        getInitMap: getInitMap
     }
 }
 
 var MapHandler = new MapObject();
+
+
