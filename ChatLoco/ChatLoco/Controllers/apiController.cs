@@ -14,5 +14,11 @@ namespace ChatLoco.Controllers
         {
             return Json(Labels.RevisionString, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public EmptyResult Ping()
+        {
+            return new EmptyResult();
+        }
     }
 }

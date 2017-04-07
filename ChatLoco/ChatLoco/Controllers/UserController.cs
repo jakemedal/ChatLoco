@@ -49,6 +49,22 @@ namespace ChatLoco.Controllers
             return Json(response);
         }
 
+        //Is used when disconnects happen
+        [HttpPost]
+        public ActionResult DirtyLogout(LogoutRequestModel request)
+        {
+            var response = new LogoutResponseModel();
+
+            if (request.ChatroomId != -1 && request.ParentChatroomId != -1)
+            {
+                ChatroomService.RemoveUserFromChatroom(request.ChatroomId, request.ParentChatroomId, request.User.Id);
+            }
+
+            UserService.Logout(request.User.Id);
+
+            return Json(response);
+        }
+
         [HttpPost]
         public ActionResult Logout(LogoutRequestModel request)
         {

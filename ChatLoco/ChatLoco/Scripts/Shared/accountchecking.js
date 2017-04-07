@@ -2,6 +2,7 @@
 
     var _currentUser = null;
     var _loginDialog = $("#login-dialog");
+    var _disconnectedDialog = $("#disconnected-dialog");
     var _accountNavbar = $("#account-navbar");
     var _chatroomContainer = $("#chatroom-container");
     var _loginFormData = null;
@@ -13,14 +14,23 @@
 
     $(document).on("click", CheckUserLogin);
 
-    $("#logout-link").on("click", Logout);
+    $("#logout-link").on("click", LogoutClicked);
+    $("#check-server-link").on("click", CheckServerConnection);
 
     function ShowDimBehindDialog() {
         NotificationHandler.ShowDim('black', '0.7');
     }
 
-    function Logout(e) {
+    function LogoutClicked(e) {
         e.preventDefault();
+        Logout(false);
+    }
+
+    function DirtyLogout() {
+        Logout(true);
+    }
+
+    function Logout(isDirty) {
 
         var $parentChatroomId = -1;
         var $chatroomId = -1;
@@ -36,9 +46,15 @@
             ChatroomId: $chatroomId
         };
 
+        var $url = '/User/Logout';
+
+        if (isDirty == true) {
+            $url = '/User/DirtyLogout';
+        }
+
         $.ajax({
             type: "POST",
-            url: '/User/Logout',
+            url: $url,
             data: $model,
             success: function (data) {
                 if (ErrorHandler.DisplayErrors(data)) {
@@ -117,6 +133,50 @@
             OpenLoginDialog();
         }
 
+    }
+
+    var _allowCloseDisconnectedDialog = false;
+    var _reconnectedCallback = null;
+
+    function CheckServerConnection(e) {
+        e.preventDefault();
+
+        NotificationHandler.ShowLoading();
+
+        $.ajax({
+            type: "GET",
+            url: '/api/Ping',
+            success: function (data) {
+                _allowCloseDisconnectedDialog = true;
+                _disconnectedDialog.dialog("close");
+                _allowCloseDisconnectedDialog = false;
+                if (_reconnectedCallback) {
+                    _reconnectedCallback();
+                }
+                NotificationHandler.HideLoading();
+            },
+            error: function (data) {
+                NotificationHandler.HideLoading();
+                ShowDimBehindDialog();
+            }
+        });
+    }
+
+    function OpenDisconnectedDialog(reconnectCallback) {
+        ShowDimBehindDialog();
+
+        if (reconnectCallback) {
+            _reconnectedCallback = reconnectCallback;
+        }
+
+        _disconnectedDialog.dialog({
+            title: "Server Connection Lost",
+            close: function () {
+                if (!_allowCloseDisconnectedDialog) {
+                    OpenDisconnectedDialog();
+                }
+            }
+        });
     }
 
     function OpenLoginDialog() {
@@ -228,10 +288,13 @@
     }
 
     return {
+        OpenDisconnectedDialog: OpenDisconnectedDialog,
         GetUser: GetUser,
         CheckUserLogin: CheckUserLogin,
         UpdateIdle: UpdateIdle,
         IsIdle: IsIdle,
+        Logout: Logout,
+        DirtyLogout: DirtyLogout,
         init: init,
         destroy: destroy
     }
