@@ -181,6 +181,9 @@
                     UpdateCurrentUser(data.User);
                     _accountNavbar.show();
                     $("#username-header").html("").append(GetUser().Username);
+                    if (GetUser().Role === "Admin") {
+                        $("#user-management").show();
+                    }
                     NotificationHandler.HideLoading();
                 }
 

@@ -213,6 +213,7 @@
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageUsersController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\ChatLocoContext.cs" />
@@ -235,7 +236,13 @@
     <Compile Include="Migrations\201703202213341_ActualAddSettingTable.Designer.cs">
       <DependentUpon>201703202213341_ActualAddSettingTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704061935117_user_roles.cs" />
+    <Compile Include="Migrations\201704061935117_user_roles.Designer.cs">
+      <DependentUpon>201704061935117_user_roles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AdminAction_Model\AdminActionRequestModel.cs" />
+    <Compile Include="Models\AdminAction_Model\AdminActionResponseModel.cs" />
     <Compile Include="Models\Chatroom_Model\ChatroomModel.cs" />
     <Compile Include="Models\Chatroom_Model\ComposeMessageRequestModel.cs" />
     <Compile Include="Models\Chatroom_Model\ComposeMessageResponseModel.cs" />
@@ -334,6 +341,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Admin\AdminAction.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
@@ -413,6 +421,7 @@
     <Content Include="Views\Shared\_Notifications.cshtml" />
     <Content Include="Views\Chatroom\_FindChatroom.cshtml" />
     <Content Include="Views\Chatroom\_ChangeLocation.cshtml" />
+    <Content Include="Views\ManageUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -441,6 +450,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703202213341_ActualAddSettingTable.resx">
       <DependentUpon>201703202213341_ActualAddSettingTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704061935117_user_roles.resx">
+      <DependentUpon>201704061935117_user_roles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

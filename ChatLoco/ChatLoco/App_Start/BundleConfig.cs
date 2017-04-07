@@ -26,6 +26,9 @@ namespace ChatLoco
             bundles.Add(new StyleBundle("~/bundles/email").Include(
                             "~/Scripts/Contact/SendMail.js"));
 
+            bundles.Add(new StyleBundle("~/bundles/Admin").Include(
+                            "~/Scripts/Admin/AdminAction.js"));
+
             bundles.Add(new StyleBundle("~/bundles/notifications").Include(
                             "~/Scripts/Shared/notifications.js"));
 

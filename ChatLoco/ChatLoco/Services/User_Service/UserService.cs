@@ -41,7 +41,8 @@ namespace ChatLoco.Services.User_Service
                 JoinDate = DateTime.Now,
                 LastLoginDate = null,
                 PasswordHash = passwordHash,
-                Username = username
+                Username = username,
+                Role = "User"
             };
 
             db.Users.Add(user);
@@ -154,6 +155,28 @@ namespace ChatLoco.Services.User_Service
                 }
                 return false;
             }
+        }
+        
+        public static List<ErrorModel> makeUserAdmin(string uName)
+        {
+            List<ErrorModel> errors = new List<ErrorModel>();
+
+            ChatLocoContext db = new ChatLocoContext();
+            UserDTO user = db.Users.FirstOrDefault(u => u.Username == uName);
+            //If user does not exist or they are an admin, fail. Otherwise make the user an admin.
+            if(user == null)
+            {
+                errors.Add(new ErrorModel("User " + uName + " does not exist."));
+                return errors;
+            }
+            if (user.Role=="Admin")
+            {
+                errors.Add(new ErrorModel("User "+ uName +" is already an administrator."));
+                return errors;
+            }
+            user.Role = "Admin";
+            db.SaveChanges();
+            return errors;
         }
     }
 }

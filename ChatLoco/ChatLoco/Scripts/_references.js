@@ -1,4 +1,5 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="admin/adminaction.js" />
 /// <reference path="ai.0.22.9-build00167.min.js" />
 /// <reference path="bootstrap/bootstrap.min.js" />
 /// <reference path="bootstrap/respond.min.js" />
