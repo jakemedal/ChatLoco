@@ -256,7 +256,9 @@ var ChatroomObject = function () {
                 }
 
             },
-            error: function (data) { }
+            error: function (data) {
+                lostConnection();
+            }
         });
     }
 
@@ -365,6 +367,12 @@ var ChatroomObject = function () {
         }
     }
 
+    function lostConnection() {
+        clearInterval(_GetChatroomInformationInterval);
+        clearInterval(_GetNewMessagesInterval);
+        AccountHandler.OpenDisconnectedDialog(AccountHandler.DirtyLogout);
+    }
+
     function GetNewMessages() {
         var $model = {
             ChatroomId: _ChatroomId,
@@ -394,6 +402,7 @@ var ChatroomObject = function () {
                 }
             },
             error: function (data) {
+                lostConnection();
             }
         });
     }
