@@ -267,6 +267,7 @@
     <Compile Include="Models\User_Model\LoginResponseModel.cs" />
     <Compile Include="Models\User_Model\LogoutRequestModel.cs" />
     <Compile Include="Models\User_Model\LogoutResponseModel.cs" />
+    <Compile Include="Models\User_Model\UserSettingsModel.cs" />
     <Compile Include="Services\Chatroom_Service\ChatroomService.cs" />
     <Compile Include="Services\Chatroom_Service\MessageSend.cs" />
     <Compile Include="Services\SendMail_Service\SendMailService.cs" />

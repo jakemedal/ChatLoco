@@ -95,7 +95,21 @@ namespace ChatLoco.Services.User_Service
 
             db.SaveChanges();
 
-            response.User = Mapper.Map<UserDTO, UserModel>(user);
+            //var userModel = Mapper.Map<UserDTO, UserModel>(user);
+            var userModel = new UserModel()
+            {
+                Id = user.Id,
+                Username = user.Username
+            };
+
+            var userSettings = SettingService.GetSettings(userModel.Id);
+
+            userModel.Settings = new UserSettingsModel()
+            {
+                DefaultHandle = userSettings.DefaultHandle
+            };
+
+            response.User = userModel;
 
             return response;
         }
