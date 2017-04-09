@@ -161,7 +161,7 @@ namespace ChatLoco.Services.Chatroom_Service
             {
                 var chatroom = GetChatroom(chatroomId, parentId);
 
-                var m = MessageService.CreateMessage(userId, chatroom.Id, message, chatroom.GetUserHandle(userId));
+                var m = MessageService.CreateMessage(userId, chatroom.IsPrivate ? -1 : chatroomId, message, chatroom.GetUserHandle(userId));
 
                 chatroom.AddMessage(m);
                 messageSend.IsSent = true;

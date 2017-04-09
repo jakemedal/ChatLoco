@@ -2,6 +2,7 @@
 using ChatLoco.Entities.UserDTO;
 using ChatLoco.Models.Chatroom_Service;
 using ChatLoco.Services.Chatroom_Service;
+using ChatLoco.Services.Message_Service;
 using System;
 using System.Collections.Generic;
 using System.Timers;
@@ -22,11 +23,11 @@ namespace ChatLoco.Classes.Chatroom
         private Dictionary<int, ActiveUser> AllUsers = new Dictionary<int, ActiveUser>();
         public string Name { get; }
         private Dictionary<int, Chatroom> AllSubChatrooms = new Dictionary<int, Chatroom>(); 
-        private bool IsPrivate { get; set; }
+        public bool IsPrivate { get; set; }
         private Chatroom Parent { get; set; }
         private Timer IdleTimer { get; set; }
 
-        public Chatroom(int id, string name)
+        public Chatroom(int id, string name, PrivateChatroomOptions options = null)
         {
             Name = name;
             Id = id;
@@ -35,6 +36,29 @@ namespace ChatLoco.Classes.Chatroom
             IdleTimer.Elapsed += new ElapsedEventHandler(IdleCheck);
             IdleTimer.Interval = 60000;
             IdleTimer.Enabled = true;
+
+            if(options != null)
+            {
+                PasswordHash = options.PasswordHash;
+                if (options.Blacklist != null)
+                {
+                    Blacklist = options.Blacklist.Split(',');
+                }
+                Capacity = options.Capacity;
+
+                Parent = options.Parent;
+
+                IsPrivate = true;
+            }
+            else
+            {
+                var messages = MessageService.GetRecentChatroomMessages(Id, 100);
+                foreach (var message in messages)
+                {
+                    FormattedMessagesCache.Add(message.Id, message.FormattedMessage);
+                    FormattedMessageOrder.Add(message.Id);
+                }
+            }
         }
 
         public void IdleCheck(object source, ElapsedEventArgs e)
@@ -164,15 +188,7 @@ namespace ChatLoco.Classes.Chatroom
         {
             try
             {
-                Chatroom c = new Chatroom(options.Id, options.Name);
-                c.PasswordHash = options.PasswordHash;
-                if(options.Blacklist != null)
-                {
-                    c.Blacklist = options.Blacklist.Split(',');
-                }
-                c.Capacity = options.Capacity;
-
-                c.Parent = options.Parent;
+                Chatroom c = new Chatroom(options.Id, options.Name, options);
 
                 AllSubChatrooms.Add(c.Id, c);
                 return true;

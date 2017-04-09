@@ -34,6 +34,19 @@ namespace ChatLoco.Services.Message_Service
             }
         }
 
+        public static List<MessageDTO> GetRecentChatroomMessages(int chatroomId, int amount)
+        {
+            var messages = new List<MessageDTO>();
+            ChatLocoContext DbContext = new ChatLocoContext();
+
+            var results = DbContext.Messages.Where(m => m.ChatroomId == chatroomId && m.DateCreated != null).OrderBy(m => m.DateCreated).Take(amount);
+
+            messages.AddRange(results);
+
+            return messages;
+        }
+
+        //if chatroomId is -1, means a private chatroom
         public static MessageDTO CreateMessage(int userId, int chatroomId, string rawMessage, string userHandle)
         {
             System.Diagnostics.Debug.WriteLine("creating message!!");
