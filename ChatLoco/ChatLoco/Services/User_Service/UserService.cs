@@ -42,7 +42,7 @@ namespace ChatLoco.Services.User_Service
                 LastLoginDate = null,
                 PasswordHash = passwordHash,
                 Username = username,
-                Role = "User"
+                Role = RoleLevel.User
             };
 
             db.Users.Add(user);
@@ -99,7 +99,8 @@ namespace ChatLoco.Services.User_Service
             var userModel = new UserModel()
             {
                 Id = user.Id,
-                Username = user.Username
+                Username = user.Username,
+                Role = user.Role
             };
 
             var userSettings = SettingService.GetSettings(userModel.Id);
@@ -183,12 +184,12 @@ namespace ChatLoco.Services.User_Service
                 errors.Add(new ErrorModel("User " + uName + " does not exist."));
                 return errors;
             }
-            if (user.Role=="Admin")
+            if (user.Role==RoleLevel.Admin)
             {
                 errors.Add(new ErrorModel("User "+ uName +" is already an administrator."));
                 return errors;
             }
-            user.Role = "Admin";
+            user.Role = RoleLevel.Admin;
             db.SaveChanges();
             return errors;
         }
