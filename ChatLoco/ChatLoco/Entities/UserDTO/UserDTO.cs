@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatLoco.Models.User_Model;
+using System;
 
 namespace ChatLoco.Entities.UserDTO
 {
@@ -10,6 +11,6 @@ namespace ChatLoco.Entities.UserDTO
         public string PasswordHash { get; set; }
         public DateTime? LastLoginDate { get; set; }
         public string Email { get; set; }
-        public string Role { get; set; }
+        public RoleLevel Role { get; set; }
     }
 }
