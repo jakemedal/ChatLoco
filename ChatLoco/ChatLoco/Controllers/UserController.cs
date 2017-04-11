@@ -1,6 +1,7 @@
 ﻿using ChatLoco.Models.Error_Model;
 using ChatLoco.Models.User_Model;
 using ChatLoco.Services.User_Service;
+using ChatLoco.Services.Setting_Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,7 +92,23 @@ namespace ChatLoco.Controllers
         {
             return PartialView("~/Views/User/_Login.cshtml");
         }
-        
+
+        //Supply the Settings partial view
+        [HttpGet]
+        public PartialViewResult GetSettingsForm()
+        {
+            return PartialView("~/Views/Settings/_Settings.cshtml");
+        }
+
+        //Update user settings to be whenever they changed them to be
+        [HttpPost]
+        public ActionResult UpdateSettings(UpdateSettingsRequestModel request)
+        {
+            var response = SettingService.UpdateSettings(request);
+
+            return Json(response);
+        }
+
         [HttpPost]
         public ActionResult Login(LoginRequestModel request)
         {

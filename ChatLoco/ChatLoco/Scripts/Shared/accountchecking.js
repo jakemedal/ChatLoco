@@ -2,10 +2,17 @@
 
     var _currentUser = null;
     var _loginDialog = $("#login-dialog");
+    //reference to the settings dialog partial view
+    var _settingsDialog = $("#settings-dialog");
     var _disconnectedDialog = $("#disconnected-dialog");
     var _accountNavbar = $("#account-navbar");
     var _chatroomContainer = $("#chatroom-container");
+
     var _loginFormData = null;
+    //Settings dialog data
+    var _settingsFormData = null;
+    var _settingsForm = null;
+    var _settingsInformationContainer = null;
 
     var _loginForm = null;
     var _loginInformationContainer = null;
@@ -13,6 +20,9 @@
     var _idleCheckInterval = null
 
     $(document).on("click", CheckUserLogin);
+
+    //whenever the user clicks the settings tab open the settings dialog
+    $("#settings-link").on("click", ShowSettings);
 
     $("#logout-link").on("click", LogoutClicked);
     $("#check-server-link").on("click", CheckServerConnection);
@@ -133,6 +143,126 @@
             OpenLoginDialog();
         }
 
+    }
+    
+    //Render the partial view
+    function ShowSettings(e) {
+        //stop the default action of the event so we can manually call out function
+        e.preventDefault();
+
+        if (!$(".ui-dialog").is(":visible")) {
+            if (typeof e != 'undefined') {
+                e.preventDefault();
+            }
+        }
+
+        //the dialog hasn't been populated yet - do it
+        if (_settingsFormData == null) {
+            NotificationHandler.ShowLoading();
+            $.ajax({
+                type: "GET",
+                url: '/User/GetSettingsForm',
+                success: function (data) {
+                    _settingsFormData = data;
+                    _settingsDialog.html("").append(_settingsFormData);
+
+                    _settingsForm = $("#settings-form");
+                    _settingsInformationContainer = $("#settings-information-container");
+                    $("#email-input").val(GetUser().Settings.Email);
+                    $("#default-handle-input").val(GetUser().Settings.DefaultHandle);
+
+                    _settingsDialog.on("dialogclose", ManualCloseSettingsDialog);//in case the user closes the dialog with the X, undim the background
+                    _settingsForm.on("submit", updateSettings);
+
+                    NotificationHandler.HideLoading();
+                    OpenSettingsDialog();
+                }
+            });
+        }
+        else {
+            OpenSettingsDialog();
+        }
+
+    }
+
+    //form submission - update user settings
+    function updateSettings(e) {
+        e.preventDefault();//stop default action
+
+        NotificationHandler.ShowLoading();
+        //Store the form of the object that called the method
+        var $form = this;
+
+        var $updatedEmail = $form.elements.Email.value;
+        var $updatedDefaultHandle = $form.elements.DefaultHandle.value;
+
+        //UpdateSettingsRequestModel 
+        var $model = {
+            Settings: {
+                DefaultHandle: $updatedDefaultHandle,
+                Email: $updatedEmail
+            },
+            Username: GetUser().Username
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '/User/UpdateSettings',
+            data: $model,
+            success: function (data) {
+                if (ErrorHandler.DisplayErrors(data)) {
+                    return;
+                }
+                var $settingsErrorsContainer = $("#settings-errors");
+
+                $settingsErrorsContainer.html("");
+
+                if (data.SettingsErrors.length > 0) {
+                    for (var j = 0; j < data.SettingsErrors.length; j++) {
+                        var $errorMessage = data.SettingsErrors[j].ErrorMessage;
+                        $settingsErrorsContainer.append("<p>" + $errorMessage + "</p>");
+                    }
+                    NotificationHandler.HideLoading();
+                    ShowDimBehindDialog();
+                }
+                else {//inform user we were successful and exit
+                    CloseSettingsDialog();
+                    StatusHandler.DisplayStatus("<p>User Settings saved successfully!</p>");
+                    UpdateCurrentUser(data.User);
+                    _accountNavbar.show();
+                    NotificationHandler.HideLoading();
+                }
+
+            },
+            error: function () {
+            }
+        });
+
+    }
+
+    function OpenSettingsDialog() {
+        if (typeof _settingsDialog == 'undefined') {//failsafe incase not initialized
+            return;
+        }
+
+        ShowDimBehindDialog();
+        _settingsDialog.dialog({//might be redundant
+            title: "User Settings"
+        });
+    }
+
+    function ManualCloseSettingsDialog() {
+        CloseSettingsDialog();
+        _accountNavbar.show();
+        NotificationHandler.HideLoading();
+    }
+
+    function CloseSettingsDialog() {
+        if (typeof _settingsDialog == 'undefined') {//failsafe
+            return;
+        }
+
+        _settingsDialog.dialog("close");
     }
 
     var _allowCloseDisconnectedDialog = false;

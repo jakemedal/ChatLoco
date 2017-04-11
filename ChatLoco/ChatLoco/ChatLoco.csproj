@@ -267,6 +267,8 @@
     <Compile Include="Models\User_Model\LoginResponseModel.cs" />
     <Compile Include="Models\User_Model\LogoutRequestModel.cs" />
     <Compile Include="Models\User_Model\LogoutResponseModel.cs" />
+    <Compile Include="Models\User_Model\UpdateSettingsRequestModel.cs" />
+    <Compile Include="Models\User_Model\UpdateSettingsResponseModel.cs" />
     <Compile Include="Models\User_Model\UserSettingsModel.cs" />
     <Compile Include="Services\Chatroom_Service\ChatroomService.cs" />
     <Compile Include="Services\Chatroom_Service\MessageSend.cs" />
@@ -423,13 +425,13 @@
     <Content Include="Views\Chatroom\_FindChatroom.cshtml" />
     <Content Include="Views\Chatroom\_ChangeLocation.cshtml" />
     <Content Include="Views\ManageUsers\Index.cshtml" />
+    <Content Include="Views\Settings\_Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\" />
     <Folder Include="Views\api\" />
     <Folder Include="Views\Contact\" />
-    <Folder Include="Views\Settings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

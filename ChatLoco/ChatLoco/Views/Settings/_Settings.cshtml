@@ -1,0 +1,23 @@
+﻿
+@model ChatLoco.Models.User_Model.LoginRequestModel
+
+<div id="settings-container">
+
+    <h2>User Settings</h2>
+
+    <div id="settings-information-container">
+        <div id="settings-errors" class="text-danger"></div>
+        <div id="settings-form-container">
+            <form id="settings-form">
+                Email <input type="email" name="Email" id="email-input" required/>
+                <br />
+                Default Handle <input type="text" name="DefaultHandle" id="default-handle-input" required/>
+                <br />
+                <input type="submit" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/user")

@@ -8,7 +8,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-center">
                 <li>
-                    @Html.ActionLink("Settings", "Settings", "User")
+                    @Html.ActionLink("Settings", "Settings", "User", new { @id = "settings-link" })
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-center">
@@ -26,6 +26,10 @@
 </div>
 
 <div hidden id="login-dialog" title="Login Information">
+</div>
+
+@*hide at the start unless they click the settings button*@
+<div hidden id="settings-dialog" title="User Settings">
 </div>
 
 <div hidden id="disconnected-dialog" title="Server Connection Lost">

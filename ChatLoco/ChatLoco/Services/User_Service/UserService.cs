@@ -106,7 +106,8 @@ namespace ChatLoco.Services.User_Service
 
             userModel.Settings = new UserSettingsModel()
             {
-                DefaultHandle = userSettings.DefaultHandle
+                DefaultHandle = userSettings.DefaultHandle,
+                Email = user.Email
             };
 
             response.User = userModel;
