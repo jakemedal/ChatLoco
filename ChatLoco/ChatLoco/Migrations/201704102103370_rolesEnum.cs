@@ -7,12 +7,14 @@ namespace ChatLoco.Migrations
     {
         public override void Up()
         {
-            AlterColumn("dbo.UserDTO", "Role", c => c.Int(nullable: false));
+            DropColumn("dbo.UserDTO", "Role");
+            AddColumn("dbo.UserDTO", "Role", c => c.Int(nullable: false));
         }
         
         public override void Down()
         {
-            AlterColumn("dbo.UserDTO", "Role", c => c.String());
+            DropColumn("dbo.UserDTO", "Role");
+            AddColumn("dbo.UserDTO", "Role", c => c.String());
         }
     }
 }
