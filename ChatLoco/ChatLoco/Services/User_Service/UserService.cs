@@ -27,7 +27,7 @@ namespace ChatLoco.Services.User_Service
             }
 
             ChatLocoContext db = new ChatLocoContext();
-            if(db.Users.FirstOrDefault(u => u.Email == email) != null)
+            if(db.Settings.FirstOrDefault(s => s.Email == email) != null)
             {
                 errors.Add(new ErrorModel("Email already in use."));
                 return errors;
@@ -37,7 +37,6 @@ namespace ChatLoco.Services.User_Service
 
             UserDTO user = new UserDTO()
             {
-                Email = email,
                 JoinDate = DateTime.Now,
                 LastLoginDate = null,
                 PasswordHash = passwordHash,
@@ -48,7 +47,7 @@ namespace ChatLoco.Services.User_Service
             db.Users.Add(user);
             db.SaveChanges();
 
-            SettingDTO settings = SettingService.CreateSettings(user.Id, user.Username);//the default handle is the users username
+            SettingDTO settings = SettingService.CreateSettings(user.Id, user.Username, email);//the default handle is the users username
             if (settings == null) {
                 //somehow failed to create user settings
                 errors.Add(new ErrorModel("Failure to create User Setting!."));
@@ -108,7 +107,7 @@ namespace ChatLoco.Services.User_Service
             userModel.Settings = new UserSettingsModel()
             {
                 DefaultHandle = userSettings.DefaultHandle,
-                Email = user.Email
+                Email = userSettings.Email
             };
 
             response.User = userModel;

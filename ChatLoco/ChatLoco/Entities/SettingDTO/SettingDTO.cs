@@ -10,6 +10,6 @@ namespace ChatLoco.Entities.SettingDTO
         public int Id { get; set; }
         public int UserId { get; set; }
         public String DefaultHandle { get; set; }
-
+        public string Email { get; set; }
     }
 }

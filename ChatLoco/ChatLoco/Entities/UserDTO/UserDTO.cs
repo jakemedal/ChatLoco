@@ -10,7 +10,6 @@ namespace ChatLoco.Entities.UserDTO
         public DateTime JoinDate { get; set; }
         public string PasswordHash { get; set; }
         public DateTime? LastLoginDate { get; set; }
-        public string Email { get; set; }
         public RoleLevel Role { get; set; }
     }
 }

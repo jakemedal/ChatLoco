@@ -31,7 +31,6 @@ namespace ChatLoco
             {
                 UserDTO adminUser = new UserDTO()
                 {
-                    Email = "admin@chatlo.co",
                     JoinDate = DateTime.Now,
                     LastLoginDate = null,
                     PasswordHash = SecurityService.GetStringSha256Hash("Admin"),
@@ -41,7 +40,7 @@ namespace ChatLoco
                 DbContext.Users.Add(adminUser);
                 DbContext.SaveChanges();
 
-                SettingDTO settings = SettingService.CreateSettings(adminUser.Id, adminUser.Username);
+                SettingDTO settings = SettingService.CreateSettings(adminUser.Id, adminUser.Username, "admin@chatlo.co");
 
             }
         }
