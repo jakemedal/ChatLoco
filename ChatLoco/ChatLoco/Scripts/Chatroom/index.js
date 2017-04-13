@@ -18,7 +18,7 @@ function FindChatroom() {
         $chatroomName = $("#chatroomPlaces option:selected").text();
 
         var $model = {
-            ChatroomId: $chatroomId,
+            RawChatroomIdValue: $chatroomId,
             ChatroomName: $chatroomName,
             UserHandle: $userHandle,
             User: AccountHandler.GetUser()

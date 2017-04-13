@@ -40,7 +40,7 @@ namespace ChatLoco.Controllers
         {
             var response = new PartialViewModel();
 
-            int chatroomId = request.ChatroomId;
+            int chatroomId = request.RawChatroomIdValue.GetHashCode();
             int parentChatroomId = chatroomId; //temporary during initial testing
 
             string chatroomName = request.ChatroomName;

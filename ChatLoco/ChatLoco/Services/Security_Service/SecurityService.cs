@@ -16,8 +16,9 @@ namespace ChatLoco.Services.Security_Service
         public static List<ErrorModel> CanUserJoinChatroom(ChatRequestModel request)
         {
             var model = new JoinChatroomRequestModel();
-            model.ChatroomId = request.ChatroomId;
-            model.ParentChatroomId = request.ChatroomId;
+
+            model.ChatroomId = request.RawChatroomIdValue.GetHashCode();
+            model.ParentChatroomId = request.RawChatroomIdValue.GetHashCode();
             model.Password = null;
             model.UserHandle = request.UserHandle;
             model.User = request.User;
