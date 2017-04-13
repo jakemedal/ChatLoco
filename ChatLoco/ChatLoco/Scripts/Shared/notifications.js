@@ -14,7 +14,7 @@
 
     function ShowDim(color, opacity) {
 
-        var $color = 'blue';
+        var $color = 'black';
         if (color) {
             $color = color;
         }

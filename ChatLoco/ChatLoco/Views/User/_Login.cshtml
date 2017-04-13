@@ -11,10 +11,10 @@
             {
                 @Html.AntiForgeryToken()
                 <br />
-                <p> Username: @Html.TextBoxFor(model => model.Username, new { @id = "username-input" }) </p>
+                <p> Username: @Html.TextBoxFor(model => model.Username, new { @id = "username-input", @class = "form-control"}) </p>
                 <br />
-                <p> Password: @Html.PasswordFor(model => model.Password, new { @id = "password-input" }) </p>
-                <input type="submit" />
+                <p> Password: @Html.PasswordFor(model => model.Password, new { @id = "password-input", @class="form-control", @type="password"}) </p>
+                <input type="submit" class="btn btn-lg btn-block" style="color:#ffffff; background-color: #39b3d7;"/>
             }
         </div>
     </div>
