@@ -1,0 +1,58 @@
+﻿
+
+<div id="settings-form-container">
+    <h2 class="h2 white">User Settings</h2>
+
+    <div class="white">
+        <form class="form-horizontal" id="settings-form" method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Username</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="current username" value="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="current email" value="" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Default Handle</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="defaultHandle" name="defaultHandle" placeholder="current default handle" value="" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <input type="hidden" value="@Request.Url.GetLeftPart(UriPartial.Authority)" />
+                    <input id="submit" name="submit" type="submit" value="Update" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*
+<div id="login-container">
+
+    <h2>User Login</h2>
+
+    <div id="login-information-container">
+        <div id="login-errors" class="text-danger"></div>
+        <div id="login-form-container">
+            @using (Html.BeginForm("Login", "User", FormMethod.Post, new { id = "login-form" }))
+            {
+                @Html.AntiForgeryToken()
+                <br />
+                <p> Username: @Html.TextBoxFor(model => model.Username, new { @id = "username-input" }) </p>
+                <br />
+                <p> Password: @Html.PasswordFor(model => model.Password, new { @id = "password-input" }) </p>
+                <input type="submit" />
+            }
+        </div>
+    </div>
+</div>
+*@
+
+@Scripts.Render("~/bundles/user")

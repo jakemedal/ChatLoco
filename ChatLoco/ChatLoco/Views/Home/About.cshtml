@@ -2,24 +2,55 @@
     ViewBag.Title = "About ChatLoco (v0.57)";
     ViewBag.Message = "ChatLoco LLC was started as a senior computer science project at the University of Wisconsin - Milwaukee. Our developers work pretty dang hard to give you folks a fricken great user experience.";
 }
-<h2 class="white">@ViewBag.Title</h2>
-<h5 class="white">@ViewBag.Message</h5>
-<div id="FAQ" class="white">
-    <h2 class="off-white">FAQ</h2>
-    <br />
-    <h3 class="off-white">How do I join a chatroom?</h3>
-    <p>Chatrooms are made and joined based on your current location. After logging in, your current coordinates
-    are loaded into our chatroom creation system. After picking your user handle, you submit your query to join
-    a chatroom near you!
-    </p>
-    <br />
-    <h3 class="off-white">What if I want to join a room with my friend but he's in Tijuana and I'm stuck in Milwaukee freezing?</h3>
-    <p>
-        You should be able to manually enter coordinates into the chatroom finder. Ask your pal to provide you with 
-        the coordinates of their chatroom and you shouldn't have a problem joining them.
-    </p>
-    <br />
-    <h3 class="off-white">Stuff is broken and I'm lazy.</h3>
-    <p>Uhh... sorry to hear that. You can send an email to our support team @Html.ActionLink("here.", "Contact", "Home")</p>
+<div class="container">
+    <div class="card">
+        <h2 class="white">@ViewBag.Title</h2>
+        <h5 class="white">@ViewBag.Message</h5>
+    </div>
+</div>
+<div class="container" style="background-color:rgba(10, 10, 10, 0.7); border-color: #ffffff;">
+    <div id="FAQ" class="white">
+        <h2 class="off-white">FAQ</h2>
+        <br />
+        <div class="card card-outline-secondary">
+            <div class="card-title">
+                <h3 class="off-white">How do I join a chatroom?</h3>
+            </div>
+            <div class="card-block">
+                <blockquote class="card-blockquote">
+                    <p>
+                        Chatrooms are made and joined based on your current location. After logging in, your current coordinates
+                        are loaded into our chatroom creation system. After picking your user handle, you submit your query to join
+                        a chatroom near you!
+                    </p>
+                </blockquote>
+            </div>
+        </div>
+        <br />
+        <div class="card card-outline-secondary">
+            <div class="card-title">
+                <h3 class="off-white">What if I want to join a room with my friend but he's in Tijuana and I'm stuck in Milwaukee freezing?</h3>
+            </div>
+            <div class="card-block">
+                <blockquote class="card-blockquote">
+                    <p>
+                        You should be able to manually enter coordinates into the chatroom finder. Ask your pal to provide you with
+                        the coordinates of their chatroom and you shouldn't have a problem joining them.
+                    </p>
+                </blockquote>
+            </div>
+        </div>
+        <br />
+        <div class="card card-outline-secondary">
+            <div class="card-title">
+                <h3 class="off-white">Stuff is broken and I'm lazy.</h3>
+            </div>
+            <div class="card-block">
+                <blockquote class="card-blockquote">
+                    <p>Uhh... sorry to hear that. You can send an email to our support team @Html.ActionLink("here.", "Contact", "Home", new { @style = "color: #39b3d7;" })</p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
 </div>
 

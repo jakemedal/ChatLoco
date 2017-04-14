@@ -1,35 +1,45 @@
 ﻿
-<h2 class="h2 white">Contact ChatLoco LLC</h2>
-<h4 class="h4 white">Questions? Shoot an email to our support team or check out our 
-     @Html.ActionLink("FAQ page.", "About", "Home")</h4>
-<!--TODO decide if we want to make this functional or have a list of contacts/emails to reach us at.-->
-<div class="white">
-    <form class="form-horizontal" id="contact-form" method="post">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Your prefered name or alias" value="">
-            </div>
+<div class="container col-md-offset-3">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="h2 white ">Contact ChatLoco LLC</h2>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Email</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value="" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Message</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" rows="4" name="message" required></textarea>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-10 col-sm-offset-2">
-                <input type="hidden" value="@Request.Url.GetLeftPart(UriPartial.Authority)" />
-                <input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
-            </div>
-        </div>
-    </form>
-</div>
 
+        <h4 class="card-title white">
+            Questions? Shoot an email to our support team or check out our
+            @Html.ActionLink("FAQ page.", "About", "Home", new { @style = "color: #39b3d7;" })
+        </h4>
+        <div class="card-block">
+            <!--TODO decide if we want to make this functional or have a list of contacts/emails to reach us at.-->
+            <div class="white">
+                <form class="form-horizontal" id="contact-form" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="background-color: rgba(10, 10, 10, 0.7); color:#ffffff;" class="form-control" id="name" name="name" placeholder="Your prefered name or alias" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input style="background-color: rgba(10, 10, 10, 0.7); color:#ffffff;" type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value="" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Message</label>
+                        <div class="col-sm-10">
+                            <textarea style="max-width:50%; background-color: rgba(10, 10, 10, 0.7); color:#ffffff;" class="form-control" rows="4" name="message" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <input type="hidden" value="@Request.Url.GetLeftPart(UriPartial.Authority)" />
+                            <input id="submit" name="submit" type="submit" value="Send" class="btn" style="color:#ffffff; background-color: rgba(10,10,10,0.9);">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @Scripts.Render("~/bundles/email")
