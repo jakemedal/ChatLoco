@@ -2,14 +2,20 @@
     <div class="col-xs-1"></div>
     <div id="find-chatroom-container" class="white col-md-4 text-left">
         <div class="h1">Find a Chatroom</div>
-        <div class="input-group">
-            <label class="control-label">Coordinates:</label>
-            <input class="input-sm col-sm-12" id="lat" type="text" disabled /> 
-            <input class="input-sm col-sm-12" id="lon" type="text" disabled /> 
+        <div style="clear: both">
+            <h5 class="h5">
+                <small class="text-muted"> Latitude </small>
+                <span id="lat"></span>
+            </h5>
+            <h5 class="h5">
+                <small class="text-muted"> Longitude </small>
+                <span id="lon"></span>
+            </h5>
         </div>
 
         <form id="find-chatroom-form" class="form-horizontal">
             <div class="form-group">
+                <label class="control-label">Available Chatrooms:</label>
                 <select class="form-control" id="chatroomPlaces">
                 </select>
             </div>

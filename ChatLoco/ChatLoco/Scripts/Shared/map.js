@@ -14,8 +14,8 @@ function MapObject() {
         function showPosition(position) {
             var lat = position.coords.latitude;
             var lon = position.coords.longitude
-            $("#lat").val(lat);
-            $("#lon").val(lon);
+            $("#lat").html(lat);
+            $("#lon").html(lon);
 
             getNearbyPlaces(lat, lon);
         }
