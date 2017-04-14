@@ -119,7 +119,7 @@ namespace ChatLoco.Controllers
         [HttpPost]
         public ActionResult GetUserInfoForm(UserInfoRequestModel request)
         {
-            var response = UserService.GetUserInfoRequestModel(request);
+            var response = UserService.GetUserInfoResponseModel(request);
 
             return Json(response);
         }
