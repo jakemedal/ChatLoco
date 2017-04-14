@@ -269,6 +269,7 @@
     <Compile Include="Models\PartialView_Model\PartialViewModel.cs" />
     <Compile Include="Models\Request_Model\RequestModel.cs" />
     <Compile Include="Models\Response_Model\ResponseModel.cs" />
+    <Compile Include="Models\User_Model\UserInfoRequestModel.cs" />
     <Compile Include="Models\User_Model\CreateUserRequestModel.cs" />
     <Compile Include="Models\User_Model\CreateUserResponseModel.cs" />
     <Compile Include="Models\User_Model\LoginRequestModel.cs" />
@@ -434,6 +435,7 @@
     <Content Include="Views\Chatroom\_ChangeLocation.cshtml" />
     <Content Include="Views\ManageUsers\Index.cshtml" />
     <Content Include="Views\Settings\_Settings.cshtml" />
+    <Content Include="Views\UserInfo\_Userinfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

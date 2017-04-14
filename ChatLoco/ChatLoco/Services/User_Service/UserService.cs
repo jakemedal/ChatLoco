@@ -118,7 +118,21 @@ namespace ChatLoco.Services.User_Service
 
             return response;
         }
+        public static UserInfoResponseModel GetUserInfoResponseModel(UserInfoRequestModel request)
+        {
+            var response = new UserInfoResponseModel();
 
+            var userSettings = SettingService.GetSettings(request.Id);
+
+            ChatLocoContext DbContext = new ChatLocoContext();
+            UserDTO user = DbContext.Users.FirstOrDefault(u => u.Id == request.Id);
+
+            response.DefaultHandle = userSettings.DefaultHandle;
+            response.Username = user.Username;
+            response.Email = userSettings.Email;
+
+            return response;
+        }
         public static UserDTO GetUser(int id)
         {
             ChatLocoContext DbContext = new ChatLocoContext();
@@ -241,5 +255,6 @@ namespace ChatLoco.Services.User_Service
             db.SaveChanges();
             return errors;
         }
+
     }
 }

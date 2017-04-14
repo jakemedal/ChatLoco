@@ -49,7 +49,7 @@ var ChatroomObject = function () {
         _CreatePrivateChatroomForm = $("#create-private-chatroom-form");
 
         _MessagesContainer = $("#MessagesContainer");
-        _UsersContainer = $("#UsersContainer");
+        _UsersContainer = $("#UsersContainer").on("click", OpenUserInfoDialog);
         _SubChatroomsList = $("#SubChatroomsList");
 
         _ChatroomName = $("#ChatroomName")[0].value;
@@ -346,6 +346,18 @@ var ChatroomObject = function () {
             error: function () {
             }
         });
+
+    }
+    function OpenUserInfoDialog(e) {
+        e.preventDefault();
+
+        var $user = document.elementFromPoint(e.clientx, e.clienty);
+
+
+
+
+
+        
 
     }
 

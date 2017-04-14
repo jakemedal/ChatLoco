@@ -116,5 +116,12 @@ namespace ChatLoco.Controllers
 
             return Json(response);
         }
+        [HttpPost]
+        public ActionResult GetUserInfoForm(UserInfoRequestModel request)
+        {
+            var response = UserService.GetUserInfoRequestModel(request);
+
+            return Json(response);
+        }
     }
 }
