@@ -398,7 +398,7 @@ var ChatroomObject = function () {
                 if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
-                StatusHandler.DisplayStatus('<p>' + data.Username + '</p>' + '<br>' + '<p>' + data.Email + '</p>' + '<br>' + '<p>' + data.DefaultHandle + '</p>')
+                StatusHandler.DisplayStatus('<p> Username: '+ data.Username + '</p>' + '<br>' + '<p> Email: ' + data.Email + '</p>' + '<br>' + '<p> Default Handle: ' + data.DefaultHandle + '</p>')
             },
             error: function () {
             }
