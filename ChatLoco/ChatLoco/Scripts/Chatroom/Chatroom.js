@@ -241,7 +241,8 @@ var ChatroomObject = function () {
                 for (var i = 0; i < data.UsersInformation.length; i++) {
                     var $user = data.UsersInformation[i];
                     var $username = data.UsersInformation[i].Username;
-                    _UsersContainer.append("<p>" + $username + "</p>");
+                    var $id = data.UsersInformation[i].Id;
+                    _UsersContainer.append("<p value="+$id+"> " + $username + "</p>");
                 }
 
                 _SubChatroomsList.html("<br/>");
@@ -351,13 +352,28 @@ var ChatroomObject = function () {
     function OpenUserInfoDialog(e) {
         e.preventDefault();
 
-        var $user = document.elementFromPoint(e.clientx, e.clienty);
+        var $user = document.elementFromPoint(e.clientX, e.clientY);
+        var $id = $user.value;
+        console.log($user.html);
 
+        var $model = {
+            Id: $id
+        };
 
+        $.ajax({
+            type: "POST",
+            url: '/User/GetUserInfoForm',
+            data: $model,
+            success: function (data) {
 
-
-
-        
+                if (ErrorHandler.DisplayErrors(data)) {
+                    return;
+                }
+                StatusHandler.DisplayStatus('<p>' + data.Username + '</p>' + '<br>' + '<p>' + data.Email + '</p>')
+            },
+            error: function () {
+            }
+        });
 
     }
 
