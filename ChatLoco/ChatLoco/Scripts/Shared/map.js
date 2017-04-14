@@ -28,6 +28,11 @@ function MapObject() {
                 zoom: 19
             });
 
+            $(window).resize(function () {
+                // (the 'map' here is the result of the created 'var map = ...' above)
+                google.maps.event.trigger(map, "resize");
+            });
+
             var request = {
                 location: loc,
                 radius: '100',
@@ -52,6 +57,7 @@ function MapObject() {
                     }
                 }
             }
+
         }
 
         return {
