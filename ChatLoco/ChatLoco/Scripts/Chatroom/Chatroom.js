@@ -270,7 +270,7 @@ var ChatroomObject = function () {
                     var $user = data.UsersInformation[i];
                     var $username = data.UsersInformation[i].Username;
                     var $id = data.UsersInformation[i].Id;
-                    _UsersContainer.append("<p value="+$id+"> " + $username + "</p>");
+                    _UsersContainer.append("<p id="+$id+"> " + $username + "</p>");
                 }
 
                 _SubChatroomsList.html("<br/>");
@@ -381,8 +381,9 @@ var ChatroomObject = function () {
         e.preventDefault();
 
         var $user = document.elementFromPoint(e.clientX, e.clientY);
-        var $id = $user.value;
-        console.log($user.html);
+        console.log($user);
+        var $id = $user.id;
+        console.log($id);
 
         var $model = {
             Id: $id
@@ -397,7 +398,7 @@ var ChatroomObject = function () {
                 if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
-                StatusHandler.DisplayStatus('<p>' + data.Username + '</p>' + '<br>' + '<p>' + data.Email + '</p>')
+                StatusHandler.DisplayStatus('<p>' + data.Username + '</p>' + '<br>' + '<p>' + data.Email + '</p>' + '<br>' + '<p>' + data.DefaultHandle + '</p>')
             },
             error: function () {
             }
