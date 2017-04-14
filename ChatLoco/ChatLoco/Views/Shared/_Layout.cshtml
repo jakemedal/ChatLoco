@@ -19,17 +19,19 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("ChatLoco", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div class="navbar-brand">
+                    <a href='@Url.Action("Index", "Home")'>
+                        <img src='@Url.Content("~/Content/images/logo_transparent_icon.png")' />
+                    </a>
+                </div>
+                @Html.ActionLink("Launch", "Index", "Chatroom", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Launch ChatLoco", "Index", "Chatroom")</li>
-                </ul>
+            <div class="navbar-collapse collapse" id="main-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         @Html.ActionLink("Create Account", "Create", "User")
@@ -56,10 +58,12 @@
         @RenderBody()
     </div>
 
-    <div id="revision-container">
-        <p id="revision-string">
-            @* Populated by layout.js *@
-        </p>
+    <div class="footer navbar-fixed-bottom">
+        <div id="revision-container">
+            <p id="revision-string">
+                @* Populated by layout.js *@
+            </p>
+        </div>
     </div>
     @Scripts.Render("~/bundles/layout")
     @Scripts.Render("~/bundles/bootstrap")

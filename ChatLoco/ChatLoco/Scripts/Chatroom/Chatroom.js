@@ -34,10 +34,40 @@ var ChatroomObject = function () {
         if (_GetNewMessagesInterval != null) {
             clearInterval(_GetNewMessagesInterval);
         }
+
+        $("#create-private-chatroom-dialog-button").off("click", OpenCreatePrivateChatroomDialog);
+
+        $("#ComposeForm").off("submit", SendComposedMessage);
+        $("#ParentChatroomButton").off("click", ChatroomClicked);
+        $("#SubChatroomsList").off("click", ChatroomClicked);
+        $("#private-chatroom-request-form").off("submit", ChatroomRequestFormSubmit);
+
+        NotificationHandler.ShowLoading();
+
+        var $model = {
+            UserId: _UserId,
+            ParentId: _ParentChatroomId,
+            ChatroomId: _ChatroomId
+        };
+
+        var s = AccountHandler.GetUser();
+
+        $.ajax({
+            type: "POST",
+            url: '/Chatroom/LeaveChatroom',
+            data: JSON.stringify($model),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+            },
+            error: function (data) {
+
+            }
+        });
     }
 
     var init = function () {
-        Destroy();
 
         _AllMessages = [];
         _AllMessagesIds = [];

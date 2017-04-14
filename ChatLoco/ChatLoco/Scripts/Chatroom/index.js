@@ -36,6 +36,9 @@ function FindChatroom() {
                 else {
                     AccountHandler.GetUser().UserHandle = $userHandle;
                     $("#chatroom-container").html("").append(response.Data);
+                    if (ChatroomHandler != null) {
+                        ChatroomHandler.Destroy();
+                    }
                     ChatroomHandler = new ChatroomObject();
                     ChatroomHandler.init();
                 }
@@ -72,8 +75,15 @@ function FindChatroom() {
 
     }
 
+    var Destroy = function () {
+        _findChatroomForm.off("submit", FindChatroom);
+
+        _changeLocationForm.off("submit", ChangeLocation);
+    }
+
     return {
-        init: init
+        init: init,
+        Destroy: Destroy
     }
 }
 

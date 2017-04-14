@@ -83,7 +83,8 @@ namespace ChatLoco.Services.Setting_Service
         public static SettingDTO GetSettings(int userId)
         {
             ChatLocoContext DbContext = new ChatLocoContext();
-            return DbContext.Settings.Where(s => s.UserId == userId).FirstOrDefault();
+            SettingDTO settings = DbContext.Settings.Where(s => s.UserId == userId).FirstOrDefault();
+            return settings;
         }
 
     }

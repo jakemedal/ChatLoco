@@ -1,22 +1,33 @@
 ﻿@model ChatLoco.Models.Base_Model.BaseModel
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <div class="navbar navbar-inverse navbar-fixed-left" id="account-navbar" hidden>
     <div class="container">
         <div class="navbar-header" id="logged-in-as">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sub-navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
             <h4 id="username-header" class="text-info">Logged in as: </h4>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-center">
+        <div class="navbar-collapse collapse" id="sub-navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
                 <li>
                     @Html.ActionLink("Settings", "Settings", "User", new { @id = "settings-link" })
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-center">
+            <ul class="nav navbar-nav navbar-right">
                 <li>
-                    @Html.ActionLink("Logout", "Logout", "User", new { @id="logout-link" })
+                    @Html.ActionLink("Logout", "Logout", "User", new { @id = "logout-link" })
                 </li>
             </ul>
-            <ul  id="user-management" class="nav navbar-nav navbar-center" hidden>
+            <ul class="nav navbar-nav navbar-center">
+                <li>
+                    @Html.ActionLink("Find A Chatroom", "GetFindChatroomPartial", "Chatroom", new { @id = "find-chatroom-link" })
+                </li>
+            </ul>
+            <ul id="user-management" class="nav navbar-nav navbar-center" hidden>
                 <li>
                     @Html.ActionLink("Manage Users", "Index", "ManageUsers")'
                 </li>

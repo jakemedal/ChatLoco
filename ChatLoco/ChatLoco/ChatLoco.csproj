@@ -260,6 +260,7 @@
     <Compile Include="Models\Chatroom_Model\GetJoinChatroomFormResponseModel.cs" />
     <Compile Include="Models\Chatroom_Model\GetNewMessagesResponseModel.cs" />
     <Compile Include="Models\Chatroom_Model\JoinChatroomRequestModel.cs" />
+    <Compile Include="Models\Chatroom_Model\LeaveChatroomRequestModel.cs" />
     <Compile Include="Models\Chatroom_Model\MessageInformationModel.cs" />
     <Compile Include="Models\Chatroom_Model\JoinChatroomResponseModel.cs" />
     <Compile Include="Models\Chatroom_Model\UserInformationModel.cs" />
