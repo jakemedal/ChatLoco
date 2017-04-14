@@ -310,6 +310,7 @@
     <Content Include="Content\images\background.png" />
     <Content Include="Content\images\Loading.gif" />
     <Content Include="Content\images\logo_transparent.png" />
+    <Content Include="Content\images\logo_transparent_icon.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
