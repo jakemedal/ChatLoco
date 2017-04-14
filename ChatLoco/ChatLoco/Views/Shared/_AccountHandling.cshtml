@@ -3,15 +3,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <div class="navbar navbar-inverse navbar-fixed-left" id="account-navbar" hidden>
-    <div class="container">
-        <div class="navbar-header" id="logged-in-as">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sub-navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <h4 id="username-header" class="text-info">Logged in as: </h4>
+    <div class="navbar-header" id="logged-in-as">
+        <button type="button" class="navbar-toggle" id="sub-navbar-toggle" data-toggle="collapse" data-target="#sub-navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand">
+            @Html.ActionLink("Find A Chatroom", "GetFindChatroomPartial", "Chatroom", new { @id = "find-chatroom-link" })
         </div>
-        <div class="navbar-collapse collapse" id="sub-navbar-collapse">
+        <div class="navbar-brand">
+            <p id="username-header" class="text-info">Logged in as: </p>
+        </div>
+    </div>
+    <div class="navbar-collapse collapse" id="sub-navbar-collapse">
+        <div>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     @Html.ActionLink("Settings", "Settings", "User", new { @id = "settings-link" })
@@ -22,14 +27,9 @@
                     @Html.ActionLink("Logout", "Logout", "User", new { @id = "logout-link" })
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-center">
+            <ul id="user-management" class="nav navbar-nav navbar-right" hidden>
                 <li>
-                    @Html.ActionLink("Find A Chatroom", "GetFindChatroomPartial", "Chatroom", new { @id = "find-chatroom-link" })
-                </li>
-            </ul>
-            <ul id="user-management" class="nav navbar-nav navbar-center" hidden>
-                <li>
-                    @Html.ActionLink("Manage Users", "Index", "ManageUsers")'
+                    @Html.ActionLink("Manage Users", "Index", "ManageUsers", new { @id = "manage-link" })'
                 </li>
             </ul>
         </div>

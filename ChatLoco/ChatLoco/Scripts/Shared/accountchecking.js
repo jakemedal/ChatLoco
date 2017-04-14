@@ -30,6 +30,19 @@
 
     $("#check-server-link").on("click", CheckServerConnection);
 
+    $("#settings-link").on('click', function () {
+        $("#sub-navbar-toggle").trigger("click");
+    });
+
+    $("#logout-link").on('click', function () {
+        $("#sub-navbar-toggle").trigger("click");
+    });
+
+    $("#manage-link").on('click', function () {
+        $("#sub-navbar-toggle").trigger("click");
+    });
+
+
     function FindChatroomLinkClicked (e) {
         e.preventDefault();
 
@@ -404,7 +417,7 @@
                     StatusHandler.DisplayStatus("<p>Logged in successfully.</p>");
                     UpdateCurrentUser(data.User);
                     _accountNavbar.show();
-                    $("#username-header").html("").append(GetUser().Username);
+                    $("#username-header").text(GetUser().Username);
                     if (GetUser().Role === 1) {
                         $("#user-management").show();
                         $("#change-location-container").show();
