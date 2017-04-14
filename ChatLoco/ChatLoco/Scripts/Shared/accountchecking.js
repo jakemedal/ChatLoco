@@ -25,7 +25,38 @@
     $("#settings-link").on("click", ShowSettings);
 
     $("#logout-link").on("click", LogoutClicked);
+
+    $("#find-chatroom-link").on("click", FindChatroomLinkClicked);
+
     $("#check-server-link").on("click", CheckServerConnection);
+
+    function FindChatroomLinkClicked (e) {
+        e.preventDefault();
+
+        NotificationHandler.ShowLoading();
+
+        $.ajax({
+            type: "GET",
+            url: '/Chatroom/GetFindChatroom',
+            success: function (data) {
+                $("#chatroom-container").html("").append(data);
+                if (findChatroom != null) {
+                    findChatroom.Destroy();
+                }
+                if (ChatroomHandler != null) {
+                    ChatroomHandler.Destroy();
+                    ChatroomHandler = null;
+                }
+                findChatroom = new FindChatroom();
+                findChatroom.init();
+                NotificationHandler.HideLoading();
+            },
+            error: function (data) {
+                ErrorHandler.DisplayCrash(data);
+            }
+        });
+
+    }
 
     function ShowDimBehindDialog() {
         NotificationHandler.ShowDim('black', '0.7');
@@ -77,6 +108,9 @@
                     url: '/Chatroom/GetFindChatroom',
                     success: function (data) {
                         $("#chatroom-container").html("").append(data);
+                        if (findChatroom != null) {
+                            findChatroom.Destroy();
+                        }
                         findChatroom = new FindChatroom();
                         findChatroom.init();
                     },

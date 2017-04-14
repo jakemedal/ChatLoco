@@ -16,6 +16,11 @@
                     @Html.ActionLink("Logout", "Logout", "User", new { @id="logout-link" })
                 </li>
             </ul>
+            <ul class="nav navbar-nav navbar-center">
+                <li>
+                    @Html.ActionLink("Find A Chatroom", "GetFindChatroomPartial", "Chatroom", new { @id = "find-chatroom-link" })
+                </li>
+            </ul>
             <ul  id="user-management" class="nav navbar-nav navbar-center" hidden>
                 <li>
                     @Html.ActionLink("Manage Users", "Index", "ManageUsers")'

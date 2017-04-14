@@ -40,7 +40,11 @@ namespace ChatLoco.Controllers
         {
             var response = new PartialViewModel();
 
-            int chatroomId = request.RawChatroomIdValue.GetHashCode();
+            int chatroomId = 0;
+            if(request.RawChatroomIdValue != null)
+            {
+                chatroomId = request.RawChatroomIdValue.GetHashCode();
+            }
             int parentChatroomId = chatroomId; //temporary during initial testing
 
             string chatroomName = request.ChatroomName;
@@ -155,6 +159,13 @@ namespace ChatLoco.Controllers
             return Json(response);
         }
         
+        [HttpPost]
+        public EmptyResult LeaveChatroom(LeaveChatroomRequestModel request)
+        {
+            ChatroomService.RemoveUserFromChatroom(request.ChatroomId, request.ParentId, request.UserId);
+            return new EmptyResult();
+        }
+
         [HttpPost]
         public ActionResult CreateChatroom(CreateChatroomRequestModel request)
         {

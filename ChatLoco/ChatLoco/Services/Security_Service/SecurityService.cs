@@ -17,8 +17,17 @@ namespace ChatLoco.Services.Security_Service
         {
             var model = new JoinChatroomRequestModel();
 
-            model.ChatroomId = request.RawChatroomIdValue.GetHashCode();
-            model.ParentChatroomId = request.RawChatroomIdValue.GetHashCode();
+            if(request.RawChatroomIdValue == null)
+            {
+                model.ChatroomId = 0;
+                model.ParentChatroomId = 0;
+            }
+            else
+            {
+                model.ChatroomId = request.RawChatroomIdValue.GetHashCode();
+                model.ParentChatroomId = request.RawChatroomIdValue.GetHashCode();
+            }
+
             model.Password = null;
             model.UserHandle = request.UserHandle;
             model.User = request.User;
