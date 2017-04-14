@@ -6,11 +6,11 @@ function MakeAdmin(e) {
     NotificationHandler.ShowLoading();
     e.preventDefault();
     var $form = this;
-
+    var $action = $("input[name='action']:checked").val();
     var $name = $form[0].value;
     var $model = {
         Username: $name,
-        Action: "MakeAdmin"
+        Action: $action
     };
     $.ajax({
         type: "POST",

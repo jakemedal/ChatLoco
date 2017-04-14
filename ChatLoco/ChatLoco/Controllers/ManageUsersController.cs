@@ -19,16 +19,24 @@ namespace ChatLoco.Controllers
         public ActionResult HandleAdminAction(AdminActionRequestModel model)
         {
             var response = new AdminActionResponseModel();
-            //currently only have make admin ability. User Locking is not functional.
-            
-                response.Errors.AddRange(UserService.makeUserAdmin(model.Username));
-            
+            var action = model.Action;
 
+            switch(action)
+            {
+                case ("MakeAdmin"):
+                    response.Errors.AddRange(UserService.makeUserAdmin(model.Username));
+                    break;
+                case ("Block"):
+                    response.Errors.AddRange(UserService.blockUser(model.Username));
+                    break;
+                case ("Unblock"):
+                    response.Errors.AddRange(UserService.unblockUser(model.Username));
+                    break;
+            }
             if (!response.Errors.Any())
             {
                 response.Message = "Action Succesfully Completed.";
             }
-
             return Json(response);
         }
     }

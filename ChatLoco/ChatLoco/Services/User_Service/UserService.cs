@@ -81,7 +81,11 @@ namespace ChatLoco.Services.User_Service
                 response.LoginErrors.Add(new ErrorModel("Username not found."));
                 return response;
             }
-
+            if(user.Role==RoleLevel.Blocked)
+            {
+                response.LoginErrors.Add(new ErrorModel("This account has been blocked.<br />Please reach out to us via our contact page if you want to be unblocked."));
+                return response;
+            }
             if(!passwordHash.Equals(user.PasswordHash, StringComparison.Ordinal))
             {
                 response.LoginErrors.Add(new ErrorModel("Incorrect password."));
@@ -189,7 +193,51 @@ namespace ChatLoco.Services.User_Service
                 errors.Add(new ErrorModel("User "+ uName +" is already an administrator."));
                 return errors;
             }
+            if (user.Role == RoleLevel.Blocked)
+            {
+                errors.Add(new ErrorModel("User " + uName + " is currently blocked."));
+            }
             user.Role = RoleLevel.Admin;
+            db.SaveChanges();
+            return errors;
+        }
+
+        public static List<ErrorModel> blockUser(string uName)
+        {
+            List<ErrorModel> errors = new List<ErrorModel>();
+            ChatLocoContext db = new ChatLocoContext();
+            UserDTO user = db.Users.FirstOrDefault(u => u.Username == uName);
+            if (user == null)
+            {
+                errors.Add(new ErrorModel("User " + uName + " does not exist."));
+                return errors;
+            }
+            if(user.Role == RoleLevel.Blocked)
+            {
+                errors.Add(new ErrorModel("User " + uName + " is already blocked."));
+                return errors;
+            }
+            user.Role = RoleLevel.Blocked;
+            db.SaveChanges();
+            return errors;
+        }
+
+        public static List<ErrorModel> unblockUser(string uName)
+        {
+            List<ErrorModel> errors = new List<ErrorModel>();
+            ChatLocoContext db = new ChatLocoContext();
+            UserDTO user = db.Users.FirstOrDefault(u => u.Username == uName);
+            if (user == null)
+            {
+                errors.Add(new ErrorModel("User " + uName + " does not exist."));
+                return errors;
+            }
+            if(user.Role!=RoleLevel.Blocked)
+            {
+                errors.Add(new ErrorModel("User is not currently blocked."));
+                return errors;
+            }
+            user.Role = RoleLevel.User;
             db.SaveChanges();
             return errors;
         }

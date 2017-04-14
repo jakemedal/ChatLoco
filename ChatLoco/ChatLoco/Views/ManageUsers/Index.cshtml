@@ -1,20 +1,22 @@
 ﻿
-<div class="white">
+<div class="white panel-title">
     <h2>
         User Management
     </h2>
+    <br />
     <form class="form-horizontal" id="manage-users-form" method="post">
         <div class="form-group">
-            <label class="col-sm-2 control-label">Username</label>
+            <label class="h4 col-sm-2 control-label">Username</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="Username" name="name" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">Action</label>
-            <div class="col-sm-10">
-                <label><input type="radio" class="form-control" name="action" value="MakeAdmin" checked>Make Admin</label>
-                <!--TODO make lock/unlock functional-->
+            <label class="h4 col-sm-2 control-label">Action</label>
+            <div>
+                <label class="radio-inline"><input type="radio" name="action" value="MakeAdmin" checked>Make Admin</label>
+                <label class="radio-inline"><input type="radio" name="action" value="Block" />Block User</label>
+                <label class="radio-inline"><input type="radio" name="action" value="Unblock" />Unblock User</label>
             </div>
         </div>
         <div class="form-group">

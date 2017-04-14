@@ -10,6 +10,6 @@ namespace ChatLoco.Models.User_Model
     }
     public enum RoleLevel
     {
-        User, Admin
+        User, Admin, Blocked
     };
 }
