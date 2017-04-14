@@ -407,6 +407,7 @@
                     $("#username-header").html("").append(GetUser().Username);
                     if (GetUser().Role === 1) {
                         $("#user-management").show();
+                        $("#change-location-container").show();
                     }
 
                     var findChatroomForm = $("#find-chatroom-form");
