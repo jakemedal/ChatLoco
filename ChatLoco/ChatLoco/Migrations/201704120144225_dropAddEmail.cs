@@ -7,7 +7,7 @@ namespace ChatLoco.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.SettingDTO", "Email", c => c.String());
+            AddColumn("dbo.SettingDTO", "Email", c => c.String(nullable: false));
             DropColumn("dbo.UserDTO", "Email");
         }
         

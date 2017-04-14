@@ -29,11 +29,11 @@
                                             <input style="max-width:100%; background-color: rgba(0,0,0,0); color:#ffffff;" type="password" class="form-control col-md-12" id="confPassword" name="confirmPassword" placeholder="Password" value="" required />
                                         </div>
                                         <br/><br/><br/>
-                                        <div class="col-md-offset-3 form-group" style="text-align:center">
+                                        <div class="col-md-offset-2 col-sm-offset-3 col-sm-8 col-md-10 col-xs-5 col-xs-offset-1 form-group" style="text-align:center">
                                             <input type="hidden" value="@Request.Url.GetLeftPart(UriPartial.Authority)" />
                                             <input id="submit" name="submit" type="submit" value="Confirm" class="btn btn-lg btn-block" style="color:#ffffff; background-color: rgba(10,10,10,0.9);">
                                         </div>
-                                        <div class="col-md-offset-3">
+                                        <div class="col-md-offset-2 col-sm-offset-3 col-sm-8 col-md-10 col-xs-5 col-xs-offset-1 ">
                                             <p style="color:#ffffff;"><small>Already have an account?</small>   <strong><u>@Html.ActionLink("Login", "Index", "Chatroom")</u></strong></p>
                                         </div>
                                     </div>

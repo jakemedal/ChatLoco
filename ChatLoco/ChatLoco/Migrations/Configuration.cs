@@ -22,7 +22,7 @@ namespace ChatLoco.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
-            var users = new List<UserDTO>
+          /*var users = new List<UserDTO>
             {
                 new UserDTO { Id = 0, Username = "Test_User_0", JoinDate = DateTime.Now, PasswordHash = null},
                 new UserDTO { Id = 1, Username = "Test_User_1", JoinDate = DateTime.Now, PasswordHash = null},
@@ -52,7 +52,7 @@ namespace ChatLoco.Migrations
             };
 
             settings.ForEach(s => context.Settings.Add(s));
-            context.SaveChanges();
+            context.SaveChanges();*/
 
         }
     }
