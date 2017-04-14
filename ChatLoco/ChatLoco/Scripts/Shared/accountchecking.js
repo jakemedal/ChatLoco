@@ -408,6 +408,13 @@
                     if (GetUser().Role === 1) {
                         $("#user-management").show();
                     }
+
+                    var findChatroomForm = $("#find-chatroom-form");
+                    if (typeof findChatroomForm != 'undefined') {
+                        var defaultHandleInput = findChatroomForm[0].elements[1];
+                        defaultHandleInput.value = AccountHandler.GetUser().Settings.DefaultHandle;
+                    }
+
                     NotificationHandler.HideLoading();
                 }
 

@@ -73,6 +73,10 @@ function FindChatroom() {
         _changeLocationForm = $("#change-location-form");
         _changeLocationForm.on("submit", ChangeLocation);
 
+        if (AccountHandler.GetUser() != null) {
+            _findChatroomForm[0].elements[1].value = AccountHandler.GetUser().Settings.DefaultHandle;
+        }
+
     }
 
     var Destroy = function () {

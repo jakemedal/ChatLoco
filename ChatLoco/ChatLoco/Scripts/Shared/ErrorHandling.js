@@ -32,5 +32,3 @@
 }
 
 var ErrorHandler = new ErrorObject();
-
-var s = "";

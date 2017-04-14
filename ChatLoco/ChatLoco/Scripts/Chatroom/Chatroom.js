@@ -45,12 +45,10 @@ var ChatroomObject = function () {
         NotificationHandler.ShowLoading();
 
         var $model = {
-            UserId: _UserId,
+            UserId: AccountHandler.GetUser().Id,
             ParentId: _ParentChatroomId,
             ChatroomId: _ChatroomId
         };
-
-        var s = AccountHandler.GetUser();
 
         $.ajax({
             type: "POST",
