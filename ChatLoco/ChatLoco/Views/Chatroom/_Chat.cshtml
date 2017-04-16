@@ -7,8 +7,22 @@
 <input type="hidden" id="UserId" value="@Model.UserId" />
 <input type="hidden" id="ParentChatroomId" value="@Model.ParentChatroomId" />
 
+<div class="row">
+    <div class="hidden-lg hidden-md col-sm-1 col-xs-1"></div>
+    <button type="button" class="btn hidden-lg hidden-md col-sm-1 col-xs-1" style="background-color:#39b3d7" data-toggle="collapse" data-target="#OtherChatroomsPaneContainer">
+        <span class="glyphicon glyphicon-th"></span>
+    </button>
+    <div class="hidden-lg hidden-md col-sm-3 col-xs-3"></div>
+    <button type="button" class="btn hidden-lg hidden-md col-sm-2 col-xs-2" style="background-color:#39b3d7" data-toggle="collapse" data-target="#MessagesPaneContainer">
+        <span class="glyphicon glyphicon-comment"></span>
+    </button>
+    <div class="hidden-lg hidden-md col-sm-3 col-xs-3"></div>
+    <button type="button" class="btn hidden-lg hidden-md col-sm-1 col-xs-1" style="background-color:#39b3d7" data-toggle="collapse" data-target="#UsersPaneContainer">
+        <span class="glyphicon glyphicon-user"></span>
+    </button>
+</div>
 @* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
-<div id="OtherChatroomsPaneContainer" class="col-lg-2">
+<div id="OtherChatroomsPaneContainer" class="col-lg-2 col-md-2 col-sm-2 collapse in">
     <br />
     <button id="ParentChatroomButton" style="background-color:#0099ff;" value="@Model.ChatroomId" type="button" class="btn btn-primary">
         <b id="parent-chatroom-button-text" value="@Model.ChatroomId">@Model.ChatroomName</b>
@@ -39,7 +53,7 @@
 
 </div>
 
-<div id="MessagesPaneContainer" class="col-lg-8">
+<div id="MessagesPaneContainer" class="col-lg-8 col-md-8 col-sm-8 collapse in">
 
     <h1 class="white">Chatroom: <span id="ChatroomNameDisplay">@Model.ChatroomName</span></h1>
 
@@ -60,7 +74,7 @@
     </div>
 </div>
 
-<div id="UsersPaneContainer" class="col-lg-2">
+<div id="UsersPaneContainer" class="col-lg-2 col-md-2 col-sm-2 collapse in">
     <h3 class="white">Current Users</h3>
     <div id="UsersContainer" style="border: solid; border-color: #000000; background-color: rgba(0,0,0,0.6); margin-top: 20px;" class="pre-scrollable well">
         @* This is filled in by JS *@
