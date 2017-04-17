@@ -26,6 +26,11 @@ var ChatroomObject = function () {
     var _CreatePrivateChatroomDialog = null;
     var _CreatePrivateChatroomForm = null;
 
+    var _UserInfoDialog = $("#user-info-dialog");
+    var _UserForm = null;
+    var _UserFormData = null;
+    var _UserInformationContainer = null;
+
     var Destroy = function () {
         if (_GetChatroomInformationInterval != null) {
             clearInterval(_GetChatroomInformationInterval);
@@ -379,33 +384,60 @@ var ChatroomObject = function () {
     }
     function OpenUserInfoDialog(e) {
         e.preventDefault();
-
+        
         var $user = document.elementFromPoint(e.clientX, e.clientY);
-        console.log($user);
         var $id = $user.id;
-        console.log($id);
 
         var $model = {
             Id: $id
         };
-
+       
         $.ajax({
-            type: "POST",
-            url: '/User/GetUserInfoForm',
+            type: "GET",
+            url: '/User/UserInfo',
             data: $model,
             success: function (data) {
 
                 if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
-                StatusHandler.DisplayStatus('<p> Username: '+ data.Username + '</p>' + '<br>' + '<p> Email: ' + data.Email + '</p>' + '<br>' + '<p> Default Handle: ' + data.DefaultHandle + '</p>')
+                 _UserFormData = data;
+                 console.dir(_UserFormData);
+                 _UserInfoDialog.html("").append(_UserFormData);
+                 console.dir(_UserInfoDialog);
+
+                _UserForm = $("#user-info-form");
+                console.dir(_UserForm);
+                _UserInformationContainer = $("#user-information-container");
+                $.ajax({
+                    type: "GET",
+                    url: '/User/GetUserInfo',
+                    data: $model,
+                    success: function (data) {
+                        $("#username-label") = data.Username;
+                        $("Email-label") = data.Email;
+                        $("defaulthandle-label") = data.DefaultHandle;
+                    }
+
+                });
+                
+                NotificationHandler.HideLoading();
+                OpenUserDialog();
             },
             error: function () {
             }
         });
+        
 
     }
-
+    function OpenUserDialog() {
+        if (typeof _UserInfoDialog == 'undefined') {
+            return;
+        }
+        _UserInfoDialog.dialog({
+            title: "User Information"
+        });
+    }
     function GetChatroomId() {
         if (_ChatroomId) {
             return _ChatroomId;

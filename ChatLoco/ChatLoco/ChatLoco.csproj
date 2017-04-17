@@ -439,6 +439,7 @@
     <Content Include="Views\ManageUsers\Index.cshtml" />
     <Content Include="Views\Settings\_Settings.cshtml" />
     <Content Include="Views\UserInfo\_Userinfo.cshtml" />
+    <Content Include="Views\User\_UserInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
