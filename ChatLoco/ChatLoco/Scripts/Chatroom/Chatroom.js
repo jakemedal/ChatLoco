@@ -3,6 +3,8 @@ var ChatroomObject = function () {
 
     var _AllMessages = [];
     var _AllMessagesIds = [];
+    var _AllPrivateChatroomButtons = [];
+    var _AllUserElements = [];
 
     var _MessagesContainer = null;
     var _UsersContainer = null;
@@ -44,7 +46,6 @@ var ChatroomObject = function () {
 
         $("#ComposeForm").off("submit", SendComposedMessage);
         $("#ParentChatroomButton").off("click", ChatroomClicked);
-        $("#SubChatroomsList").off("click", ChatroomClicked);
         $("#private-chatroom-request-form").off("submit", ChatroomRequestFormSubmit);
 
         NotificationHandler.ShowLoading();
@@ -82,7 +83,7 @@ var ChatroomObject = function () {
         _CreatePrivateChatroomForm = $("#create-private-chatroom-form");
 
         _MessagesContainer = $("#MessagesContainer");
-        _UsersContainer = $("#UsersContainer").on("click", OpenUserInfoDialog);
+        _UsersContainer = $("#UsersContainer");
         _SubChatroomsList = $("#SubChatroomsList");
 
         _ChatroomName = $("#ChatroomName")[0].value;
@@ -104,7 +105,6 @@ var ChatroomObject = function () {
 
         $("#ComposeForm").on("submit", SendComposedMessage);
         $("#ParentChatroomButton").on("click", ChatroomClicked);
-        $("#SubChatroomsList").on("click", ChatroomClicked);
         $("#private-chatroom-request-form").on("submit", ChatroomRequestFormSubmit);
 
         ChangeChatroomNameTo(_ChatroomName);
@@ -157,18 +157,7 @@ var ChatroomObject = function () {
     function ChatroomClicked(e) {
         e.preventDefault();
 
-        var $element = document.elementFromPoint(e.clientX, e.clientY);
-
-        //means we clicked the text, instead of the button
-        if ($element.id === 'parent-chatroom-button-text') {
-            $element = $element.parentElement;
-        }
-
-        var $newChatroomId = $element.value;
-
-        if (typeof $newChatroomId == 'undefined') {
-            return;
-        }
+        var $newChatroomId = e.target.getAttribute("value");
 
         var $model = {
             ParentChatroomId: _ParentChatroomId,
@@ -270,12 +259,33 @@ var ChatroomObject = function () {
                     return;
                 }
 
+                while (_AllPrivateChatroomButtons.length != 0) {
+                    var privateChatroomButton = _AllPrivateChatroomButtons.pop();
+                    $(privateChatroomButton).off("click", ChatroomClicked);
+                }
+
+                while (_AllUserElements.length != 0) {
+                    var userElement = _AllUserElements.pop();
+                    $(userElement).off("click", OpenUserInfoDialog);
+                }
+
                 _UsersContainer.html("");
                 for (var i = 0; i < data.UsersInformation.length; i++) {
                     var $user = data.UsersInformation[i];
                     var $username = data.UsersInformation[i].Username;
                     var $id = data.UsersInformation[i].Id;
-                    _UsersContainer.append("<p id="+$id+"> " + $username + "</p>");
+
+                    var p = document.createElement("p");
+
+                    var userElement = document.createElement("a");
+                    userElement.setAttribute('value', $id);
+                    userElement.textContent = $username;
+                    $(userElement).on("click", OpenUserInfoDialog);
+                    _AllUserElements.push(userElement);
+
+                    p.appendChild(userElement);
+
+                    _UsersContainer[0].appendChild(p);
                 }
 
                 _SubChatroomsList.html("<br/>");
@@ -286,7 +296,21 @@ var ChatroomObject = function () {
                     if ($subChatroomId === _ChatroomId) {
                         $buttonType = 'primary';
                     }
-                    _SubChatroomsList.append('<p><button value="' + $subChatroomId + '" type="button" class="btn btn-' + $buttonType + '">' + $subChatroomName + '</button></p>');
+
+                    var p = document.createElement("p");
+
+                    var privateChatroomButton = document.createElement("button");
+                    privateChatroomButton.setAttribute('value', $subChatroomId);
+                    privateChatroomButton.setAttribute('type', 'button');
+                    privateChatroomButton.setAttribute('class', 'btn btn-' + $buttonType);
+                    privateChatroomButton.textContent = $subChatroomName;
+                    $(privateChatroomButton).on("click", ChatroomClicked);
+                    _AllPrivateChatroomButtons.push(privateChatroomButton);
+
+                    p.appendChild(privateChatroomButton);
+
+                    _SubChatroomsList[0].appendChild(p);
+
                 }
 
             },
@@ -385,8 +409,7 @@ var ChatroomObject = function () {
     function OpenUserInfoDialog(e) {
         e.preventDefault();
         
-        var $user = document.elementFromPoint(e.clientX, e.clientY);
-        var $id = $user.id;
+        var $id = e.target.getAttribute("value");
 
         var $model = {
             Id: $id
