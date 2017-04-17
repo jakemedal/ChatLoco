@@ -393,15 +393,16 @@ var ChatroomObject = function () {
         };
        
         $.ajax({
-            type: "GET",
-            url: '/User/UserInfo',
-            data: $model,
+            type: "POST",
+            url: '/User/GetUserInfo',
+            data: $model, 
             success: function (data) {
 
                 if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
-                 _UserFormData = data;
+                StatusHandler.DisplayStatus('<p> Username: ' + data.Username + '</p>' + '<br>' + '<p> Email: ' + data.Email + '</p>' + '<br>' + '<p> Default Handle: ' + data.DefaultHandle + '</p>');
+                /* _UserFormData = data;
                  console.dir(_UserFormData);
                  _UserInfoDialog.html("").append(_UserFormData);
                  console.dir(_UserInfoDialog);
@@ -409,20 +410,12 @@ var ChatroomObject = function () {
                 _UserForm = $("#user-info-form");
                 console.dir(_UserForm);
                 _UserInformationContainer = $("#user-information-container");
-                $.ajax({
-                    type: "GET",
-                    url: '/User/GetUserInfo',
-                    data: $model,
-                    success: function (data) {
-                        $("#username-label") = data.Username;
-                        $("Email-label") = data.Email;
-                        $("defaulthandle-label") = data.DefaultHandle;
-                    }
-
-                });
+                $("#username-label");
+                $("Email-label");
+                $("defaulthandle-label");
                 
                 NotificationHandler.HideLoading();
-                OpenUserDialog();
+                OpenUserDialog();*/
             },
             error: function () {
             }

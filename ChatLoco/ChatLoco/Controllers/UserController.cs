@@ -34,7 +34,7 @@ namespace ChatLoco.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult CreateUser(CreateUserRequestModel request)
         {
@@ -117,11 +117,16 @@ namespace ChatLoco.Controllers
             return Json(response);
         }
         [HttpPost]
-        public ActionResult GetUserInfoForm(UserInfoRequestModel request)
+        public ActionResult GetUserInfo(UserInfoRequestModel request)
         {
             var response = UserService.GetUserInfoResponseModel(request);
 
             return Json(response);
+        }
+        [HttpGet]
+        public PartialViewResult UserInfo()
+        {
+            return PartialView("~/Views/User/_UserInfo.cshtml");
         }
     }
 }
