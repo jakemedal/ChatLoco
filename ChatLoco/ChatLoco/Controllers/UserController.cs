@@ -99,7 +99,11 @@ namespace ChatLoco.Controllers
         {
             return PartialView("~/Views/Settings/_Settings.cshtml");
         }
-
+        [HttpGet]
+        public PartialViewResult GetManageUsersForm()
+        {
+            return PartialView("~/Views/ManageUsers/Index.cshtml");
+        }
         //Update user settings to be whenever they changed them to be
         [HttpPost]
         public ActionResult UpdateSettings(UpdateSettingsRequestModel request)
