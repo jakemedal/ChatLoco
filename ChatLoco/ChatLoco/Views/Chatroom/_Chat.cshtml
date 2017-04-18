@@ -24,7 +24,7 @@
 @* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
 <div id="OtherChatroomsPaneContainer" class="col-lg-2 col-md-2 col-sm-2 collapse in">
     <br />
-    <button id="ParentChatroomButton" style="background-color:#0099ff;" value="@Model.ChatroomId" type="button" class="btn btn-primary">
+    <button id="ParentChatroomButton" style="background-color:#0099ff; white-space: normal; width: 100%;" value="@Model.ChatroomId" type="button" class="btn btn-primary">
         <b id="parent-chatroom-button-text" value="@Model.ChatroomId">@Model.ChatroomName</b>
     </button>
 
@@ -55,7 +55,7 @@
 
 <div id="MessagesPaneContainer" class="col-lg-8 col-md-8 col-sm-8 collapse in">
 
-    <h1 class="white">Chatroom: <span id="ChatroomNameDisplay">@Model.ChatroomName</span></h1>
+    <h1 class="white"><span id="ChatroomNameDisplay">@Model.ChatroomName</span></h1>
 
     <div id="MessagesContainer" style="background-color: rgba(0,0,0,0.6); border: solid; border-color: #000000; height: 5000px;" class="pre-scrollable white well">
         @* This is filled in by JS *@
