@@ -1,5 +1,8 @@
-﻿
+﻿var MAX_RADIUS = 500;
+var DEFAULT_RADIUS = 100;
+
 function FindChatroom() {
+
     var _findChatroomForm = null;
     var _changeLocationForm = null;
 
@@ -84,6 +87,25 @@ function FindChatroom() {
 
         _changeLocationForm.off("submit", ChangeLocation);
     }
+
+    $(function () {
+        var handle = $("#slider-handle");
+        $("#slider").slider({
+            max: MAX_RADIUS,
+            min: 1,
+            value: DEFAULT_RADIUS,
+            create: function () {
+                handle.text($(this).slider("value"));
+            },
+            slide: function (event, ui) {
+                handle.text(ui.value);
+            },
+            stop: function (event, ui) {
+                $("#chatroomPlaces").html("");
+                MapHandler.init();
+            }
+        });
+    });
 
     return {
         init: init,

@@ -33,18 +33,21 @@ function MapObject() {
                 google.maps.event.trigger(map, "resize");
             });
 
+            $radius = $("#slider").slider("value");
+            console.log("Radius changed: " + $radius)
+
             var request = {
                 location: loc,
-                radius: '100',
+                radius: $radius,
             };
 
             service = new google.maps.places.PlacesService(map);
             service.nearbySearch(request, callback);
 
             function callback(results, status) {
-                console.log(results);
 
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
+                    var bounds = new google.maps.LatLngBounds();
                     for (i = 0; i < results.length; i++) {
                         marker = new google.maps.Marker({
                             position: new google.maps.LatLng(results[i].geometry.location.lat(), results[i].geometry.location.lng()),
@@ -53,8 +56,12 @@ function MapObject() {
                             title: 'Chatroom: ' + results[i].name
                         });
 
+                        bounds.extend(marker.getPosition());
+
                         jQuery('#chatroomPlaces').append(jQuery("<option></option>").val(results[i]['place_id']).text(results[i]['name']));
                     }
+
+                    map.fitBounds(bounds);
                 }
             }
 
