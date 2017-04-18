@@ -65,7 +65,6 @@
         <form id="ComposeForm">
             <span class="white" id="user-handle-container"><b>@Model.UserHandle</b></span> : <input style="width:1000px; color:#000000;" type="text" name="ComposedMessage" />
             <input style="margin-left: 50px" type="submit" />
-            <button id="Change-Font-Sytle-Button">Font Style</button>
             <button id="Change-Font-Color-Button">Font Color</button>
             <button id="Font-Bold-Button"><b>B</b></button>
             <button id="Font-Italic-Button"><i>I</i></button>
@@ -79,10 +78,13 @@
     <div id="UsersContainer" style="border: solid; border-color: #000000; background-color: rgba(0,0,0,0.6); margin-top: 20px;" class="pre-scrollable well">
         @* This is filled in by JS *@
     </div>
-    <div id="map2"></div>
 </div>
 
+<div id="user-info-container" hidden>
+    <div >
 
+    </div>
+</div>
 <div id="private-chatroom-dialog" hidden>
 </div>
 
