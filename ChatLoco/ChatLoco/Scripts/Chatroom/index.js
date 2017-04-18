@@ -95,10 +95,10 @@ function FindChatroom() {
             min: 1,
             value: DEFAULT_RADIUS,
             create: function () {
-                handle.text($(this).slider("value"));
+                handle.text($(this).slider("value") + "m");
             },
             slide: function (event, ui) {
-                handle.text(ui.value);
+                handle.text(ui.value + "m");
             },
             stop: function (event, ui) {
                 $("#chatroomPlaces").html("");
