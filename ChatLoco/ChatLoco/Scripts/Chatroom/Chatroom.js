@@ -364,7 +364,7 @@ var ChatroomObject = function () {
                 }
                 else {
                     var $responseMessage = "<p>Chatroom " + data.ChatroomName + " created successfully.</p>";
-                    StatusHandler.DisplayStatus($responseMessage);
+                    StatusHandler.DisplayStatus($responseMessage, "Private Chatroom Creation Information");
                     GetChatroomInformation();
                     ClearCreatePrivateChatroomForm();
                 }
