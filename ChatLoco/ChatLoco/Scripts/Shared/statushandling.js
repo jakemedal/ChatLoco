@@ -1,12 +1,13 @@
 ﻿
 var StatusHandlingObject = function() {
 
-    function DisplayStatus(message) {
+    function DisplayStatus(message, title) {
         var $statusDialog = $("#status-dialog")
         $statusDialog.html("");
-        $statusDialog.append("<h2>Status Information </h2>");
         $statusDialog.append(message);
-        $statusDialog.dialog();
+        $statusDialog.dialog({
+            title: title ? title : "Status Information"
+        });
         return true;
     }
 

@@ -364,7 +364,7 @@ var ChatroomObject = function () {
                 }
                 else {
                     var $responseMessage = "<p>Chatroom " + data.ChatroomName + " created successfully.</p>";
-                    StatusHandler.DisplayStatus($responseMessage);
+                    StatusHandler.DisplayStatus($responseMessage, "Private Chatroom Creation Information");
                     GetChatroomInformation();
                     ClearCreatePrivateChatroomForm();
                 }
@@ -418,27 +418,22 @@ var ChatroomObject = function () {
         $.ajax({
             type: "POST",
             url: '/User/GetUserInfo',
-            data: $model, 
+            data: $model,
             success: function (data) {
 
                 if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
-                StatusHandler.DisplayStatus('<p> Username: ' + data.Username + '</p>' + '<br>' + '<p> Email: ' + data.Email + '</p>' + '<br>' + '<p> Default Handle: ' + data.DefaultHandle + '</p>');
-                /* _UserFormData = data;
-                 console.dir(_UserFormData);
-                 _UserInfoDialog.html("").append(_UserFormData);
-                 console.dir(_UserInfoDialog);
+               StatusHandler.DisplayStatus(data, "User Information");
+                 
+                 _UserInfoDialog.html("").append(data);
 
                 _UserForm = $("#user-info-form");
-                console.dir(_UserForm);
                 _UserInformationContainer = $("#user-information-container");
-                $("#username-label");
-                $("Email-label");
-                $("defaulthandle-label");
+             
                 
                 NotificationHandler.HideLoading();
-                OpenUserDialog();*/
+                OpenUserDialog();
             },
             error: function () {
             }

@@ -236,6 +236,20 @@ namespace ChatLoco.Services.User_Service
             return errors;
         }
 
+        public static List<ErrorModel> deleteUserAccount(string uName)
+        {
+            List<ErrorModel> errors = new List<ErrorModel>();
+            ChatLocoContext db = new ChatLocoContext();
+            UserDTO user = db.Users.FirstOrDefault(u => u.Username == uName);
+            if(user==null)
+            {
+                errors.Add(new ErrorModel("User " + uName + " does not exist."));
+            }
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return errors;
+        }
+
         public static List<ErrorModel> unblockUser(string uName)
         {
             List<ErrorModel> errors = new List<ErrorModel>();

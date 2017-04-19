@@ -4,15 +4,19 @@
     var _loginDialog = $("#login-dialog");
     //reference to the settings dialog partial view
     var _settingsDialog = $("#settings-dialog");
+    var _manageUsersDialog = $("#manage-users-dialog");
     var _disconnectedDialog = $("#disconnected-dialog");
     var _accountNavbar = $("#account-navbar");
     var _chatroomContainer = $("#chatroom-container");
+
 
     var _loginFormData = null;
     //Settings dialog data
     var _settingsFormData = null;
     var _settingsForm = null;
     var _settingsInformationContainer = null;
+
+    var _manageUsersData = null;
 
     var _loginForm = null;
     var _loginInformationContainer = null;
@@ -23,6 +27,8 @@
 
     //whenever the user clicks the settings tab open the settings dialog
     $("#settings-link").on("click", ShowSettings);
+
+    $("#manage-link").on("click", ShowManageUsers);
 
     $("#logout-link").on("click", LogoutClicked);
 
@@ -77,6 +83,7 @@
 
     function LogoutClicked(e) {
         e.preventDefault();
+        CloseManageUsersDialog();
         Logout(false);
     }
 
@@ -288,6 +295,8 @@
     }
 
     function OpenSettingsDialog() {
+        //hide usermanagedialog if it's open
+        CloseManageUsersDialog();
         if (typeof _settingsDialog == 'undefined') {//failsafe incase not initialized
             return;
         }
@@ -296,6 +305,45 @@
         _settingsDialog.dialog({//might be redundant
             title: "User Settings"
         });
+    }
+
+    function ShowManageUsers(e) {
+        e.preventDefault();
+        if (!$(".ui-dialog").is(":visible")) {
+            if (typeof e != 'undefined') {
+                e.preventDefault();
+            }
+        } if (_manageUsersData == null) {
+            NotificationHandler.ShowLoading();
+            $.ajax({
+                type: "GET",
+                url: '/User/GetManageUsersForm',
+                success: function (data) {
+                    _manageUsersData = data;
+                    _manageUsersDialog.html("").append(data);
+                    _manageUsersForm = $("#manage-users-form");
+                    _manageUsersDialog.on("dialogclose", CloseManageUsersDialog);
+                    NotificationHandler.HideLoading();
+                    OpenManageUsersDialog();
+                }
+            });
+        } else {
+            OpenManageUsersDialog();
+        }
+       
+
+    }
+
+    function OpenManageUsersDialog() {
+        ShowDimBehindDialog();
+        _manageUsersDialog.dialog({//might be redundant
+            title: "Manage Users"
+        });
+    }
+    function CloseManageUsersDialog() {
+        _manageUsersDialog.dialog("close");
+        _accountNavbar.show();
+        NotificationHandler.HideLoading();
     }
 
     function ManualCloseSettingsDialog() {

@@ -32,6 +32,9 @@ namespace ChatLoco.Controllers
                 case ("Unblock"):
                     response.Errors.AddRange(UserService.unblockUser(model.Username));
                     break;
+                case ("Delete"):
+                    response.Errors.AddRange(UserService.deleteUserAccount(model.Username));
+                    break;
             }
             if (!response.Errors.Any())
             {
