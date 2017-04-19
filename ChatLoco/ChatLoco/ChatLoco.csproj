@@ -486,13 +486,13 @@
     <EmbeddedResource Include="Migrations\201704120144225_dropAddEmail.resx">
       <DependentUpon>201704120144225_dropAddEmail.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< .mine    <EmbeddedResource Include="Migrations\201704182238409_privateMessaging.resx">
+<EmbeddedResource Include="Migrations\201704182238409_privateMessaging.resx">
       <DependentUpon>201704182238409_privateMessaging.cs</DependentUpon>
     </EmbeddedResource>
-=======    <EmbeddedResource Include="Migrations\201704182357212_AddStylesColumn.resx">
+<EmbeddedResource Include="Migrations\201704182357212_AddStylesColumn.resx">
       <DependentUpon>201704182357212_AddStylesColumn.cs</DependentUpon>
     </EmbeddedResource>
->>>>>>> .theirs  </ItemGroup>
+</ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
