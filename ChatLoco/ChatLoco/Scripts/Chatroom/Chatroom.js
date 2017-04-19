@@ -424,7 +424,7 @@ var ChatroomObject = function () {
                 if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
-               StatusHandler.DisplayStatus(data, "User Information");
+                StatusHandler.DisplayStatus(data, "User Information");
                  
                  _UserInfoDialog.html("").append(data);
 

@@ -121,16 +121,12 @@ namespace ChatLoco.Controllers
             return Json(response);
         }
         [HttpPost]
-        public ActionResult GetUserInfo(UserInfoRequestModel request)
+        public PartialViewResult GetUserInfo(UserInfoRequestModel request)
         {
-            var response = UserService.GetUserInfoResponseModel(request);
+            var model = UserService.GetUserInfoResponseModel(request);
 
-            return Json(response);
+            return PartialView("~/Views/User/_UserInfo.cshtml", model);
         }
-        [HttpGet]
-        public PartialViewResult UserInfo()
-        {
-            return PartialView("~/Views/User/_UserInfo.cshtml");
-        }
+
     }
 }
