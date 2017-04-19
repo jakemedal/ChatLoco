@@ -181,7 +181,7 @@ namespace ChatLoco.Services.Chatroom_Service
                             string s = "";
                             for(int i = 2; i < args.Length; i++)
                             {
-                                s += args[i];
+                                s += args[i]+ " ";
                             }
 
                             message = s;
