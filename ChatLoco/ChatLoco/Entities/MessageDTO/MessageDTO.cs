@@ -10,5 +10,6 @@ namespace ChatLoco.Entities.MessageDTO
         public string RawMessage { get; set; }
         public string FormattedMessage { get; set; }
         public DateTime DateCreated { get; set; }
+        public int IntendedForUserId { get; set; }
     }
 }

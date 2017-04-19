@@ -6,6 +6,7 @@ using ChatLoco.Services.Message_Service;
 using System;
 using System.Collections.Generic;
 using System.Timers;
+using System.Web.Services.Description;
 
 namespace ChatLoco.Classes.Chatroom
 {
@@ -16,7 +17,7 @@ namespace ChatLoco.Classes.Chatroom
         private string PasswordHash { get; set; }
         private int? Capacity { get; set; }
 
-        private Dictionary<int, string> FormattedMessagesCache = new Dictionary<int, string>();
+        private Dictionary<int, ChatroomMesssage> FormattedMessagesCache = new Dictionary<int, ChatroomMesssage>();
         private List<int> FormattedMessageOrder = new List<int>();
         private HashSet<string> UserHandles = new HashSet<string>();
 
@@ -52,10 +53,15 @@ namespace ChatLoco.Classes.Chatroom
             }
             else
             {
-                var messages = MessageService.GetRecentChatroomMessages(Id, 100);
+                var messages = MessageService.GetRecentChatroomMessages(Id, 1000);
                 foreach (var message in messages)
                 {
-                    FormattedMessagesCache.Add(message.Id, message.FormattedMessage);
+                    var m = new ChatroomMesssage()
+                    {
+                        RawMessage = message.FormattedMessage,
+                        IntendedForUserId = message.IntendedForUserId
+                    };
+                    FormattedMessagesCache.Add(message.Id, m);
                     FormattedMessageOrder.Add(message.Id);
                 }
             }
@@ -147,13 +153,13 @@ namespace ChatLoco.Classes.Chatroom
             }
         }
 
-        public List<string> OrderedFormattedMessages
+        public List<ChatroomMesssage> OrderedFormattedMessages
         {
             get
             {
                 try
                 {
-                    List<string> orderedMessages = new List<string>();
+                    List<ChatroomMesssage> orderedMessages = new List<ChatroomMesssage>();
                     foreach (int i in FormattedMessageOrder)
                     {
                         orderedMessages.Add(FormattedMessagesCache[i]);
@@ -284,7 +290,8 @@ namespace ChatLoco.Classes.Chatroom
                         MessageInformationModel m = new MessageInformationModel()
                         {
                             Id = id,
-                            FormattedMessage = FormattedMessagesCache[id]
+                            FormattedMessage = FormattedMessagesCache[id].RawMessage,
+                            IntendedForUserId = FormattedMessagesCache[id].IntendedForUserId
                         };
                         allMessagesInformation.Add(m);
                     }
@@ -315,7 +322,8 @@ namespace ChatLoco.Classes.Chatroom
                         MessageInformationModel m = new MessageInformationModel()
                         {
                             Id = formattedMessage.Key,
-                            FormattedMessage = formattedMessage.Value
+                            FormattedMessage = formattedMessage.Value.RawMessage,
+                            IntendedForUserId = formattedMessage.Value.IntendedForUserId
                         };
                         newMessages.Add(m);
                     }
@@ -334,11 +342,29 @@ namespace ChatLoco.Classes.Chatroom
             return AllUsers[userId].UserHandle;
         }
 
+        public int GetUserIdByHandle(string userHandle)
+        {
+            foreach(var dictionaryObject in AllUsers)
+            {
+                ActiveUser user = dictionaryObject.Value;
+                if(user.UserHandle == userHandle)
+                {
+                    return user.Id;
+                }
+            }
+            return -1;
+        }
+
         public bool AddMessage(MessageDTO message)
         {
             try
             {
-                FormattedMessagesCache.Add(message.Id, message.FormattedMessage);
+                var m = new ChatroomMesssage()
+                {
+                    RawMessage = message.FormattedMessage,
+                    IntendedForUserId = message.IntendedForUserId
+                };
+                FormattedMessagesCache.Add(message.Id, m);
                 FormattedMessageOrder.Add(message.Id);
                 return true;
             }

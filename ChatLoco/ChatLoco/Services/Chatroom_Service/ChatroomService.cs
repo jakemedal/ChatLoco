@@ -161,11 +161,48 @@ namespace ChatLoco.Services.Chatroom_Service
             {
                 var chatroom = GetChatroom(chatroomId, parentId);
 
-                var m = MessageService.CreateMessage(userId, chatroom.IsPrivate ? -1 : chatroomId, message, chatroom.GetUserHandle(userId));
+                var desiredUserId = -1;
 
-                chatroom.AddMessage(m);
-                messageSend.IsSent = true;
-                messageSend.MessageId = m.Id;
+                var args = message.Split(' ');
+                if(args[0] == "/whisper")
+                {
+                    if(args.Length > 2)
+                    {
+                        var desiredUserHandle = args[1];
+                        desiredUserId = chatroom.GetUserIdByHandle(desiredUserHandle);
+                        if(desiredUserId == -1)
+                        {
+                            messageSend.Errors.Add(new ErrorModel("Desired User Not Found."));
+                            messageSend.IsSent = false;
+                            return messageSend;
+                        }
+                        else
+                        {
+                            string s = "";
+                            for(int i = 2; i < args.Length; i++)
+                            {
+                                s += args[i];
+                            }
+
+                            message = s;
+                        }
+                    }
+                    else
+                    {
+                        messageSend.Errors.Add(new ErrorModel("Invalid whisper format."));
+                        messageSend.IsSent = false;
+                        return messageSend;
+                    }
+                }
+
+                var createdMessages = MessageService.CreateMessages(userId, chatroom.IsPrivate ? -1 : chatroomId, message, chatroom.GetUserHandle(userId), desiredUserId);
+
+                foreach(var m in createdMessages)
+                {
+                    chatroom.AddMessage(m);
+                    messageSend.IsSent = true;
+                    messageSend.MessageId = m.Id;
+                }
             }
             catch (Exception e)
             {

@@ -194,7 +194,22 @@ namespace ChatLoco.Controllers
 
             GetNewMessagesResponseModel response = new GetNewMessagesResponseModel();
 
-            response.MessagesInformation.AddRange(ChatroomService.GetNewMessagesInformation(parentChatroomId, chatroomId, existingIds));
+            var messageInformationModels = ChatroomService.GetNewMessagesInformation(parentChatroomId, chatroomId, existingIds);
+
+            foreach(var messageInformationModel in messageInformationModels)
+            {
+                if(messageInformationModel.IntendedForUserId != -1)
+                {
+                    if (messageInformationModel.IntendedForUserId == request.UserId)
+                    {
+                        response.MessagesInformation.Add(messageInformationModel);
+                    }
+                }
+                else
+                {
+                    response.MessagesInformation.Add(messageInformationModel);
+                }
+            }
 
             return Json(response);
         }
