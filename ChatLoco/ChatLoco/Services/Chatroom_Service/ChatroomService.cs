@@ -162,13 +162,14 @@ namespace ChatLoco.Services.Chatroom_Service
                 var chatroom = GetChatroom(chatroomId, parentId);
 
                 var desiredUserId = -1;
+                var desiredUserHandle = "";
 
                 var args = message.Split(' ');
                 if(args[0] == "/whisper")
                 {
                     if(args.Length > 2)
                     {
-                        var desiredUserHandle = args[1];
+                        desiredUserHandle = args[1];
                         desiredUserId = chatroom.GetUserIdByHandle(desiredUserHandle);
                         if(desiredUserId == -1)
                         {
@@ -195,7 +196,7 @@ namespace ChatLoco.Services.Chatroom_Service
                     }
                 }
 
-                var createdMessages = MessageService.CreateMessages(userId, chatroom.IsPrivate ? -1 : chatroomId, message, chatroom.GetUserHandle(userId), desiredUserId);
+                var createdMessages = MessageService.CreateMessages(userId, chatroom.IsPrivate ? -1 : chatroomId, message, chatroom.GetUserHandle(userId), desiredUserId, desiredUserHandle);
 
                 foreach(var m in createdMessages)
                 {
