@@ -57,6 +57,33 @@ namespace ChatLoco.Services.User_Service
             return errors;
         }
 
+        public static List<ErrorModel> RemoveUser(RemoveUserRequestModel request)
+        {
+            List<ErrorModel> errors = new List<ErrorModel>();
+            if (!DoesUserExist(request.Username))
+            {
+                errors.Add(new ErrorModel("user.no.exist"));
+                return errors;
+            }
+            ChatLocoContext db = new ChatLocoContext();
+            UserDTO user = db.Users.FirstOrDefault(u => u.Username == request.Username);
+            
+            if(user == null){
+                errors.Add(new ErrorModel("system.database.error"));
+                return errors;
+            }
+
+            SettingDTO settings = db.Settings.FirstOrDefault(s => s.UserId == user.Id);
+
+            if (settings != null)
+            {
+                db.Settings.Remove(settings);
+            }
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return errors;
+        }
+
         public static bool Logout(int userId)
         {
             try

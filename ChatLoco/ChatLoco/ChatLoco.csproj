@@ -279,6 +279,8 @@
     <Compile Include="Models\PartialView_Model\PartialViewModel.cs" />
     <Compile Include="Models\Request_Model\RequestModel.cs" />
     <Compile Include="Models\Response_Model\ResponseModel.cs" />
+    <Compile Include="Models\User_Model\RemoveUserRequestModel.cs" />
+    <Compile Include="Models\User_Model\RemoveUserResponseModel.cs" />
     <Compile Include="Models\User_Model\UserInfoResponseModel.cs" />
     <Compile Include="Models\User_Model\UserInfoRequestModel.cs" />
     <Compile Include="Models\User_Model\CreateUserRequestModel.cs" />
@@ -290,6 +292,7 @@
     <Compile Include="Models\User_Model\UpdateSettingsRequestModel.cs" />
     <Compile Include="Models\User_Model\UpdateSettingsResponseModel.cs" />
     <Compile Include="Models\User_Model\UserSettingsModel.cs" />
+    <Compile Include="Models\User_Model\UserTestModel.cs" />
     <Compile Include="Services\Chatroom_Service\ChatroomService.cs" />
     <Compile Include="Services\Chatroom_Service\MessageSend.cs" />
     <Compile Include="Services\SendMail_Service\SendMailService.cs" />

@@ -128,5 +128,14 @@ namespace ChatLoco.Controllers
             return PartialView("~/Views/User/_UserInfo.cshtml", model);
         }
 
+        [HttpPost]
+        public ActionResult RemoveUser(RemoveUserRequestModel request)
+        {
+            var response = new RemoveUserResponseModel(){};
+
+            response.Errors = UserService.RemoveUser(request);
+            return Json(response);
+        }
+
     }
 }
