@@ -363,5 +363,52 @@ namespace ChatLocoTest
             Assert.AreEqual("Username not found.", ((UpdateSettingsResponseModel)result.Data).SettingsErrors[0].ErrorMessage);
         }
 
+
+        /*Call the Logout method: Logs out the user*/
+        [TestMethod]
+        public void TestLogout()
+        {
+            var USER = testUsers[0];
+
+            UserController userControllerTest = new UserController();
+            //Create test data model
+            LogoutRequestModel model = new LogoutRequestModel()
+            {
+                UserId = USER.Id,
+                ChatroomId = -1,
+                ParentChatroomId = -1,
+                User = new UserModel() { Id = USER.Id }
+            };
+
+            //Test logout success
+            var result = userControllerTest.Logout(model) as JsonResult;
+            Assert.AreEqual(0, ((LogoutResponseModel)result.Data).Errors.Count);
+
+            //Removing user from chatroom is tested in Chatroom Controller
+        }
+
+        /*Call the DirtyLogout method: Logs out the user*/
+        [TestMethod]
+        public void TestDirtyLogout()
+        {
+            var USER = testUsers[0];
+
+            UserController userControllerTest = new UserController();
+            //Create test data model
+            LogoutRequestModel model = new LogoutRequestModel()
+            {
+                UserId = USER.Id,
+                ChatroomId = -1,
+                ParentChatroomId = -1,
+                User = new UserModel() { Id = USER.Id }
+            };
+
+            //Test logout success
+            var result = userControllerTest.DirtyLogout(model) as JsonResult;
+            Assert.AreEqual(0, ((LogoutResponseModel)result.Data).Errors.Count);
+
+            //Removing user from chatroom is tested in Chatroom Controller
+        }
+
     }
 }
