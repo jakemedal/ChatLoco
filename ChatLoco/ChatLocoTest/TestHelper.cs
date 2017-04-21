@@ -95,6 +95,32 @@ namespace ChatLocoTest
             }
         }
 
+        /*remove all test users*/
+        private void removeTestMessagesFromChatroom()
+        {
+            //grab the list of users to make sure are deleted.
+            List<RemoveUserRequestModel> removals = initializeRemovableUsers();
+
+            UserController userControllerTest = new UserController();
+
+            foreach (RemoveUserRequestModel res in removals)
+            {
+                var result = userControllerTest.RemoveUser(res) as JsonResult;
+                if (((RemoveUserResponseModel)result.Data).Errors.Count == 1)
+                {
+                    if (((RemoveUserResponseModel)result.Data).Errors[0].ErrorMessage == "user.no.exist")
+                    {
+                        //not a problem move on
+                    }
+                    else
+                    {
+                        //was an acutal problem with removing the user!! Fail and leave!!!
+                        Assert.AreEqual("1", "2");
+                    }
+                }
+            }
+        }
+
         //Helper method for creating a chatroom since MVC uses controller contexts to route the user to the chat partial view page/
         //We don't need that routing here, all we need is the logic or 99% above that line so just replicate it here and
         //This will create a chatroom and add the user to it

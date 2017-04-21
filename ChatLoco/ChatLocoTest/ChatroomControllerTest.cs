@@ -97,7 +97,7 @@ namespace ChatLocoTest
             {
                 RawChatroomIdValue = "123400",
                 UserHandle = USER.DefaultHandle,
-                ChatroomName = "test_chatcontroller_room_00",
+                ChatroomName = "TestGetChatroomInformation",
                 User = new UserModel() { Id = USER.Id, Username = USER.Username}
             };
             ChatResponseTestModel chatRoom = _helper.createChatroomAndAddUser(model);//for now don't do anything with the result
@@ -129,7 +129,7 @@ namespace ChatLocoTest
             {
                 RawChatroomIdValue = "123401",
                 UserHandle = USER.DefaultHandle,
-                ChatroomName = "test_chatcontroller_room_01",
+                ChatroomName = "TestCreateChatroom",
                 User = new UserModel() { Id = USER.Id, Username = USER.Username }
             };
             ChatResponseTestModel chatRoom = _helper.createChatroomAndAddUser(model);//for now don't do anything with the result
@@ -171,7 +171,7 @@ namespace ChatLocoTest
             {
                 RawChatroomIdValue = "123402",
                 UserHandle = USER.DefaultHandle,
-                ChatroomName = "test_chatcontroller_room_02",
+                ChatroomName = "TestJoinChatroom",
                 User = new UserModel() { Id = USER.Id, Username = USER.Username }
             };
             ChatResponseTestModel chatRoom = _helper.createChatroomAndAddUser(model);//for now don't do anything with the result
@@ -227,7 +227,7 @@ namespace ChatLocoTest
             {
                 RawChatroomIdValue = "123403",
                 UserHandle = USER.DefaultHandle,
-                ChatroomName = "test_chatcontroller_room_03",
+                ChatroomName = "TestLeaveChatroom",
                 User = new UserModel() { Id = USER.Id, Username = USER.Username }
             };
             ChatResponseTestModel chatRoom = _helper.createChatroomAndAddUser(model);//for now don't do anything with the result
@@ -277,13 +277,12 @@ namespace ChatLocoTest
             {
                 RawChatroomIdValue = "123404",
                 UserHandle = USER.DefaultHandle,
-                ChatroomName = "test_chatcontroller_room_04",
+                ChatroomName = "TestComposeAndGetNewMessages",
                 User = new UserModel() { Id = USER.Id, Username = USER.Username }
             };
             ChatResponseTestModel chatRoom = _helper.createChatroomAndAddUser(model);//for now don't do anything with the result
 
             //Right now every time we run the test another message gets added.
-            //TODO: remove messages like we do users at the beginning of all tests
             ComposeMessageRequestModel messageModel = new ComposeMessageRequestModel()
             {
                 Message = "This is a test message",
@@ -306,7 +305,6 @@ namespace ChatLocoTest
             };
 
             //Test that there are > 0 message results returned. 
-            //TODO: Compare strings once deleteion above occurs
             var result = chatControllerTest.GetNewMessages(model2) as JsonResult;
             Assert.AreNotEqual(0, ((GetNewMessagesResponseModel)result.Data).MessagesInformation.Count);
         }
