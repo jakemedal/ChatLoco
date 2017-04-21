@@ -260,6 +260,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminAction_Model\AdminActionRequestModel.cs" />
     <Compile Include="Models\AdminAction_Model\AdminActionResponseModel.cs" />
+    <Compile Include="Models\Chatroom_Model\ChatResponseTestModel.cs" />
     <Compile Include="Models\Chatroom_Model\ChatroomModel.cs" />
     <Compile Include="Models\Chatroom_Model\ComposeMessageRequestModel.cs" />
     <Compile Include="Models\Chatroom_Model\ComposeMessageResponseModel.cs" />

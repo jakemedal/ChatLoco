@@ -1,25 +1,25 @@
 ﻿
-/*.;lxoollccclllodOd.                                            
-.;clollccccccccccclldlc:.                                         
-.,lolcccccccccccccccccccldo;.                                       
-.:lllccccccccccccccccccccccclod'                                      
-.ldlcccccccccccccccccccccccccccll;.                                    
-.ldlccccccccccccccccccccccccccccclxo.                                   
-..lxlccccccccccccccccccccccccccccccclx:                                   
-.;::lollcccccccccccccccccccccccccccccccccoc.                                  
-.:oollccccccccccccccccccccccccccccccccccccclx:                                  
-.oxlccccccccccccccccccccccccccccccccccccccccld;                                  
-;xlccccccccccccccccccccccccccccccccccccccccclx;                                  
-,occcccccccccccccccccccccccccccccccccccccccclk:                                  
-'lcccccccccccccccccccccccccccccccccccccccccclxo.                                 
-,occccccccccccccccccccccccccccccccccccccccccclxx,                                
-'olcccccccccccccccccccccccccccccccccccccccccccldx,                               
-:xlcccccccccccccccccccccccccccccccccccccccccccldl.                              
-.oxlccccccccccccccccccccccccccccccccccccccccccclOc                              
-.:oollccccccccccccccccccccccccccccccccccccccccld;                              
-,xkxoccccccccccccccccccccccccccccccccccccccccd;                              
-.':xxolcccccccccccccccccccccccccccccccccccclx:                              
-.,,,,,.                                                .';dxdolccccccccccccccccccccccccccccccccoxl'''.                          
+                                                                    /*.;lxoollccclllodOd.                                            
+                                                                    .;clollccccccccccclldlc:.                                         
+                                                                    .,lolcccccccccccccccccccldo;.                                       
+                                                                    .:lllccccccccccccccccccccccclod'                                      
+                                                                    .ldlcccccccccccccccccccccccccccll;.                                    
+                                                                    .ldlccccccccccccccccccccccccccccclxo.                                   
+                                                                    ..lxlccccccccccccccccccccccccccccccclx:                                   
+                                                                    .;::lollcccccccccccccccccccccccccccccccccoc.                                  
+                                                                    .:oollccccccccccccccccccccccccccccccccccccclx:                                  
+                                                                    .oxlccccccccccccccccccccccccccccccccccccccccld;                                  
+                                                                    ;xlccccccccccccccccccccccccccccccccccccccccclx;                                  
+                                                                    ,occcccccccccccccccccccccccccccccccccccccccclk:                                  
+                                                                    'lcccccccccccccccccccccccccccccccccccccccccclxo.                                 
+                                                                    ,occccccccccccccccccccccccccccccccccccccccccclxx,                                
+                                                                    'olcccccccccccccccccccccccccccccccccccccccccccldx,                               
+                                                                    :xlcccccccccccccccccccccccccccccccccccccccccccldl.                              
+                                                                    .oxlccccccccccccccccccccccccccccccccccccccccccclOc                              
+                                                                    .:oollccccccccccccccccccccccccccccccccccccccccld;                              
+                                                                    ,xkxoccccccccccccccccccccccccccccccccccccccccd;                              
+                                                                    .':xxolcccccccccccccccccccccccccccccccccccclx:                              
+.,,,,,.                                                                 .';dxdolccccccccccccccccccccccccccccccccoxl'''.                          
 .,lxxxxxxxxxl,. lNK0KNl                                                   .''cdlccccccccccccccccccccccccccccccclooodxoc;'.                      
 .lx0X0OkxxxxxkkOXK,lKocdKl                                 .,,lkk,              ,xdlcccccccccccccccccccccccccccccccccccclloxd:.                    
 .l0Kkdolodxkkkkxdd0WllKocoKl                                 lWKO0Nl               .lxlcccccccccccccccccccccccccccccccccccccccldd:.                  
@@ -33,15 +33,15 @@ OlcdKK,               lKocoKl     lXdco0l ,xO0xoodxkkkxlcdXl  lKdcoKl       'xNW
 XdclxXK,              lKocoKl     lXdco0l.xNkllxKNKxx00ocdXl  lKdcoKl       'xNMXx.                .,'..',.             ,okkooxxxxxxxdlcccccclolc:.   
 0KdlldK0l,,.   .,,,,. lKocoKl     lXdco0clW0ocdKKl..l0OlcdXl  lKdcoKK,      'xNMXx.            .';cd00OO00dc;'.      .;cd0KOkO00OOo,,ldllodxxxxddxx'  
 ,KXkolldO0XOdddOXKKNK,lKocoKl     lXdco0c,KKdcoOX0x0XOoccdXl  lXxclkXOdxx,  'xNWXx.          .;dO0KNNNXNNNNKOOl.   .,dOKXNNNNNNNKx,.:xOOKXNNXNNNX0Oo,.
-.lKXOxdolloodooood0WllKdldKl     lXdlo0l ,0KxllodxddxkdldXx. ,0KdlloddONl  'xNWXx.         .ok0NWN00xlx00KWWXOd' .oOXWWX0000000OOolk0NWN00xlx0OXWWXOd
-.,lxOXK0OOOO00KX0x,lWXKXWl     lWXKKNl  ,x0X0OO0KOx0XKXWK,  .lOK0OO0XK,  'xNWXx.         :k0WWXOo:. .'lk0WMNOdoo0NMNOo;',,,'..'lk0WWXkd:. .'ck0WWXk
-.,,,,,,,,,,,.  .,,,,,.     .,,,,,.    .,,,,,,. .,,,,.     .,,,,,,.   'xNWXx.         ,kXMW0O:     .lkXWWKkkkXWW0O:        'dkNMN0d'     .ckXWWK
-'xNWXx.         ,kNMNO0c      :OKWWKxdONMNO0c        ,dONMNO,       ;kKWWK
-'xNMXx.         ,kXMNOO:      ;kKWWKkxONMW0O:        'oONMNOd'     .lkXMWK
-'xNWXx;'''''''''lkKWWXkd:.  .;o0NMNOdxkKWWNOd;'. .,'.'lkKWWXk:.   .lk0NWXk
-'xNMN0O000000000kkO0NWN0Oxccd0KNWXOd'.oO0NWNK00xcx00OOooOKNWX0dclldOKWWXOd
-'xXWWNNNNNNNNNNKxOkdOKXNNNNNNNNK0Ol.  .;oOKXNWNNNNNNKk,.;oOKXNNNXNNNNK0d,.
-,dkkkkkkkkkkkkkxxo'.dOkOKKKKKOkko:'     .dkxO0KKKK0Okk;  .dOkOKKKK0Okko.*/
+.lKXOxdolloodooood0WllKdldKl     lXdlo0l ,0KxllodxddxkdldXx. ,0KdlloddONl   'xNWXx.         .ok0NWN00xlx00KWWXOd' .oOXWWX0000000OOolk0NWN00xlx0OXWWXOd
+.,lxOXK0OOOO00KX0x,lWXKXWl     lWXKKNl  ,x0X0OO0KOx0XKXWK,  .lOK0OO0XK,     'xNWXx.         :k0WWXOo:. .'lk0WMNOdoo0NMNOo;',,,'..'lk0WWXkd:. .'ck0WWXk
+.,,,,,,,,,,,.  .,,,,,.     .,,,,,.    .,,,,,,. .,,,,.     .,,,,,,.          'xNWXx.         ,kXMW0O:     .lkXWWKkkkXWW0O:        'dkNMN0d'     .ckXWWK
+                                                                            'xNWXx.         ,kNMNO0c      :OKWWKxdONMNO0c        ,dONMNO,       ;kKWWK
+                                                                            'xNMXx.         ,kXMNOO:      ;kKWWKkxONMW0O:        'oONMNOd'     .lkXMWK
+                                                                            'xNWXx;'''''''''lkKWWXkd:.  .;o0NMNOdxkKWWNOd;'. .,'.'lkKWWXk:.   .lk0NWXk
+                                                                            'xNMN0O000000000kkO0NWN0Oxccd0KNWXOd'.oO0NWNK00xcx00OOooOKNWX0dclldOKWWXOd
+                                                                            'xXWWNNNNNNNNNNKxOkdOKXNNNNNNNNK0Ol.  .;oOKXNWNNNNNNKk,.;oOKXNNNXNNNNK0d,.
+                                                                            ,dkkkkkkkkkkkkkxxo'.dOkOKKKKKOkko:'     .dkxO0KKKK0Okk;  .dOkOKKKK0Okko.*/
 
 using ChatLoco.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -63,91 +63,18 @@ namespace ChatLocoTest
 
         //Need a reference to the db context
         private ChatLocoContext _db = new ChatLocoContext();
-        //Holds all the test user data that will be used throughout the tests
-        List<UserTestModel> testUsers = new List<UserTestModel>();
-        //blacklist users who will be created via test methods I.E. CreateUser()
-        List<int> blacklistUSers = new List<int>(){ 1 };//add indicies to the list of users from testUsers you DON'T want created
+        //TestHelper that will hold all of the created users
+        private TestHelper _helper;
 
-
-        //Always initialize the list of uses that will be used in the below tests
-        //In order to add more users to the tests, just add them here
-        private void initializeUsers()
-        {
-            testUsers = new List<UserTestModel>();
-            testUsers.Add(new UserTestModel() { Username = "test_user_00", Password = "test00", Email = "test_user_00@test.com", Id = -1, DefaultHandle = "test_user_00" });//getUserInfo, login
-            testUsers.Add(new UserTestModel() { Username = "test_user_01", Password = "test01", Email = "test_user_01@test.com", Id = -1, DefaultHandle = "test_user_01" });//createUser
-        }
-
-        /*Construct a list of all test users to be removed from the db*/
-        private List<RemoveUserRequestModel> initializeRemovableUsers()
-        {
-            List<RemoveUserRequestModel> users = new List<RemoveUserRequestModel>();
-            foreach (UserTestModel us in testUsers)
-            {
-                users.Add(new RemoveUserRequestModel() { Username = us.Username });
-            }
-            return users;
-        }
-
-        /*Create necessary test users for other test functions to utilize*/
-        private void createTestUsers()
-        {
-            UserController userControllerTest = new UserController();
-            for (var i = 0; i < testUsers.Count; ++i)
-            {
-                if (!blacklistUSers.Contains(i))
-                {
-                    var result = userControllerTest.CreateUser(
-                        new CreateUserRequestModel()
-                        {
-                            Username = testUsers[i].Username,
-                            Password = testUsers[i].Password,
-                            Email = testUsers[i].Email
-                        }) as JsonResult;
-                    //everytime still just asser that the user was actually created. If not, thats a problem so throw error
-                    Assert.AreEqual(0, ((CreateUserResponseModel)result.Data).Errors.Count);
-                    //grab the users ID and store that
-                    var createdUser = UserService.GetUser(testUsers[i].Username);
-                    testUsers[i].Id = createdUser.Id;
-                }
-            }
-        }
-
-        /*remove all test users*/
-        private void removeTestUsers()
-        {
-            //grab the list of users to make sure are deleted.
-            List<RemoveUserRequestModel> removals = initializeRemovableUsers();
-
-            UserController userControllerTest = new UserController();
-
-            foreach (RemoveUserRequestModel res in removals)
-            {
-                var result = userControllerTest.RemoveUser(res) as JsonResult;
-                if (((RemoveUserResponseModel)result.Data).Errors.Count == 1)
-                {
-                    if (((RemoveUserResponseModel)result.Data).Errors[0].ErrorMessage == "user.no.exist")
-                    {
-                        //not a problem move on
-                    }
-                    else
-                    {
-                        //was an acutal problem with removing the user!! Fail and leave!!!
-                        Assert.AreEqual("1", "2");
-                    }
-                }
-            }
-        }
-
-        /*constructor - always delete the users that were created if not already gone. Create those who need creating*/
+        /*constructor - create an instance of TestHelper passing in the users we want to use for testing*/
         public UserControllerTest()
         {
-            //Initialize the users
-            initializeUsers();
-            //Remove ALL test users
-            removeTestUsers();
-            //Create necessary test users
-            createTestUsers();
+
+            List < UserTestModel > newUsers = new List<UserTestModel>();
+            newUsers.Add(new UserTestModel() { Username = "test_usercontroller_00", Password = "testusercontroller00", Email = "test_usercontroller_00@test.com", Id = -1, DefaultHandle = "test_usercontroller_00" });//getUserInfo, login
+            newUsers.Add(new UserTestModel() { Username = "test_usercontroller_01", Password = "testusercontroller01", Email = "test_usercontroller_01@test.com", Id = -1, DefaultHandle = "test_usercontroller_01" });//createUser
+
+            _helper = new TestHelper(newUsers, new List<int>() { 1 });
         }
 
 
@@ -192,6 +119,7 @@ namespace ChatLocoTest
 
         /* --This section includes Partial View functions-- */
 /*###########################################################################################################################################*/
+        
         /*Call the GetLoginForm method: The partial view _Login.cshtml*/
         [TestMethod]
         public void TestGetLoginForm()
@@ -222,13 +150,13 @@ namespace ChatLocoTest
 
 
         /* --This section is the fun stuff. Begin testing database functions-- */
-        /*###########################################################################################################################################*/
+/*###########################################################################################################################################*/
 
         /*Call the UserInfo method: The partial view Index.cshtml*/
         [TestMethod]
         public void TestUserInfo()
         {
-            var USER = testUsers[0];
+            var USER = _helper.testUsers[0];
 
             UserController userControllerTest = new UserController();
             //Pass in test data model
@@ -255,7 +183,7 @@ namespace ChatLocoTest
         [TestMethod]
         public void TestCreateUser()
         {
-            var USER = testUsers[1];
+            var USER = _helper.testUsers[1];
 
             UserController userControllerTest = new UserController();
             //Create test data model
@@ -289,7 +217,7 @@ namespace ChatLocoTest
         [TestMethod]
         public void TestLogin()
         {
-            var USER = testUsers[0];
+            var USER = _helper.testUsers[0];
 
             UserController userControllerTest = new UserController();
             //Create test data model
@@ -333,7 +261,7 @@ namespace ChatLocoTest
         [TestMethod]
         public void TestUpdateSettings()
         {
-            var USER = testUsers[0];
+            var USER = _helper.testUsers[0];
 
             UserController userControllerTest = new UserController();
             //Create test data model
@@ -368,7 +296,7 @@ namespace ChatLocoTest
         [TestMethod]
         public void TestLogout()
         {
-            var USER = testUsers[0];
+            var USER = _helper.testUsers[0];
 
             UserController userControllerTest = new UserController();
             //Create test data model
@@ -391,7 +319,7 @@ namespace ChatLocoTest
         [TestMethod]
         public void TestDirtyLogout()
         {
-            var USER = testUsers[0];
+            var USER = _helper.testUsers[0];
 
             UserController userControllerTest = new UserController();
             //Create test data model
