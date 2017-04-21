@@ -47,7 +47,10 @@ function MapObject() {
             function callback(results, status) {
 
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
+
                     var bounds = new google.maps.LatLngBounds();
+
+                    $("#chatroomPlaces").html("");
                     for (i = 0; i < results.length; i++) {
                         marker = new google.maps.Marker({
                             position: new google.maps.LatLng(results[i].geometry.location.lat(), results[i].geometry.location.lng()),
@@ -57,7 +60,7 @@ function MapObject() {
                         });
 
                         bounds.extend(marker.getPosition());
-
+                     
                         jQuery('#chatroomPlaces').append(jQuery("<option></option>").val(results[i]['place_id']).text(results[i]['name']));
                     }
 
