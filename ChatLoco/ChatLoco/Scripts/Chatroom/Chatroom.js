@@ -33,6 +33,13 @@ var ChatroomObject = function () {
     var _UserFormData = null;
     var _UserInformationContainer = null;
 
+    var mouseDownScrollbar = 0;
+    $("#MessagesPaneContainer #style-1").on('mousedown', function() {
+        console.log(++mouseDownScrollbar);
+    }).on('mouseup', function () {
+        console.log(--mouseDownScrollbar);
+    });
+
     var Destroy = function () {
         if (_GetChatroomInformationInterval != null) {
             clearInterval(_GetChatroomInformationInterval);
@@ -498,9 +505,11 @@ var ChatroomObject = function () {
                 }
                 if (data.MessagesInformation.length != 0) {
 
-                    $('#MessagesPaneContainer #style-1').stop().animate({
-                        scrollTop: $('#MessagesPaneContainer #style-1')[0].scrollHeight
-                    }, 800);
+                    if (mouseDownScrollbar == 0) { // If scrollbar is not being used, change scroll positioning to see new message
+                        $('#MessagesPaneContainer #style-1').stop().animate({
+                            scrollTop: $('#MessagesPaneContainer #style-1')[0].scrollHeight
+                        }, 800);
+                    }
 
                     NotificationHandler.ShowNewMessageAlert();
                 }
