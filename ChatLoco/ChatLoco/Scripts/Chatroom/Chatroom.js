@@ -35,9 +35,9 @@ var ChatroomObject = function () {
 
     var mouseDownScrollbar = 0;
     $("#MessagesPaneContainer #style-1").on('mousedown', function() {
-        console.log(++mouseDownScrollbar);
+        ++mouseDownScrollbar;
     }).on('mouseup', function () {
-        console.log(--mouseDownScrollbar);
+        --mouseDownScrollbar;
     });
 
     var Destroy = function () {
