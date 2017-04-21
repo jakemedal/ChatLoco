@@ -491,7 +491,7 @@ var ChatroomObject = function () {
                 for (var i = 0; i < data.MessagesInformation.length; i++) {
                     var $newMessage = data.MessagesInformation[i].FormattedMessage;
 
-                    _MessagesContainer.append("<p>" + $newMessage + "</p>");
+                    _MessagesContainer.append("<p style=\"word-wrap:break-word;\">" + $newMessage + "</p>");
 
                     _AllMessages.push($newMessage);
                     _AllMessagesIds.push(data.MessagesInformation[i].Id);

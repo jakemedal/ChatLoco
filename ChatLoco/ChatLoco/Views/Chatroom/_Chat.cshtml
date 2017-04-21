@@ -24,12 +24,12 @@
 @* Bootstrap class col-lg-# allow using bootstrap's built in column organization *@
 <div id="OtherChatroomsPaneContainer" class="col-lg-2 col-md-2 col-sm-2 collapse in">
     <br />
-    <button id="ParentChatroomButton" style="background-color:#0099ff; white-space: normal; width: 100%;" value="@Model.ChatroomId" type="button" class="btn btn-primary">
+    <button id="ParentChatroomButton" style="margin-bottom: 15px; background-color:#0099ff; white-space: normal; width: 100%;" value="@Model.ChatroomId" type="button" class="btn btn-primary">
         <b id="parent-chatroom-button-text" value="@Model.ChatroomId">@Model.ChatroomName</b>
     </button>
 
-    <div id="SubChatroomsContainer" class="pre-scrollable" style="height: 3000px; margin-top: 15px;">
-        <div id="SubChatroomsList" style="height: 100%; background-color: rgba(0,0,0,0.6); border: solid; border-color: black;" class="well">
+    <div class="scrollbar" id="style-1" style="margin-bottom: 10px;">
+        <div id="SubChatroomsList" style="height: 100%; background-color: rgba(0,0,0,0.6); border: solid; border-color: black; overflow:hidden; margin-bottom: 0px;" class="force-overflow well">
             @* This is filled in by JS *@
         </div>
     </div>
@@ -57,27 +57,38 @@
 
     <h1 class="white"><span id="ChatroomNameDisplay">@Model.ChatroomName</span></h1>
 
-    <div id="MessagesContainer" style="background-color: rgba(0,0,0,0.6); border: solid; border-color: #000000; height: 5000px;" class="pre-scrollable white well">
-        @* This is filled in by JS *@
-    </div>
+    <div id="style-1" class="scrollbar">
+        <div id="MessagesContainer" style="height: 100%; background-color: rgba(0,0,0,0.6); border: solid; border-color: black; margin-bottom:0; height:auto; max-height:5000px;" class="force-overflow white well">
+            @* This is filled in by JS *@
+        </div>
+   </div>
 
-    <div id="ComposeContainer" style="width:100%; margin-top: 10px; background-color:rgba(0,0,0,0.6); border:solid; border-color:#000000; padding: 4px;" class="col-md-8 well">
+    <div id="ComposeContainer" style="width:100%; background-color:rgba(0,0,0,0.6); border:solid; border-color:#000000; clear:both" class="well">
         <form id="ComposeForm">
-            <span class="white" id="user-handle-container"><b>@Model.UserHandle</b></span> : <input style="width:1000px; color:#000000;" type="text" name="ComposedMessage" />
-            <input style="margin-left: 50px" type="submit" />
-            <button id="Change-Font-Color-Button">Font Color</button>
-            <button id="Font-Bold-Button"><b>B</b></button>
-            <button id="Font-Italic-Button"><i>I</i></button>
-            <button id="Emoji-Button">:)</button>
+            <div class="form-inline">
+                <span class="white" id="user-handle-container"><b>@Model.UserHandle</b></span> : <input style="width:1000px; color: #000000;" type="text" name="ComposedMessage" class="form-control" />
+                <input type="submit" class="btn btn-primary"/>
+                
+                <div style="float:right;">
+                    <button id="Change-Font-Color-Button" class="btn">Font Color</button>
+                    <button id="Font-Bold-Button" class="btn"><b>B</b></button>
+                    <button id="Font-Italic-Button" class="btn"><i>I</i></button>
+                    <button id="Emoji-Button" class="btn">:)</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
 
 <div id="UsersPaneContainer" class="col-lg-2 col-md-2 col-sm-2 collapse in">
     <h3 class="white">Current Users</h3>
-    <div id="UsersContainer" style="border: solid; border-color: #000000; background-color: rgba(0,0,0,0.6); margin-top: 20px;" class="pre-scrollable well">
-        @* This is filled in by JS *@
+
+    <div id="style-1" class="scrollbar" style="margin-top:10px;">
+        <div id="UsersContainer" style="border: solid; border-color: #000000; background-color: rgba(0,0,0,0.6); margin-bottom: 0px;" class="force-overflow well">
+            @* This is filled in by JS *@
+        </div>
     </div>
+    
 </div>
 
 <div id="user-info-container" hidden>
@@ -88,5 +99,38 @@
 <div id="private-chatroom-dialog" hidden>
 </div>
 
+<style>
+    .scrollbar
+    {
+	    float: left;
+	    height: 350px;
+	    width: 100%;
+	    overflow-y: scroll;
+    }
 
+    .force-overflow
+    {
+	    min-height: 450px;
+    }
+
+    #style-1::-webkit-scrollbar-track
+    {
+	    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	    border-radius: 10px;
+	    background-color: #000000;
+    }
+    #style-1::-webkit-scrollbar
+    {
+	    width: 12px;
+	    background-color: #000000;
+    }
+
+    #style-1::-webkit-scrollbar-thumb
+    {
+	    border-radius: 10px;
+	    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	    background-color: #333333;
+    }
+
+</style>
 @Styles.Render("~/Content/chatroom")
