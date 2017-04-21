@@ -1,4 +1,5 @@
 ﻿using ChatLoco.Models.AdminAction_Model;
+using ChatLoco.Models.User_Model;
 using ChatLoco.Services.User_Service;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace ChatLoco.Controllers
                     response.Errors.AddRange(UserService.unblockUser(model.Username));
                     break;
                 case ("Delete"):
-                    response.Errors.AddRange(UserService.deleteUserAccount(model.Username));
+                    response.Errors.AddRange(UserService.RemoveUser(new RemoveUserRequestModel() { Username = model.Username }));
                     break;
             }
             if (!response.Errors.Any())

@@ -1,19 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ChatLoco.DAL;
 using ChatLoco.Models.User_Model;
 using ChatLoco.Controllers;
 using System.Collections.Generic;
-using ChatLoco.Services.User_Service;
 using ChatLoco.Models.Chatroom_Model;
-using ChatLoco.Models.PartialView_Model;
-using ChatLoco.Services.Chatroom_Service;
-using ChatLoco.Services.Security_Service;
-using ChatLoco.Models.Response_Model;
-using System.IO;
 using System.Web.Mvc;
 using ChatLoco.Models.Chatroom_Service;
-using ChatLoco.Services.Message_Service;
 
 namespace ChatLocoTest
 {
@@ -22,7 +14,7 @@ namespace ChatLocoTest
     {
         /* --This section is run everytime before any of the tests-- */
         /* --ensures the database doesn't have left over data from previous tests so that each time we run the tests the data is consistent--*/
-        /*###########################################################################################################################################*/
+/*###########################################################################################################################################*/
 
         //Need a reference to the db context
         private ChatLocoContext _db = new ChatLocoContext();
@@ -84,7 +76,6 @@ namespace ChatLocoTest
          then through there*/
 
 
-        //TODO: possibly extract chatroom data into helper just like testUsers
         /*Call the GetChatroomInformation method: given that a chatroom exists, it will return information on that chatroom.
          * since a chatroom ID is needed for a parameter its assumed the chatroom exists at this point */
         [TestMethod]
