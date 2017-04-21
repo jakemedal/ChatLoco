@@ -124,6 +124,8 @@
     <Compile Include="ChatroomControllerTest.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="ManageUsersControllerTest.cs" />
+    <Compile Include="SettingsControllerTest.cs" />
+    <Compile Include="ContactControllerTest.cs" />
     <Compile Include="UserControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
