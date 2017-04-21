@@ -296,7 +296,9 @@
 
     function OpenSettingsDialog() {
         //hide usermanagedialog if it's open
-        CloseManageUsersDialog();
+        if (_manageUsersData != null) {
+            CloseManageUsersDialog();
+        }
         if (typeof _settingsDialog == 'undefined') {//failsafe incase not initialized
             return;
         }
@@ -335,6 +337,10 @@
     }
 
     function OpenManageUsersDialog() {
+        //hide settingsdialog if it's open
+        if (_settingsFormData != null) {
+            CloseSettingsDialog();
+        }
         ShowDimBehindDialog();
         _manageUsersDialog.dialog({//might be redundant
             title: "Manage Users"
