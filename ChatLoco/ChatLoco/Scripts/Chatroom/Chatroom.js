@@ -497,7 +497,11 @@ var ChatroomObject = function () {
                     _AllMessagesIds.push(data.MessagesInformation[i].Id);
                 }
                 if (data.MessagesInformation.length != 0) {
-                    _MessagesContainer.scrollTop(_MessagesContainer[0].scrollHeight);
+
+                    $('#MessagesPaneContainer #style-1').stop().animate({
+                        scrollTop: $('#MessagesPaneContainer #style-1')[0].scrollHeight
+                    }, 800);
+
                     NotificationHandler.ShowNewMessageAlert();
                 }
             },
