@@ -83,7 +83,14 @@
 
     function LogoutClicked(e) {
         e.preventDefault();
-        CloseManageUsersDialog();
+        //close usermanagedialog if it's open
+        if (_manageUsersData != null) {
+            CloseManageUsersDialog();
+        }
+        //also close settings dialog if open
+        if (_settingsFormData != null) {
+            CloseSettingsDialog();
+        }
         Logout(false);
     }
 
