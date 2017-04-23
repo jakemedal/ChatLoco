@@ -194,7 +194,7 @@ namespace ChatLocoTest
                 User = new UserModel() { Id = JOINING_USER.Id }
             };
 
-            //Test creating a private chatroom success
+            //Test joining a chatroom success
             result = chatControllerTest.JoinChatroom(model2) as JsonResult;
 
             //Post-sanity check NOW there will be two users in the chatroom xD

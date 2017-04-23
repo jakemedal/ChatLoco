@@ -152,7 +152,7 @@ namespace ChatLocoTest
         /* --This section is the fun stuff. Begin testing database functions-- */
 /*###########################################################################################################################################*/
 
-        /*Call the UserInfo method: The partial view Index.cshtml*/
+        /*Call the UserInfo method: Retreieve information about the user from the database*/
         [TestMethod]
         public void TestUserInfo()
         {
