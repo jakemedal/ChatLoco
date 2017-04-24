@@ -13,7 +13,6 @@
 /// <reference path="modernizr-2.6.2.js" />
 /// <reference path="shared/accountchecking.js" />
 /// <reference path="shared/errorhandling.js" />
-/// <reference path="shared/layout.js" />
 /// <reference path="shared/map.js" />
 /// <reference path="shared/notifications.js" />
 /// <reference path="shared/partialviewhandling.js" />

@@ -399,7 +399,6 @@
     <Content Include="Scripts\bootstrap\respond.min.js" />
     <Content Include="Scripts\Shared\accountchecking.js" />
     <Content Include="Scripts\Shared\errorhandling.js" />
-    <Content Include="Scripts\Shared\layout.js" />
     <Content Include="Scripts\Shared\map.js" />
     <Content Include="Scripts\Shared\notifications.js" />
     <Content Include="Scripts\Shared\partialviewhandling.js" />
