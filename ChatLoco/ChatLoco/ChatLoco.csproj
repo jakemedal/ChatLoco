@@ -249,10 +249,6 @@
     <Compile Include="Migrations\201704120144225_dropAddEmail.Designer.cs">
       <DependentUpon>201704120144225_dropAddEmail.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704182357212_AddStylesColumn.cs" />
-    <Compile Include="Migrations\201704182357212_AddStylesColumn.Designer.cs">
-      <DependentUpon>201704182357212_AddStylesColumn.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201704190233173_whisperMigration.cs" />
     <Compile Include="Migrations\201704190233173_whisperMigration.Designer.cs">
       <DependentUpon>201704190233173_whisperMigration.cs</DependentUpon>
@@ -497,9 +493,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704120144225_dropAddEmail.resx">
       <DependentUpon>201704120144225_dropAddEmail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704182357212_AddStylesColumn.resx">
-      <DependentUpon>201704182357212_AddStylesColumn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704190233173_whisperMigration.resx">
       <DependentUpon>201704190233173_whisperMigration.cs</DependentUpon>
