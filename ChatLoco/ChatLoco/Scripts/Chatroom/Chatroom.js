@@ -443,10 +443,14 @@ var ChatroomObject = function () {
         e.preventDefault()
 
         if (_boldChoice == false) {
+            $("#bold-toggle").removeClass("btn-primary");
+            $("#bold-toggle").addClass("btn-secondary");
             _boldChoice = true;
             
         }
         else {
+            $("#bold-toggle").removeClass("btn-secondary");
+            $("#bold-toggle").addClass("btn-primary");
             _boldChoice = false;
             return _boldChoice;
         }
@@ -454,13 +458,24 @@ var ChatroomObject = function () {
     function IsItalic(e) {
         e.preventDefault();
 
-        if (_italicChoice == false) { _italicChoice = true; return _italicChoice; }
-        else { _italicChoice = false; return _italicChoice; }
+        if (_italicChoice == false) {
+            $("#italic-toggle").removeClass("btn-primary");
+            $("#italic-toggle").addClass("btn-secondary");
+            _italicChoice = true;
+            return _italicChoice;
+        }
+        else {
+            $("#italic-toggle").removeClass("btn-secondary");
+            $("#italic-toggle").addClass("btn-primary");
+            _italicChoice = false;
+            return _italicChoice;
+        }
     }
     function SetColor(e) {
         e.preventDefault();
-        
+        $("#select-color").removeClass(toString(e.target.getAttribute("value")));
         _Color = e.target.getAttribute("value");
+        $("#select-color").addClass(toString(e.target.getAttribute("value")));
     }
     function OpenUserInfoDialog(e) {
         e.preventDefault();

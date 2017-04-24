@@ -68,18 +68,18 @@
     <div id="ComposeContainer" style="width:100%; background-color:rgba(0,0,0,0.6); border:solid; border-color:#000000; clear:both" class="well">
         <form id="ComposeForm">
             <div class="form-inline">
-                <span class="white" id="user-handle-container"><b>@Model.UserHandle</b></span> : <input style="width:1000px; color: #000000;" type="text" name="ComposedMessage" class="form-control" />
+                <span class="white" id="user-handle-container"><b>@Model.UserHandle</b></span> : <input style="width:1000px; color: white; background-color:rgba(0,0,0,0.6);" type="text" name="ComposedMessage" class="form-control" />
                 <input type="submit" class="btn btn-primary"/>
               
                 <div style="float:right;">
                     <div class="dropdown checkbox-inline">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="Font-Color-Menu" data-toggle="dropdown">Color</button>
-                        <ul class="dropdown-menu" id="select-color" role="menu">
-                            <li value="white" >White</li>
-                            <li value="red" >Red</li>
-                            <li value="purple" >Purple</li>
-                            <li value="green" >Green</li>
-                            <li value="pink" >Pink</li>
+                        <select class="form-control" style="background-color: rgba(10, 10, 10, 0.7); color:#ffffff;"></select>
+                        <ul class="dropdown-menu" id="select-color" role="menu" style="background-color:rgba(0,0,0,0.6);" >
+                            <li value="white" style="color:white;" >White</li>
+                            <li value="red" style="color:red;" >Red</li>
+                            <li value="purple" style="color:purple;" >Purple</li>
+                            <li value="green" style="color:green;"  >Green</li>
+                            <li value="pink"  style="color:pink;" >Pink</li>
                         </ul>
                     </div>
                     <button type="button" id="bold-toggle" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"><b>B</b></button>
