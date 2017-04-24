@@ -47,7 +47,7 @@ namespace ChatLoco.Services.Message_Service
         }
 
         //if chatroomId is -1, means a private chatroom
-        public static List<MessageDTO> CreateMessages(int userId, int chatroomId, string rawMessage, string userHandle, int desiredUserId, string desiredUserHandle)
+        public static List<MessageDTO> CreateMessages(int userId, int chatroomId, string rawMessage, string userHandle, int desiredUserId, string desiredUserHandle, string messageStyle)
         {
             System.Diagnostics.Debug.WriteLine("creating message!!");
             ChatLocoContext DbContext = new ChatLocoContext();
@@ -63,13 +63,14 @@ namespace ChatLoco.Services.Message_Service
                         ChatroomId = chatroomId,
                         RawMessage = rawMessage,
                         DateCreated = DateTime.Now,
-                        IntendedForUserId = desiredUserId
+                        IntendedForUserId = desiredUserId,
+                        Style = messageStyle
                     };
                     string currentTime = m.DateCreated.ToString("MM/dd [h:mm:ss tt]");
 
                     string formattedMessage = string.Format("{0} [{1}] : {2}", currentTime, userHandle, rawMessage);
                     m.FormattedMessage = formattedMessage;
-                    
+                    m.Style = messageStyle;
                     DbContext.Messages.Add(m);
                     DbContext.SaveChanges();
 

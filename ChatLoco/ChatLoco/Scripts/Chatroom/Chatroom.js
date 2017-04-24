@@ -28,6 +28,12 @@ var ChatroomObject = function () {
     var _CreatePrivateChatroomDialog = null;
     var _CreatePrivateChatroomForm = null;
 
+    //TODO add style objects (toggle, dropdown)
+    var _boldChoice = false;
+    var _italicChoice = false;
+    var _Style = "style=\"word-wrap:break-word; \"";
+    var _Color = "white";
+
     var _UserInfoDialog = $("#user-info-dialog");
     var _UserForm = null;
     var _UserFormData = null;
@@ -114,6 +120,10 @@ var ChatroomObject = function () {
         $("#ParentChatroomButton").on("click", ChatroomClicked);
         $("#private-chatroom-request-form").on("submit", ChatroomRequestFormSubmit);
 
+        $("#bold-toggle").on("click", IsBold);
+        $("#italic-toggle").on("click", IsItalic);
+        $("#select-color").on("click", SetColor);
+
         ChangeChatroomNameTo(_ChatroomName);
     }
 
@@ -173,7 +183,7 @@ var ChatroomObject = function () {
 
         PartialViewHandler.GetAndRenderPartialView("/Chatroom/GetJoinChatroomForm", "POST", $model, _PrivateChatroomRequestDialog, SetupRequestChatroomDialog);
     }
-
+    
     function ChatroomRequestFormSubmit(e) {
         if (e) {
             e.preventDefault();
@@ -388,12 +398,28 @@ var ChatroomObject = function () {
         var $form = this;
 
         var $message = $form[0].value;
+        if (_boldChoice == true && _italicChoice == false) {
+            var $style = "style=\"word-wrap:break-word; font-weight:bold; color:"+ _Color +"; \"";
+        }
+        else if(_boldChoice == false && _italicChoice == true) {
+            var $style = "style=\"word-wrap:break-word; font-style: italic; color:" + _Color + "; \"";
+        }
+        else if (_boldChoice == true && _italicChoice == true) {
+            var $style = "style=\"word-wrap:break-word; font-weight:bold; font-style: italic; color:" + _Color + "; \"";
+        }
+        else {
+            var $style = "style=\"word-wrap:break-word; color:" + _Color + "; \"";
+        }
+       
+        _Style = $style;
 
         var $model = {
             Message: $message,
             ChatroomId: _ChatroomId,
             UserId: _UserId,
-            ParentChatroomId: _ParentChatroomId
+            ParentChatroomId: _ParentChatroomId,
+            MessageStyle: _Style,
+
         };
 
         $.ajax({
@@ -405,13 +431,36 @@ var ChatroomObject = function () {
                 if (ErrorHandler.DisplayErrors(data)) {
                     return;
                 }
-
+                
                 $form[0].value = "";
             },
             error: function () {
             }
         });
 
+    }
+    function IsBold(e) {
+        e.preventDefault()
+
+        if (_boldChoice == false) {
+            _boldChoice = true;
+            
+        }
+        else {
+            _boldChoice = false;
+            return _boldChoice;
+        }
+    }
+    function IsItalic(e) {
+        e.preventDefault();
+
+        if (_italicChoice == false) { _italicChoice = true; return _italicChoice; }
+        else { _italicChoice = false; return _italicChoice; }
+    }
+    function SetColor(e) {
+        e.preventDefault();
+        
+        _Color = e.target.getAttribute("value");
     }
     function OpenUserInfoDialog(e) {
         e.preventDefault();
@@ -481,11 +530,14 @@ var ChatroomObject = function () {
     }
 
     function GetNewMessages() {
+        
+
         var $model = {
             ChatroomId: _ChatroomId,
             UserId: _UserId,
             ExistingMessageIds: _AllMessagesIds,
-            ParentChatroomId: _ParentChatroomId
+            ParentChatroomId: _ParentChatroomId,
+            MessageStyle: _Style,
         };
 
         $.ajax({
@@ -497,9 +549,10 @@ var ChatroomObject = function () {
             success: function (data) {
                 for (var i = 0; i < data.MessagesInformation.length; i++) {
                     var $newMessage = data.MessagesInformation[i].FormattedMessage;
-
-                    _MessagesContainer.append("<p style=\"word-wrap:break-word;\">" + $newMessage + "</p>");
-
+                    var $messageStyle = data.MessagesInformation[i].MessageStyle
+                    
+                    _MessagesContainer.append("<p " + $messageStyle +" > " +$newMessage + "</p>");
+                    
                     _AllMessages.push($newMessage);
                     _AllMessagesIds.push(data.MessagesInformation[i].Id);
                 }

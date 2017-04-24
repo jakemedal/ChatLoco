@@ -59,7 +59,7 @@ namespace ChatLoco.Services.Chatroom_Service
             return GetChatroom(chatroomId, parentChatroomId).HasPassword;
         }
 
-        public static List<MessageInformationModel> GetNewMessagesInformation(int parentChatroomId, int chatroomId, List<int> existingIds)
+        public static List<MessageInformationModel> GetNewMessagesInformation(int parentChatroomId, int chatroomId, List<int> existingIds, string messageStyle)
         {
             if(existingIds == null)
             {
@@ -67,7 +67,7 @@ namespace ChatLoco.Services.Chatroom_Service
             }
             else
             {
-                return GetChatroom(chatroomId, parentChatroomId).GetNewMessagesInformation(existingIds);
+                 return GetChatroom(chatroomId, parentChatroomId).GetNewMessagesInformation(existingIds);
             }
         }
 
@@ -154,7 +154,7 @@ namespace ChatLoco.Services.Chatroom_Service
             }
         }
 
-        public static MessageSend SendMessage(string message, int userId, int chatroomId, int parentId)
+        public static MessageSend SendMessage(string message, int userId, int chatroomId, int parentId, string messageStyle)
         {
             MessageSend messageSend = new MessageSend();
             try
@@ -196,7 +196,7 @@ namespace ChatLoco.Services.Chatroom_Service
                     }
                 }
 
-                var createdMessages = MessageService.CreateMessages(userId, chatroom.IsPrivate ? -1 : chatroomId, message, chatroom.GetUserHandle(userId), desiredUserId, desiredUserHandle);
+                var createdMessages = MessageService.CreateMessages(userId, chatroom.IsPrivate ? -1 : chatroomId, message, chatroom.GetUserHandle(userId), desiredUserId, desiredUserHandle, messageStyle);
 
                 foreach(var m in createdMessages)
                 {

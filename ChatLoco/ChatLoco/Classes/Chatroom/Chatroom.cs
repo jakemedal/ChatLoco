@@ -291,7 +291,8 @@ namespace ChatLoco.Classes.Chatroom
                         {
                             Id = id,
                             FormattedMessage = FormattedMessagesCache[id].RawMessage,
-                            IntendedForUserId = FormattedMessagesCache[id].IntendedForUserId
+                            IntendedForUserId = FormattedMessagesCache[id].IntendedForUserId,
+                            MessageStyle = FormattedMessagesCache[id].StyleMessage
                         };
                         allMessagesInformation.Add(m);
                     }
@@ -323,7 +324,8 @@ namespace ChatLoco.Classes.Chatroom
                         {
                             Id = formattedMessage.Key,
                             FormattedMessage = formattedMessage.Value.RawMessage,
-                            IntendedForUserId = formattedMessage.Value.IntendedForUserId
+                            IntendedForUserId = formattedMessage.Value.IntendedForUserId,
+                            MessageStyle = formattedMessage.Value.StyleMessage
                         };
                         newMessages.Add(m);
                     }
@@ -362,7 +364,8 @@ namespace ChatLoco.Classes.Chatroom
                 var m = new ChatroomMesssage()
                 {
                     RawMessage = message.FormattedMessage,
-                    IntendedForUserId = message.IntendedForUserId
+                    IntendedForUserId = message.IntendedForUserId,
+                    StyleMessage = message.Style
                 };
                 FormattedMessagesCache.Add(message.Id, m);
                 FormattedMessageOrder.Add(message.Id);

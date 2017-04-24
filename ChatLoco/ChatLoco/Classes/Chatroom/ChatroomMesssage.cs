@@ -9,5 +9,6 @@ namespace ChatLoco.Classes.Chatroom
     {
         public string RawMessage { get; set; }
         public int IntendedForUserId { get; set; } = -1;
+        public string StyleMessage { get; set; }
     }
 }

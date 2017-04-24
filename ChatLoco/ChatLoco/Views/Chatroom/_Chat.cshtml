@@ -1,4 +1,6 @@
 ﻿@model ChatLoco.Models.Chatroom_Model.ChatroomModel
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 @* These inputs are hidden so that we can get their values easily in JS *@
 <input type="hidden" id="ChatroomId" value="@Model.ChatroomId" />
@@ -68,12 +70,20 @@
             <div class="form-inline">
                 <span class="white" id="user-handle-container"><b>@Model.UserHandle</b></span> : <input style="width:1000px; color: #000000;" type="text" name="ComposedMessage" class="form-control" />
                 <input type="submit" class="btn btn-primary"/>
-                
+              
                 <div style="float:right;">
-                    <button id="Change-Font-Color-Button" class="btn">Font Color</button>
-                    <button id="Font-Bold-Button" class="btn"><b>B</b></button>
-                    <button id="Font-Italic-Button" class="btn"><i>I</i></button>
-                    <button id="Emoji-Button" class="btn">:)</button>
+                    <div class="dropdown checkbox-inline">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="Font-Color-Menu" data-toggle="dropdown">Color</button>
+                        <ul class="dropdown-menu" id="select-color" role="menu">
+                            <li value="white" >White</li>
+                            <li value="red" >Red</li>
+                            <li value="purple" >Purple</li>
+                            <li value="green" >Green</li>
+                            <li value="pink" >Pink</li>
+                        </ul>
+                    </div>
+                    <button type="button" id="bold-toggle" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"><b>B</b></button>
+                    <button type="button" id="italic-toggle" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"><i>I</i></button>
                 </div>
             </div>
         </form>
