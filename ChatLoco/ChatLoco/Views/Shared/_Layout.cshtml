@@ -56,13 +56,6 @@
         @RenderBody()
     </div>
 
-    <div class="footer navbar-fixed-bottom">
-        <div id="revision-container">
-            <p id="revision-string">
-                @* Populated by layout.js *@
-            </p>
-        </div>
-    </div>
     @Scripts.Render("~/bundles/layout")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
