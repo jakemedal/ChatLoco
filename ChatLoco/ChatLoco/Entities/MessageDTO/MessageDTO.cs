@@ -11,5 +11,6 @@ namespace ChatLoco.Entities.MessageDTO
         public string FormattedMessage { get; set; }
         public DateTime DateCreated { get; set; }
         public int IntendedForUserId { get; set; }
+        public string Style { get; set; }
     }
 }
