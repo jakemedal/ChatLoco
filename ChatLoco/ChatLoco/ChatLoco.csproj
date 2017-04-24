@@ -257,6 +257,14 @@
     <Compile Include="Migrations\201704190233173_whisperMigration.Designer.cs">
       <DependentUpon>201704190233173_whisperMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704240056367_addStyleColumn.cs" />
+    <Compile Include="Migrations\201704240056367_addStyleColumn.Designer.cs">
+      <DependentUpon>201704240056367_addStyleColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704240122084_REAladdStyleColumn.cs" />
+    <Compile Include="Migrations\201704240122084_REAladdStyleColumn.Designer.cs">
+      <DependentUpon>201704240122084_REAladdStyleColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminAction_Model\AdminActionRequestModel.cs" />
     <Compile Include="Models\AdminAction_Model\AdminActionResponseModel.cs" />
@@ -495,6 +503,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704190233173_whisperMigration.resx">
       <DependentUpon>201704190233173_whisperMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704240056367_addStyleColumn.resx">
+      <DependentUpon>201704240056367_addStyleColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704240122084_REAladdStyleColumn.resx">
+      <DependentUpon>201704240122084_REAladdStyleColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
