@@ -59,7 +59,7 @@ namespace ChatLoco.Services.Chatroom_Service
             return GetChatroom(chatroomId, parentChatroomId).HasPassword;
         }
 
-        public static List<MessageInformationModel> GetNewMessagesInformation(int parentChatroomId, int chatroomId, List<int> existingIds, string messageStyle)
+        public static List<MessageInformationModel> GetNewMessagesInformation(int parentChatroomId, int chatroomId, List<int> existingIds)
         {
             if(existingIds == null)
             {
@@ -154,17 +154,19 @@ namespace ChatLoco.Services.Chatroom_Service
             }
         }
 
-        public static MessageSend SendMessage(string message, int userId, int chatroomId, int parentId, string messageStyle)
+        public static MessageSend SendMessage(ComposeMessageRequestModel request)
         {
+            
+
             MessageSend messageSend = new MessageSend();
             try
             {
-                var chatroom = GetChatroom(chatroomId, parentId);
+                var chatroom = GetChatroom(request.ChatroomId, request.ParentChatroomId);
 
                 var desiredUserId = -1;
                 var desiredUserHandle = "";
 
-                var args = message.Split(' ');
+                var args = request.Message.Split(' ');
                 if(args[0] == "/whisper")
                 {
                     if(args.Length > 2)
@@ -185,7 +187,7 @@ namespace ChatLoco.Services.Chatroom_Service
                                 s += args[i]+ " ";
                             }
 
-                            message = s;
+                            request.Message = s;
                         }
                     }
                     else
@@ -196,7 +198,7 @@ namespace ChatLoco.Services.Chatroom_Service
                     }
                 }
 
-                var createdMessages = MessageService.CreateMessages(userId, chatroom.IsPrivate ? -1 : chatroomId, message, chatroom.GetUserHandle(userId), desiredUserId, desiredUserHandle, messageStyle);
+                var createdMessages = MessageService.CreateMessages(request, chatroom.IsPrivate, chatroom.GetUserHandle(request.UserId), desiredUserId, desiredUserHandle);
 
                 foreach(var m in createdMessages)
                 {

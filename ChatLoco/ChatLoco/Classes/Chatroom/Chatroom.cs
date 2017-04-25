@@ -59,7 +59,8 @@ namespace ChatLoco.Classes.Chatroom
                     var m = new ChatroomMesssage()
                     {
                         RawMessage = message.FormattedMessage,
-                        IntendedForUserId = message.IntendedForUserId
+                        IntendedForUserId = message.IntendedForUserId,
+                        StyleMessage = message.Style
                     };
                     FormattedMessagesCache.Add(message.Id, m);
                     FormattedMessageOrder.Add(message.Id);

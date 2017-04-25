@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using ChatLoco.DAL;
 using System.Linq;
-
+using ChatLoco.Models.Chatroom_Model;
 
 namespace ChatLoco.Services.Message_Service
 {
@@ -47,9 +47,17 @@ namespace ChatLoco.Services.Message_Service
         }
 
         //if chatroomId is -1, means a private chatroom
-        public static List<MessageDTO> CreateMessages(int userId, int chatroomId, string rawMessage, string userHandle, int desiredUserId, string desiredUserHandle, string messageStyle)
+        public static List<MessageDTO> CreateMessages(ComposeMessageRequestModel request, bool isPrivate, string userHandle, int desiredUserId, string desiredUserHandle)
         {
-            System.Diagnostics.Debug.WriteLine("creating message!!");
+            var userId = request.UserId;
+            var chatroomId = isPrivate ? -1 : request.ChatroomId;
+            var rawMessage = request.Message;
+
+            string boldString = request.Bold ? "font-weight:bold;" : "";
+            string italicString = request.Italic ? "font-style: italic;" : "";
+            string colorString = desiredUserId == -1 ? "color:"+request.Color+";" : "color:#0099FF;";
+            string styleString = string.Format("style=\"word-wrap:break-word; {0} {1} {2} \" ", colorString, boldString, italicString);
+
             ChatLocoContext DbContext = new ChatLocoContext();
             try
             {
@@ -64,13 +72,12 @@ namespace ChatLoco.Services.Message_Service
                         RawMessage = rawMessage,
                         DateCreated = DateTime.Now,
                         IntendedForUserId = desiredUserId,
-                        Style = messageStyle
+                        Style = styleString
                     };
                     string currentTime = m.DateCreated.ToString("MM/dd [h:mm:ss tt]");
 
                     string formattedMessage = string.Format("{0} [{1}] : {2}", currentTime, userHandle, rawMessage);
                     m.FormattedMessage = formattedMessage;
-                    m.Style = messageStyle;
                     DbContext.Messages.Add(m);
                     DbContext.SaveChanges();
 
@@ -87,7 +94,8 @@ namespace ChatLoco.Services.Message_Service
                         ChatroomId = chatroomId,
                         RawMessage = rawMessage,
                         DateCreated = DateTime.Now,
-                        IntendedForUserId = desiredUserId
+                        IntendedForUserId = desiredUserId,
+                        Style = styleString
                     };
                     string currentTime = m.DateCreated.ToString("MM/dd [h:mm:ss tt]");
 
@@ -108,7 +116,8 @@ namespace ChatLoco.Services.Message_Service
                         ChatroomId = chatroomId,
                         RawMessage = rawMessage,
                         DateCreated = DateTime.Now,
-                        IntendedForUserId = userId
+                        IntendedForUserId = userId,
+                        Style = styleString
                     };
 
                     string formattedMessage2 = string.Format("{0} [{1}] : {2}", currentTime, "To " + desiredUserHandle, rawMessage);

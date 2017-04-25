@@ -105,7 +105,7 @@ namespace ChatLoco.Controllers
 
             try
             {
-                var m = ChatroomService.SendMessage(request.Message, request.UserId, request.ChatroomId, request.ParentChatroomId, request.MessageStyle);
+                var m = ChatroomService.SendMessage(request);
 
                 response.MessageId = m.MessageId;
                 response.Errors.AddRange(m.Errors);
@@ -191,11 +191,10 @@ namespace ChatLoco.Controllers
             int parentChatroomId = request.ParentChatroomId;
             int chatroomId = request.ChatroomId;
             List<int> existingIds = request.ExistingMessageIds;
-            string messageStyle = request.MessageStyle;
 
             GetNewMessagesResponseModel response = new GetNewMessagesResponseModel();
 
-            var messageInformationModels = ChatroomService.GetNewMessagesInformation(parentChatroomId, chatroomId, existingIds, messageStyle);
+            var messageInformationModels = ChatroomService.GetNewMessagesInformation(parentChatroomId, chatroomId, existingIds);
 
             foreach(var messageInformationModel in messageInformationModels)
             {
