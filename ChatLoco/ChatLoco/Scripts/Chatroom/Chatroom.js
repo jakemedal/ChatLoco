@@ -31,7 +31,7 @@ var ChatroomObject = function () {
     //TODO add style objects (toggle, dropdown)
     var _boldChoice = false;
     var _italicChoice = false;
-    var _Color = "white";
+    var _Color;
 
     var _UserInfoDialog = $("#user-info-dialog");
     var _UserForm = null;
@@ -463,7 +463,7 @@ var ChatroomObject = function () {
     function SetColor(e) {
         e.preventDefault();
         $("#select-color").removeClass(toString(e.target.getAttribute("value")));
-        _Color = e.target.getAttribute("value");
+        _Color = e.target.value;
         $("#select-color").addClass(toString(e.target.getAttribute("value")));
     }
 

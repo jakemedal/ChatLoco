@@ -66,25 +66,33 @@
    </div>
 
     <div id="ComposeContainer" style="width:100%; background-color:rgba(0,0,0,0.6); border:solid; border-color:#000000; clear:both" class="well">
-        <form id="ComposeForm">
-            <div class="form-inline">
-                <span class="white" id="user-handle-container"><b>@Model.UserHandle</b></span> : <input style="width:1000px; color: white; background-color:rgba(0,0,0,0.6);" type="text" name="ComposedMessage" class="form-control" />
-                <input type="submit" class="btn btn-primary"/>
+        <form id="ComposeForm" class="form-inline">
+            <span class="white" id="user-handle-container"><b>@Model.UserHandle</b></span> : <input style="width:1000px; color: white; background-color:rgba(0,0,0,0.6);" type="text" name="ComposedMessage" class="form-control" />
+            <input type="submit" class="btn btn-primary"/>
               
-                <div style="float:right;">
-                    <div class="dropdown checkbox-inline">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Color  <span class="caret"></span></button>
-                        <ul class="dropdown-menu" id="select-color" role="menu" style="background-color:rgba(0,0,0,0.6);" >
-                            <li value="white" style="color:white;" class="selected">White</li>
-                            <li value="red" style="color:red;" >Red</li>
-                            <li value="purple" style="color:purple;" >Purple</li>
-                            <li value="green" style="color:green;"  >Green</li>
-                            <li value="pink"  style="color:pink;" >Pink</li>
-                        </ul>
-                    </div>
-                    <button type="button" id="bold-toggle" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"><b>B</b></button>
-                    <button type="button" id="italic-toggle" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"><i>I</i></button>
-                </div>
+            <div style="float:right;">
+
+                <select id="select-color" value="white" onchange="this.className=this.options[this.selectedIndex].className" class="white form-control" style="background-color: rgba(0,0,0,0.6); width:auto; display:inline-block;">
+                    <option class="white form-control" value="white" style="background-color: black">White</option>
+                    <option class="red form-control" value="red" style="background-color: black">Red</option>
+                    <option class="blue form-control" value="blue" style="background-color: black">Blue</option>
+                    <option class="green form-control" value="green" style="background-color: black">Green</option>
+                    <option class="pink form-control" value="pink" style="background-color: black">Pink</option>
+                </select>
+
+                @*<div class="dropup form-inline">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Color  <span class="caret"></span></button>
+                    <ul class="dropdown-menu" id="select-color" role="menu" style="background-color:rgba(0,0,0,0.6);" >
+                        <li value="white" style="color:white;" class="selected">White</li>
+                        <li value="red" style="color:red;" >Red</li>
+                        <li value="purple" style="color:purple;" >Purple</li>
+                        <li value="green" style="color:green;"  >Green</li>
+                        <li value="pink"  style="color:pink;" >Pink</li>
+                    </ul>
+                </div>*@
+
+                <button type="button" id="bold-toggle" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"><b>B</b></button>
+                <button type="button" id="italic-toggle" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"><i>I</i></button>
             </div>
         </form>
     </div>
