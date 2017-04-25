@@ -7,6 +7,7 @@ namespace ChatLoco.Models.User_Model
         public string Username { get; set; }
         public RoleLevel Role { get; set; }
         public UserSettingsModel Settings { get; set; }
+        public bool IsActivated { get; set; }
     }
     public enum RoleLevel
     {

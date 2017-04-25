@@ -130,7 +130,8 @@ namespace ChatLoco.Services.User_Service
             {
                 Id = user.Id,
                 Username = user.Username,
-                Role = user.Role
+                Role = user.Role,
+                IsActivated = user.IsActivated
             };
 
             var userSettings = SettingService.GetSettings(userModel.Id);

@@ -436,6 +436,70 @@
         _loginDialog.dialog("close");
     }
 
+    function OpenUserActivatedDialog() {
+        NotificationHandler.ShowDim();
+        var $userDialog = $("#user-activated-dialog");
+
+        var $buttons = [{
+            text: "Ok",
+            click: SendActivationCode
+        }];
+
+        $userDialog.dialog({
+            title: "Account Still Needs To Be Activated",
+            modal: true,
+            buttons: $buttons,
+            close: function () {
+                if (!_currentUser.IsActivated) {
+                    $userDialog.dialog("destroy");
+                    OpenUserActivatedDialog();
+                }
+                else {
+                    NotificationHandler.HideDim();
+                }
+            }
+        });
+    }
+
+    function SendActivationCode() {
+
+        NotificationHandler.ShowLoading();
+
+        var $activationForm = $("#user-activated-form");
+        var activationCode = $activationForm[0].elements[0].value;
+
+        var $model = { UserId : _currentUser.UserId, ActivationCode: activationCode };
+
+        $.ajax({
+            type: "POST",
+            url: '/User/Activate',
+            data: $model,
+            success: function (response) {
+                if (ErrorHandler.DisplayErrors(response)) {
+                    return;
+                }
+
+                NotificationHandler.HideLoading();
+
+                if (response.WasActivated) {
+                    _currentUser.IsActivated = true;
+                    NotificationHandler.HideDim();
+                    var $userDialog = $("#user-activated-dialog");
+                    $userDialog.dialog("destroy");
+                    StatusHandler.DisplayStatus("<p>Account activated successfully.</p>");
+                }
+                else {
+                    $("#user-activated-status")[0].textContent = "Activation Code Incorrect.";
+                    NotificationHandler.ShowDim();
+                }
+            },
+            error: function (response) {
+
+            }
+        });
+
+    }
+
     //this can be handled in plaintext since securing an SSL certificate will automatically encrypt all traffic both ways
     function login(e) {
         e.preventDefault();
@@ -475,9 +539,14 @@
                 }
                 else {
                     CloseLoginDialog();
-                    StatusHandler.DisplayStatus("<p>Logged in successfully.</p>");
                     UpdateCurrentUser(data.User);
-                    _accountNavbar.show();
+                    if (data.User.IsActivated) {
+                        StatusHandler.DisplayStatus("<p>Logged in successfully.</p>");
+                        _accountNavbar.show();
+                    }
+                    else {
+                        OpenUserActivatedDialog();
+                    }
                     $("#username-header").text(GetUser().Username);
                     if (GetUser().Role === 1) {
                         $("#user-management").show();
@@ -489,10 +558,8 @@
                         var defaultHandleInput = findChatroomForm[0].elements[1];
                         defaultHandleInput.value = AccountHandler.GetUser().Settings.DefaultHandle;
                     }
-
                     NotificationHandler.HideLoading();
                 }
-
             },
             error: function () {
             }

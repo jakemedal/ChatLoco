@@ -11,5 +11,6 @@ namespace ChatLoco.Entities.UserDTO
         public string PasswordHash { get; set; }
         public DateTime? LastLoginDate { get; set; }
         public RoleLevel Role { get; set; }
+        public bool IsActivated { get; set; }
     }
 }

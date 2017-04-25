@@ -114,6 +114,16 @@ namespace ChatLoco.Controllers
         }
 
         [HttpPost]
+        public ActionResult Activate(ActivateUserRequestModel request)
+        {
+            ActivateUserResponseModel response = new ActivateUserResponseModel();
+            //TODO COLE
+            //response.WasActivated equals either true or false depending on if the activation code was correct or not
+
+            return Json(response);
+        }
+
+        [HttpPost]
         public ActionResult Login(LoginRequestModel request)
         {
             var response = UserService.GetLoginResponseModel(request);
