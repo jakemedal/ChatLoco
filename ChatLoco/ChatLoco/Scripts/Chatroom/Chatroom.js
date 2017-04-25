@@ -31,7 +31,6 @@ var ChatroomObject = function () {
     //TODO add style objects (toggle, dropdown)
     var _boldChoice = false;
     var _italicChoice = false;
-    var _Style = "style=\"word-wrap:break-word; \"";
     var _Color = "white";
 
     var _UserInfoDialog = $("#user-info-dialog");
@@ -398,28 +397,15 @@ var ChatroomObject = function () {
         var $form = this;
 
         var $message = $form[0].value;
-        if (_boldChoice == true && _italicChoice == false) {
-            var $style = "style=\"word-wrap:break-word; font-weight:bold; color:"+ _Color +"; \"";
-        }
-        else if(_boldChoice == false && _italicChoice == true) {
-            var $style = "style=\"word-wrap:break-word; font-style: italic; color:" + _Color + "; \"";
-        }
-        else if (_boldChoice == true && _italicChoice == true) {
-            var $style = "style=\"word-wrap:break-word; font-weight:bold; font-style: italic; color:" + _Color + "; \"";
-        }
-        else {
-            var $style = "style=\"word-wrap:break-word; color:" + _Color + "; \"";
-        }
-       
-        _Style = $style;
 
         var $model = {
             Message: $message,
             ChatroomId: _ChatroomId,
             UserId: _UserId,
             ParentChatroomId: _ParentChatroomId,
-            MessageStyle: _Style,
-
+            Bold: _boldChoice,
+            Italic: _italicChoice,
+            Color: _Color
         };
 
         $.ajax({
@@ -439,6 +425,7 @@ var ChatroomObject = function () {
         });
 
     }
+
     function IsBold(e) {
         e.preventDefault()
 
@@ -455,6 +442,7 @@ var ChatroomObject = function () {
             return _boldChoice;
         }
     }
+
     function IsItalic(e) {
         e.preventDefault();
 
@@ -471,12 +459,14 @@ var ChatroomObject = function () {
             return _italicChoice;
         }
     }
+
     function SetColor(e) {
         e.preventDefault();
         $("#select-color").removeClass(toString(e.target.getAttribute("value")));
         _Color = e.target.getAttribute("value");
         $("#select-color").addClass(toString(e.target.getAttribute("value")));
     }
+
     function OpenUserInfoDialog(e) {
         e.preventDefault();
         
@@ -545,14 +535,11 @@ var ChatroomObject = function () {
     }
 
     function GetNewMessages() {
-        
-
         var $model = {
             ChatroomId: _ChatroomId,
             UserId: _UserId,
             ExistingMessageIds: _AllMessagesIds,
-            ParentChatroomId: _ParentChatroomId,
-            MessageStyle: _Style,
+            ParentChatroomId: _ParentChatroomId
         };
 
         $.ajax({
