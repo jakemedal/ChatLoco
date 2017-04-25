@@ -558,9 +558,9 @@ var ChatroomObject = function () {
                     messageTokens = $newMessage.toString().split(":").slice(3);
 
                     var $messageContents = messageTokens.join(":");
-                    var $stampContents = stampTokens.join(":") + ": ";
-
-                    _MessagesContainer.append("<p>" + $stampContents + "<span " + $messageStyle + ">" + $messageContents + "</span></p>");
+                    var $stampContents = stampTokens.join(":");
+                    
+                    _MessagesContainer.append("<p><span class=\"label label-primary\">" + $stampContents + "</span><span " + $messageStyle + "> &nbsp;" + $messageContents + "</span></p>");
                     
                     _AllMessages.push($newMessage);
                     _AllMessagesIds.push(data.MessagesInformation[i].Id);
