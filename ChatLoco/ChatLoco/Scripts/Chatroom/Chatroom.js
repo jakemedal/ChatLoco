@@ -552,8 +552,15 @@ var ChatroomObject = function () {
                 for (var i = 0; i < data.MessagesInformation.length; i++) {
                     var $newMessage = data.MessagesInformation[i].FormattedMessage;
                     var $messageStyle = data.MessagesInformation[i].MessageStyle
-                    
-                    _MessagesContainer.append("<p " + $messageStyle +" > " +$newMessage + "</p>");
+ 
+                    tokens = $newMessage.toString().split(":");
+                    stampTokens = [tokens[0], tokens[1], tokens[2]];
+                    messageTokens = $newMessage.toString().split(":").slice(3);
+
+                    var $messageContents = messageTokens.join(":");
+                    var $stampContents = stampTokens.join(":") + ": ";
+
+                    _MessagesContainer.append("<p>" + $stampContents + "<span " + $messageStyle + ">" + $messageContents + "</span></p>");
                     
                     _AllMessages.push($newMessage);
                     _AllMessagesIds.push(data.MessagesInformation[i].Id);
