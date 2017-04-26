@@ -42,11 +42,13 @@ namespace ChatLoco.Services.User_Service
                 LastLoginDate = null,
                 PasswordHash = passwordHash,
                 Username = username,
-                Role = RoleLevel.User
+                Role = RoleLevel.User,
+                IsActivated = true
             };
-            var l = SendMailService.sendCreationCode(email, user.Id);
             db.Users.Add(user);
             db.SaveChanges();
+
+            //var l = SendMailService.sendCreationCode(email, user.Id);
 
             SettingDTO settings = SettingService.CreateSettings(user.Id, user.Username, email);//the default handle is the users username
             if (settings == null) {

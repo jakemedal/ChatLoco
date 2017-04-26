@@ -81,14 +81,14 @@ namespace ChatLoco.Services.SendMail_Service
             var errors = new List<ErrorModel>();
             string val;
             if(creationCodes.TryGetValue(model.UserId, out val)) {
-                if(val != model.ActivationCode){
+                if(!val.Equals(model.ActivationCode)){
                     errors.Add(new ErrorModel("Verification Code is Incorrect"));
                     return errors;
                 }
             }
             else
             {
-                errors.Add(new ErrorModel("Incorrect Username"));
+                errors.Add(new ErrorModel("Could not find user Id."));
                 return errors;
             }
             UserService.MakeActivated(model.UserId);

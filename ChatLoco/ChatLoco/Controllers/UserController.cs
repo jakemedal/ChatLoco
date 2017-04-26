@@ -118,13 +118,13 @@ namespace ChatLoco.Controllers
         public ActionResult Activate(ActivateUserRequestModel request)
         {
             ActivateUserResponseModel response = new ActivateUserResponseModel();
-            response.WasActivated = false;
-            response.Errors=SendMailService.verifyUserCreationCode(request);
+            response.WasActivated = true;
+            //response.Errors=SendMailService.verifyUserCreationCode(request);
 
-            if (!response.Errors.Any())
-            {
-                response.WasActivated = true;
-            }
+            //if (!response.Errors.Any())
+            //{
+            //    response.WasActivated = true;
+            //}
             return Json(response);
         }
 

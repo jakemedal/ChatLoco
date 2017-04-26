@@ -468,7 +468,7 @@
         var $activationForm = $("#user-activated-form");
         var activationCode = $activationForm[0].elements[0].value;
 
-        var $model = { UserId : _currentUser.UserId, ActivationCode: activationCode };
+        var $model = { UserId: _currentUser.Id, ActivationCode: activationCode };
 
         $.ajax({
             type: "POST",
@@ -540,13 +540,17 @@
                 else {
                     CloseLoginDialog();
                     UpdateCurrentUser(data.User);
-                    if (data.User.IsActivated) {
-                        StatusHandler.DisplayStatus("<p>Logged in successfully.</p>");
-                        _accountNavbar.show();
-                    }
-                    else {
-                        OpenUserActivatedDialog();
-                    }
+                    //if (data.User.IsActivated) {
+                    //    StatusHandler.DisplayStatus("<p>Logged in successfully.</p>");
+                    //    _accountNavbar.show();
+                    //}
+                    //else {
+                    //    OpenUserActivatedDialog();
+                    //}
+
+                    StatusHandler.DisplayStatus("<p>Logged in successfully.</p>");
+                    _accountNavbar.show();
+
                     $("#username-header").text(GetUser().Username);
                     if (GetUser().Role === 1) {
                         $("#user-management").show();
