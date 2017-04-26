@@ -103,7 +103,7 @@
         var $parentChatroomId = -1;
         var $chatroomId = -1;
 
-        if (ChatroomHandler) {
+        if (ChatroomHandler != null) {
             $parentChatroomId = ChatroomHandler.GetParentChatroomId();
             $chatroomId = ChatroomHandler.GetChatroomId();
         }

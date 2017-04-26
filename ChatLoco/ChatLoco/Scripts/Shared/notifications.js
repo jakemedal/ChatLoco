@@ -52,7 +52,7 @@
     }
 
     function HideNewMessageAlert() {
-        if (ChatroomHandler) {
+        if (ChatroomHandler != null) {
             document.title = ChatroomHandler.GetChatroomName();
         }
     }

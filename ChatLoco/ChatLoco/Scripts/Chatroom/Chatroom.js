@@ -553,15 +553,21 @@ var ChatroomObject = function () {
                     var $newMessage = data.MessagesInformation[i].FormattedMessage;
                     var $messageStyle = data.MessagesInformation[i].MessageStyle
  
-                    tokens = $newMessage.toString().split(":");
-                    stampTokens = [tokens[0], tokens[1], tokens[2]];
-                    messageTokens = $newMessage.toString().split(":").slice(3);
-
+                    var tokens = $newMessage.toString().split(":");
+                    var stampTokens = [tokens[0], tokens[1], tokens[2]];
+                    var messageTokens = $newMessage.toString().split(":").slice(3);
                     var $messageContents = messageTokens.join(":");
+
+                    var isImage = false;
+                    if ($messageContents.indexOf("/img") >= 0 && $messageContents.length > 4) {
+                        isImage = true;
+                        var tmp = $messageContents.toString().replace("/img", "");
+                        $messageContents = tmp;
+                    }
                     var $stampContents = stampTokens.join(":") + ": ";
 
-                    _MessagesContainer.append("<p>" + $stampContents + "<span " + $messageStyle + ">" + $messageContents + "</span></p>");
-                    
+                    _MessagesContainer.append("<p>" + $stampContents + "<span " + (isImage ? "><img src=\"" + $messageContents + "\" style=\" max-height: 50vh; max-width: 75vw;\" class=\"img-fluid\">" : $messageStyle + ">" + $messageContents) + "</span></p>");
+
                     _AllMessages.push($newMessage);
                     _AllMessagesIds.push(data.MessagesInformation[i].Id);
                 }
