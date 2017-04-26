@@ -56,7 +56,7 @@ namespace ChatLoco.Services.Message_Service
             string boldString = request.Bold ? "font-weight:bold;" : "";
             string italicString = request.Italic ? "font-style: italic;" : "";
             string colorString = desiredUserId == -1 ? "color:"+request.Color+";" : "color:#0099FF;";
-            string styleString = string.Format("style=\"word-wrap:break-word; {0} {1} : {2} \" ", colorString, boldString, italicString);
+            string styleString = string.Format("style=\"word-wrap:break-word; {0} {1} {2} \" ", colorString, boldString, italicString);
 
             ChatLocoContext DbContext = new ChatLocoContext();
             try
@@ -76,7 +76,7 @@ namespace ChatLoco.Services.Message_Service
                     };
                     string currentTime = m.DateCreated.ToString("MM/dd [h:mm:ss tt]");
 
-                    string formattedMessage = string.Format("{0} {1} : {2}", currentTime, userHandle, rawMessage);
+                    string formattedMessage = string.Format("{0} {1}: {2}", currentTime, userHandle, rawMessage);
                     m.FormattedMessage = formattedMessage;
                     DbContext.Messages.Add(m);
                     DbContext.SaveChanges();

@@ -430,14 +430,14 @@ var ChatroomObject = function () {
         e.preventDefault()
 
         if (_boldChoice == false) {
-            $("#bold-toggle").removeClass("btn-primary");
-            $("#bold-toggle").addClass("btn-secondary");
+            $("#bold-toggle").removeClass("btn-secondary");
+            $("#bold-toggle").addClass("btn-primary");
             _boldChoice = true;
             
         }
         else {
-            $("#bold-toggle").removeClass("btn-secondary");
-            $("#bold-toggle").addClass("btn-primary");
+            $("#bold-toggle").removeClass("btn-primary");
+            $("#bold-toggle").addClass("btn-secondary");
             _boldChoice = false;
             return _boldChoice;
         }
@@ -447,14 +447,14 @@ var ChatroomObject = function () {
         e.preventDefault();
 
         if (_italicChoice == false) {
-            $("#italic-toggle").removeClass("btn-primary");
-            $("#italic-toggle").addClass("btn-secondary");
+            $("#italic-toggle").removeClass("btn-secondary");
+            $("#italic-toggle").addClass("btn-primary");
             _italicChoice = true;
             return _italicChoice;
         }
         else {
-            $("#italic-toggle").removeClass("btn-secondary");
-            $("#italic-toggle").addClass("btn-primary");
+            $("#italic-toggle").removeClass("btn-primary");
+            $("#italic-toggle").addClass("btn-secondary");
             _italicChoice = false;
             return _italicChoice;
         }
@@ -564,9 +564,9 @@ var ChatroomObject = function () {
                         var tmp = $messageContents.toString().replace("/img", "");
                         $messageContents = tmp;
                     }
-                    var $stampContents = stampTokens.join(":") + ": ";
+                    var $stampContents = stampTokens.join(":");
 
-                    _MessagesContainer.append("<p>" + $stampContents + "<span " + (isImage ? "><img src=\"" + $messageContents + "\" style=\" max-height: 50vh; max-width: 75vw;\" class=\"img-fluid\">" : $messageStyle + ">" + $messageContents) + "</span></p>");
+                    _MessagesContainer.append("<p><span class=\"label label-primary\">" + $stampContents + "</span><span " + (isImage ? "><img src=\"" + $messageContents + "\" style=\" max-height: 50vh; max-width: 75vw;\" class=\"img-fluid\">" : $messageStyle + "> &nbsp" + $messageContents) + "</span></p>");
 
                     _AllMessages.push($newMessage);
                     _AllMessagesIds.push(data.MessagesInformation[i].Id);
