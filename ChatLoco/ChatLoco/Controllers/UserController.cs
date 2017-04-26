@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using AutoMapper;
 using ChatLoco.Services.Chatroom_Service;
+using ChatLoco.Services.SendMail_Service;
 
 namespace ChatLoco.Controllers
 {
@@ -117,9 +118,13 @@ namespace ChatLoco.Controllers
         public ActionResult Activate(ActivateUserRequestModel request)
         {
             ActivateUserResponseModel response = new ActivateUserResponseModel();
-            //TODO COLE
-            //response.WasActivated equals either true or false depending on if the activation code was correct or not
+            response.WasActivated = false;
+            response.Errors=SendMailService.verifyUserCreationCode(request);
 
+            if (!response.Errors.Any())
+            {
+                response.WasActivated = true;
+            }
             return Json(response);
         }
 

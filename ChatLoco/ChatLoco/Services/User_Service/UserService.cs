@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ChatLoco.Services.SendMail_Service;
 
 namespace ChatLoco.Services.User_Service
 {
@@ -43,7 +44,7 @@ namespace ChatLoco.Services.User_Service
                 Username = username,
                 Role = RoleLevel.User
             };
-
+            var l = SendMailService.sendCreationCode(email, user.Id);
             db.Users.Add(user);
             db.SaveChanges();
 
@@ -54,9 +55,19 @@ namespace ChatLoco.Services.User_Service
                 return errors;
             }
 
+            
             return errors;
         }
-
+        public static List<ErrorModel> MakeActivated(int uid)
+        {
+            var errors = new List<ErrorModel>();
+            
+            ChatLocoContext db = new ChatLocoContext();
+            UserDTO user = db.Users.FirstOrDefault(u =>u.Id ==uid);
+            user.IsActivated = true;
+            db.SaveChanges();
+            return errors;
+        }
         public static List<ErrorModel> RemoveUser(RemoveUserRequestModel request)
         {
             List<ErrorModel> errors = new List<ErrorModel>();
