@@ -16,8 +16,6 @@ namespace ChatLoco.Services.User_Service
 {
     public static class UserService
     {
-        public static Dictionary<int, UserDTO> UsersCache = new Dictionary<int, UserDTO>();
-
         public static List<ErrorModel> CreateUser(string username, string email, string password)
         {
             List<ErrorModel> errors = new List<ErrorModel>();
@@ -99,15 +97,7 @@ namespace ChatLoco.Services.User_Service
 
         public static bool Logout(int userId)
         {
-            try
-            {
-                UsersCache.Remove(userId);
-                return true;
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
+            return true;
         }
 
         public static LoginResponseModel GetLoginResponseModel(LoginRequestModel request)
@@ -177,31 +167,13 @@ namespace ChatLoco.Services.User_Service
         public static UserDTO GetUser(int id)
         {
             ChatLocoContext DbContext = new ChatLocoContext();
-            try
-            {
-                return UsersCache[id];
-            }
-            catch(Exception e)
-            {
-                UserDTO user = DbContext.Users.FirstOrDefault(u => u.Id == id);
-                if(user != null)
-                {
-                    UsersCache.Add(user.Id, user);
-                }
-                return user;
-            }
+            return DbContext.Users.FirstOrDefault(u => u.Id == id);
         }
 
         public static UserDTO GetUser(string username)
         {
             ChatLocoContext DbContext = new ChatLocoContext();
-            UserDTO user = DbContext.Users.FirstOrDefault(u => u.Username == username);
-            if(user != null && !UsersCache.ContainsKey(user.Id))
-            {
-                UsersCache.Add(user.Id, user);
-            }
-
-            return user;
+            return DbContext.Users.FirstOrDefault(u => u.Username == username);
         }
 
         public static bool DoesUserExist(string username)
@@ -214,21 +186,8 @@ namespace ChatLoco.Services.User_Service
         public static bool DoesUserExist(int id)
         {
             ChatLocoContext DbContext = new ChatLocoContext();
-            try
-            {
-                UserDTO u = UsersCache[id];
-                return true;
-            }
-            catch(Exception e)
-            {
-                UserDTO user = DbContext.Users.FirstOrDefault(u => u.Id == id);
-                if (user != null)
-                {
-                    UsersCache.Add(user.Id, user);
-                    return true;
-                }
-                return false;
-            }
+            UserDTO user = DbContext.Users.FirstOrDefault(u => u.Id == id);
+            return user != null;
         }
         
         public static List<ErrorModel> makeUserAdmin(string uName)

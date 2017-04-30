@@ -39,6 +39,12 @@ namespace ChatLoco.Services.Security_Service
         {
             var errors = new List<ErrorModel>();
 
+            if(request.User.Role == Models.User_Model.RoleLevel.Blocked)
+            {
+                errors.Add(new ErrorModel("User has been blocked."));
+                return errors;
+            }
+
             Chatroom c = ChatroomService.GetChatroom(request.ChatroomId, request.ParentChatroomId);
 
             if (c.HasPassword && !c.CheckPasswordHash(GetStringSha256Hash(request.Password)))

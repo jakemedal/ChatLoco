@@ -9,7 +9,5 @@ namespace ChatLoco.Models.PartialView_Model
     public class PartialViewModel : ErrorsModel
     {
         public string Data { get; set; }
-
-
     }
 }

@@ -1,5 +1,11 @@
 ﻿var ErrorObject = function() {
     function DisplayErrors(data) {
+
+        if (data.Logout == true) {
+            AccountHandler.Logout(true, "<p>You have been logged out due to an administrative action taken against your account.</p>");
+            return true;
+        }
+
         if (data.Errors == null || data.Errors.length == 0) {
             return false;
         }

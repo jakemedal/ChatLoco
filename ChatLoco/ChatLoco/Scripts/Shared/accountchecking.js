@@ -98,7 +98,7 @@
         Logout(true);
     }
 
-    function Logout(isDirty) {
+    function Logout(isDirty, statusMessage) {
 
         var $parentChatroomId = -1;
         var $chatroomId = -1;
@@ -106,6 +106,11 @@
         if (ChatroomHandler != null) {
             $parentChatroomId = ChatroomHandler.GetParentChatroomId();
             $chatroomId = ChatroomHandler.GetChatroomId();
+        }
+
+        var message = "<p>Logged out successfully.</p>";
+        if (statusMessage) {
+            message = statusMessage;
         }
 
         var $model = {
@@ -124,6 +129,7 @@
             type: "POST",
             url: $url,
             data: $model,
+            async: false,
             success: function (data) {
                 if (ErrorHandler.DisplayErrors(data)) {
                     return;
@@ -133,7 +139,12 @@
                 $.ajax({
                     type: "GET",
                     url: '/Chatroom/GetFindChatroom',
+                    async: false,
                     success: function (data) {
+                        if (ChatroomHandler != null) {
+                            ChatroomHandler.Destroy();
+                        }
+
                         $("#chatroom-container").html("").append(data);
                         if (findChatroom != null) {
                             findChatroom.Destroy();
@@ -146,7 +157,8 @@
                     }
                 });
 
-                StatusHandler.DisplayStatus("<p>Logged out successfully.</p>");
+                StatusHandler.DisplayStatus(message);
+                NotificationHandler.HideLoading();
                 ShowDimBehindDialog();
                 _accountNavbar.hide();
             },

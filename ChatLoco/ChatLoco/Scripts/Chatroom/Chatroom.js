@@ -62,25 +62,29 @@ var ChatroomObject = function () {
 
         NotificationHandler.ShowLoading();
 
-        var $model = {
-            UserId: AccountHandler.GetUser().Id,
-            ParentId: _ParentChatroomId,
-            ChatroomId: _ChatroomId
-        };
+        var user = AccountHandler.GetUser();
 
-        $.ajax({
-            type: "POST",
-            url: '/Chatroom/LeaveChatroom',
-            data: JSON.stringify($model),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
+        if (user != null) {
+            var $model = {
+                UserId: user.Id,
+                ParentId: _ParentChatroomId,
+                ChatroomId: _ChatroomId
+            };
 
-            },
-            error: function (data) {
+            $.ajax({
+                type: "POST",
+                url: '/Chatroom/LeaveChatroom',
+                data: JSON.stringify($model),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
 
-            }
-        });
+                },
+                error: function (data) {
+
+                }
+            });
+        }
     }
 
     var init = function () {
@@ -549,6 +553,9 @@ var ChatroomObject = function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
+                if (ErrorHandler.DisplayErrors(data)) {
+                    return;
+                }
                 for (var i = 0; i < data.MessagesInformation.length; i++) {
                     var $newMessage = data.MessagesInformation[i].FormattedMessage;
                     var $messageStyle = data.MessagesInformation[i].MessageStyle

@@ -57,12 +57,15 @@ namespace ChatLoco.Controllers
         {
             var response = new LogoutResponseModel();
 
-            if (request.ChatroomId != -1 && request.ParentChatroomId != -1)
+            if(request.User != null)
             {
-                ChatroomService.RemoveUserFromChatroom(request.ChatroomId, request.ParentChatroomId, request.User.Id);
-            }
+                if (request.ChatroomId != -1 && request.ParentChatroomId != -1)
+                {
+                    ChatroomService.RemoveUserFromChatroom(request.ChatroomId, request.ParentChatroomId, request.User.Id);
+                }
 
-            UserService.Logout(request.User.Id);
+                UserService.Logout(request.User.Id);
+            }
 
             return Json(response);
         }

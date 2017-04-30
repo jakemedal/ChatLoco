@@ -13,5 +13,7 @@ namespace ChatLoco.Models.Error_Model
         {
             Errors.Add(new ErrorModel(msg));
         }
+
+        public bool Logout { get; set; }
     }
 }

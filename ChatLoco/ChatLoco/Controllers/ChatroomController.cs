@@ -40,6 +40,13 @@ namespace ChatLoco.Controllers
         {
             var response = new PartialViewModel();
 
+            var user = UserService.GetUser(request.User.Id);
+            if(user == null || user.Role == Models.User_Model.RoleLevel.Blocked)
+            {
+                response.Logout = true;
+                return Json(response);
+            }
+
             int chatroomId = 0;
             if(request.RawChatroomIdValue != null)
             {
@@ -103,18 +110,27 @@ namespace ChatLoco.Controllers
         {
             ComposeMessageResponseModel response = new ComposeMessageResponseModel();
 
-            try
-            {
-                var m = ChatroomService.SendMessage(request);
+            var user = UserService.GetUser(request.UserId);
 
-                response.MessageId = m.MessageId;
-                response.Errors.AddRange(m.Errors);
-            }
-            catch(Exception e)
+            if (user == null || user.Role == Models.User_Model.RoleLevel.Blocked)
             {
-                response.AddError(e.ToString());
+                response.Logout = true;
             }
+            else
+            {
+                try
+                {
+                    var m = ChatroomService.SendMessage(request);
 
+                    response.MessageId = m.MessageId;
+                    response.Errors.AddRange(m.Errors);
+                }
+                catch (Exception e)
+                {
+                    response.AddError(e.ToString());
+                }
+            }
+            
             return Json(response);
         }
 
@@ -194,23 +210,31 @@ namespace ChatLoco.Controllers
 
             GetNewMessagesResponseModel response = new GetNewMessagesResponseModel();
 
-            var messageInformationModels = ChatroomService.GetNewMessagesInformation(parentChatroomId, chatroomId, existingIds);
+            var user = UserService.GetUser(request.UserId);
 
-            foreach(var messageInformationModel in messageInformationModels)
+            if (user == null || user.Role == Models.User_Model.RoleLevel.Blocked)
             {
-                if(messageInformationModel.IntendedForUserId != -1)
+                response.Logout = true;
+            }
+            else
+            {
+                var messageInformationModels = ChatroomService.GetNewMessagesInformation(parentChatroomId, chatroomId, existingIds);
+
+                foreach (var messageInformationModel in messageInformationModels)
                 {
-                    if (messageInformationModel.IntendedForUserId == request.UserId)
+                    if (messageInformationModel.IntendedForUserId != -1)
+                    {
+                        if (messageInformationModel.IntendedForUserId == request.UserId)
+                        {
+                            response.MessagesInformation.Add(messageInformationModel);
+                        }
+                    }
+                    else
                     {
                         response.MessagesInformation.Add(messageInformationModel);
                     }
                 }
-                else
-                {
-                    response.MessagesInformation.Add(messageInformationModel);
-                }
             }
-
             return Json(response);
         }
         
