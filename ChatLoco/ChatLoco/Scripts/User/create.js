@@ -20,6 +20,7 @@ function createUser(e) {
     var $redirectUrl = $form[4].value;
 
     if ($password != $confirmPassword) {
+        NotificationHandler.HideLoading();
         StatusHandler.DisplayStatus("<p>Passwords do not match.</p>");
         $form[2].value = "";
         $form[3].value = "";
