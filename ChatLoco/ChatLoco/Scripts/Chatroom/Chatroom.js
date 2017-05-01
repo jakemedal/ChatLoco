@@ -402,6 +402,10 @@ var ChatroomObject = function () {
 
         var $message = $form[0].value;
 
+        if ($message.length == 0) {
+            return;
+        }
+
         var $model = {
             Message: $message,
             ChatroomId: _ChatroomId,
