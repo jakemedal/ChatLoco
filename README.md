@@ -4,6 +4,9 @@ ChatLoco is a web application that enables users to freely, and anonymously talk
 completely based off their geo location (thanks to Google's location API).
 
 
+![image](http://i.imgur.com/VgAUSwt.png)
+
+
 ## Okay...but what REALLY is ChatLoco?
 
 ChatLoco began as 5 undergraduates capstone project in order to graduate. After developing the very beginning, we kinda 
