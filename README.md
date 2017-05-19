@@ -101,3 +101,13 @@ application so you could see it in its glory days, even if the site is all but d
 Thats all she wrote boys, gg.
 
 *05/18/17 ChatLoco goes dark*
+
+
+
+
+
+
+
+
+*README created by Cooper Patton*
+
