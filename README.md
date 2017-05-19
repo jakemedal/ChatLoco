@@ -28,7 +28,7 @@ ChatLoco craze, contact the admins, and read about the application on our FAQ pa
 ![image](http://i.imgur.com/T3nhFOA.png)
 ![image](http://i.imgur.com/iVBIHJH.png)
 ![image](http://i.imgur.com/xkR8vYQ.png)
-![image](http://i.imgur.com/IDOJQHx.png)
+![image](http://i.imgur.com/lDOJQHx.png)
 ![image](http://i.imgur.com/NWmygSF.png)
 
 
@@ -51,7 +51,7 @@ below image depicts three private chatrooms.
 This is the fun part. So our text field allows for all standard ascii characters. We also supply a dropdown for text
 color selection, in addition to a **bold** and *italics* option.
 There are two commands that allow the user to interact a little more...awesomely...within the chatroom.
-![image](http://i.imgur.com/sOij30Y.png)
+![image](http://i.imgur.com/sOij3oY.png)
 
 Beginning a message with "/whisper" followed by the username you with to whisper to, then followed by the message allows
 for only the sender and recipient to view the message EVEN when in the public chatroom.
